@@ -7,4 +7,5 @@ import reactor.core.publisher.Mono;
 
 public interface DomainEventRepository {
     Mono<DomainEvent> saveEvent(DomainEvent event);
+    Flux<DomainEvent> findById(String aggregateId);
 }

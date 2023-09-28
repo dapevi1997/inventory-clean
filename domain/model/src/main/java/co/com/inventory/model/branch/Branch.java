@@ -1,16 +1,18 @@
 package co.com.inventory.model.branch;
+import co.com.inventory.model.branch.entities.Product;
 import co.com.inventory.model.branch.events.BranchCreated;
+import co.com.inventory.model.branch.events.ProductAdded;
 import co.com.inventory.model.branch.generic.AggregateRoot;
 import co.com.inventory.model.branch.generic.DomainEvent;
-import co.com.inventory.model.branch.values.BranchId;
-import co.com.inventory.model.branch.values.BranchLocation;
-import co.com.inventory.model.branch.values.BranchName;
+import co.com.inventory.model.branch.values.*;
 
 import java.util.List;
+import java.util.Set;
 
 public class Branch extends AggregateRoot<BranchId> {
     protected BranchName branchName;
     protected BranchLocation branchLocation;
+    protected Set<Product> products;
 
     public Branch(BranchId branchId, BranchName branchName, BranchLocation branchLocation) {
         super(branchId);
@@ -29,9 +31,15 @@ public class Branch extends AggregateRoot<BranchId> {
     public static Branch from(BranchId branchId, List<DomainEvent> events){
         Branch branch = new Branch(branchId);
         events.forEach(domainEvent -> branch.applyEvent(domainEvent));
-        return null;
+        return branch;
     }
     //TODO: implementar métodos para los casos de uso
+    public void addProduct(ProductId productId, ProductName productName, ProductDescription productDescription,
+    ProductPrice productPrice, ProductInventoryStock productInventoryStock, ProductCategory productCategory){
+        subscribe( new BranchChange(this));
+        appendChange(new ProductAdded(productId.value(),productName.value(),productDescription.value(),
+                productPrice.value(),productInventoryStock.value(),productCategory.value()));
+    }
 
 
     public BranchName getBranchName() {
@@ -48,5 +56,13 @@ public class Branch extends AggregateRoot<BranchId> {
 
     public void setBranchLocation(BranchLocation branchLocation) {
         this.branchLocation = branchLocation;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 }

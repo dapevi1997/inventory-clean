@@ -1,9 +1,10 @@
 package co.com.inventory.api;
 
-import co.com.inventory.model.branch.Branch;
-import co.com.inventory.model.branch.events.BranchCreated;
+
 import co.com.inventory.model.branch.generic.DomainEvent;
+import co.com.inventory.usecase.addproduct.AddProductUseCase;
 import co.com.inventory.usecase.createbranch.CreateBranchUseCase;
+import co.com.inventory.usecase.generic.commands.AddProductCommand;
 import co.com.inventory.usecase.generic.commands.CreateBranchCommand;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,4 +33,16 @@ public class RouterRest {
 
                 );
     }
+
+    @Bean
+    public RouterFunction<ServerResponse> addProduct(AddProductUseCase addProductUseCase){
+        return route(
+                POST("/api/addProduct").and(accept(MediaType.APPLICATION_JSON)),
+                request -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(addProductUseCase.apply(
+                                request.bodyToMono(AddProductCommand.class)
+                        ), DomainEvent.class))
+        );
+    }
+
 }

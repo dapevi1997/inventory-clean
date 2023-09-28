@@ -11,8 +11,7 @@ import co.com.inventory.usecase.generic.gateways.DomainEventRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-/*import lombok.RequiredArgsConstructor;
-@RequiredArgsConstructor*/
+
 public class CreateBranchUseCase extends UseCaseForCommand<CreateBranchCommand> {
     //TODO: inyectar los repositorios para eventos y dominio
     private final DomainEventRepository domainEventRepository;
