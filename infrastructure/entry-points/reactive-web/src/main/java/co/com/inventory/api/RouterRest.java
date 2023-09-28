@@ -5,7 +5,9 @@ import co.com.inventory.model.branch.generic.DomainEvent;
 import co.com.inventory.usecase.addproduct.AddProductUseCase;
 import co.com.inventory.usecase.createbranch.CreateBranchUseCase;
 import co.com.inventory.usecase.generic.commands.AddProductCommand;
+import co.com.inventory.usecase.generic.commands.AddUserCommand;
 import co.com.inventory.usecase.generic.commands.CreateBranchCommand;
+import co.com.inventory.usecase.registeruser.RegisterUserUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -41,6 +43,17 @@ public class RouterRest {
                 request -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                         .body(BodyInserters.fromPublisher(addProductUseCase.apply(
                                 request.bodyToMono(AddProductCommand.class)
+                        ), DomainEvent.class))
+        );
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> registerUser(RegisterUserUseCase registerUserUseCase){
+        return route(
+                POST("/api/registerUser").and(accept(MediaType.APPLICATION_JSON)),
+                request -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(registerUserUseCase.apply(
+                                request.bodyToMono(AddUserCommand.class)
                         ), DomainEvent.class))
         );
     }

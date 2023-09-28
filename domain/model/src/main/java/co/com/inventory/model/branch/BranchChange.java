@@ -1,8 +1,10 @@
 package co.com.inventory.model.branch;
 
 import co.com.inventory.model.branch.entities.Product;
+import co.com.inventory.model.branch.entities.User;
 import co.com.inventory.model.branch.events.BranchCreated;
 import co.com.inventory.model.branch.events.ProductAdded;
+import co.com.inventory.model.branch.events.UserRegistered;
 import co.com.inventory.model.branch.generic.EventChange;
 import co.com.inventory.model.branch.values.*;
 
@@ -26,6 +28,15 @@ public class BranchChange extends EventChange {
 
                     branch.products = new HashSet<>();
                     branch.products.add(product);
+                }
+        );
+        apply(
+                (UserRegistered event) -> {
+                    User user = new User(UserId.of(event.getUserId()), new UserName(event.getUserName()),
+                            new UserPassword(event.getUserPassword()), new UserEmail(event.getUserEmail()),
+                            new UserRole(event.getUserRole()));
+                    branch.users = new HashSet<>();
+                    branch.users.add(user);
                 }
         );
     }
