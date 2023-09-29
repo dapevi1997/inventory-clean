@@ -4,16 +4,17 @@ import co.com.inventory.usecase.generic.Command;
 
 public class CreateBranchCommand extends Command {
     private String branchName;
-    private String branchLocation;
+    private String branchCountry;
+    private String branchCity;
 
     public CreateBranchCommand() {
     }
 
-    public CreateBranchCommand(String branchName, String branchLocation) {
+    public CreateBranchCommand(String branchName, String branchCountry, String branchCity) {
         this.branchName = branchName;
-        this.branchLocation = branchLocation;
+        this.branchCountry = branchCountry;
+        this.branchCity = branchCity;
     }
-
 
     public String getBranchName() {
         return branchName;
@@ -23,11 +24,19 @@ public class CreateBranchCommand extends Command {
         this.branchName = branchName;
     }
 
-    public String getBranchLocation() {
-        return branchLocation;
+    public String getBranchCountry() {
+        return branchCountry;
     }
 
-    public void setBranchLocation(String branchLocation) {
-        this.branchLocation = branchLocation;
+    public void setBranchCountry(String branchCountry) {
+        this.branchCountry = branchCountry;
+    }
+
+    public String getBranchCity() {
+        return branchCity;
+    }
+
+    public void setBranchCity(String branchCity) {
+        this.branchCity = branchCity;
     }
 }

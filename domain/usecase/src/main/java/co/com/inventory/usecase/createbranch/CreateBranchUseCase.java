@@ -32,7 +32,7 @@ public class CreateBranchUseCase extends UseCaseForCommand<CreateBranchCommand> 
                 .flatMap(createBranchCommand->{
 
                     return mySqlRepository.saveBranch(createBranchCommand.getBranchName(),
-                            createBranchCommand.getBranchLocation());
+                            createBranchCommand.getBranchCountry(), createBranchCommand.getBranchCity());
                 })
                 .flatMapIterable(
                 branch -> {

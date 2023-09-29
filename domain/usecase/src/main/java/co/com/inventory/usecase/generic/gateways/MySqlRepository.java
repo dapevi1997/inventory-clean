@@ -5,5 +5,5 @@ import co.com.inventory.model.branch.values.BranchId;
 import reactor.core.publisher.Mono;
 
 public interface MySqlRepository {
-    Mono<Branch> saveBranch(String branchName, String branchLocation);
+    Mono<Branch> saveBranch(String branchName, String branchCountry, String branchCity);
 }

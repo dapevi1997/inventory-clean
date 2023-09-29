@@ -4,7 +4,8 @@ USE prueba1;
 CREATE TABLE IF NOT EXISTS branch (
     id INT NOT NULL AUTO_INCREMENT,
     branch_name VARCHAR(100),
-    branch_location VARCHAR(255),
+    branch_country VARCHAR(100),
+    branch_city VARCHAR(100),
     PRIMARY KEY (id)
     );
 

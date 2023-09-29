@@ -20,7 +20,7 @@ public class BranchChange extends EventChange {
                 (BranchCreated event) -> {
                     //TODO: terminar de implementar
                     branch.branchName = new BranchName(event.getBranchName());
-                    branch.branchLocation = new BranchLocation(event.getBranchLocation());
+                    branch.branchLocation = new BranchLocation(event.getBranchCountry(), event.getBranchCity());
                 }
         );
         apply(

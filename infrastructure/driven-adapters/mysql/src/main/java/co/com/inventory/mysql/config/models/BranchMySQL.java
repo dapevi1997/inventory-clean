@@ -13,6 +13,8 @@ public class BranchMySQL {
     private Long id;
     @Column("branch_name")
     private String branchName;
-    @Column("branch_location")
-    private String branchLocation;
+    @Column("branch_country")
+    private String branch_country;
+    @Column("branch_city")
+    private String branchCity;
 }

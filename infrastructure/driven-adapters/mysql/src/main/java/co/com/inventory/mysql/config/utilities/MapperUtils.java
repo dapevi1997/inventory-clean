@@ -13,7 +13,7 @@ import java.util.function.Function;
 
 @Service
 public class MapperUtils {
-    public Function<Branch, BranchMySQL> mapperBranchToBranchMySql(){
+/*    public Function<Branch, BranchMySQL> mapperBranchToBranchMySql(){
         return branch-> {
             BranchMySQL branchMySQL = new BranchMySQL();
             branchMySQL.setBranchName(branch.getBranchName().getBranchName());
@@ -22,7 +22,7 @@ public class MapperUtils {
             return branchMySQL;
 
         };
-    }
+    }*/
 
 
     public Function<ProductDTO, Product> mapperToProduct(){

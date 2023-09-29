@@ -22,7 +22,8 @@ public class Branch extends AggregateRoot<BranchId> {
         this.branchName = branchName;
         this.branchLocation = branchLocation;
         subscribe(new BranchChange(this));
-        appendChange(new BranchCreated(branchName.value(),branchLocation.value()));
+        appendChange(new BranchCreated(branchName.value(),branchLocation.getBranchCountry(),
+                branchLocation.getBranchCity()));
     }
 
     public Branch(BranchId id) {

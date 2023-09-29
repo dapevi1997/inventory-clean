@@ -4,23 +4,29 @@ import co.com.inventory.model.branch.generic.DomainEvent;
 
 public class BranchCreated extends DomainEvent {
     private String branchName;
-    private String branchLocation;
+    private String branchCountry;
+    private String branchCity;
 
     public BranchCreated() {
         super("co.com.inventory.model.branch.events.BranchCreated");
     }
 
-    public BranchCreated(String branchName, String branchLocation) {
+    public BranchCreated(String branchName, String branchCountry, String branchCity) {
         super("co.com.inventory.model.branch.events.BranchCreated");
         this.branchName = branchName;
-        this.branchLocation = branchLocation;
+        this.branchCountry = branchCountry;
+        this.branchCity = branchCity;
     }
 
     public String getBranchName() {
         return branchName;
     }
 
-    public String getBranchLocation() {
-        return branchLocation;
+    public String getBranchCountry() {
+        return branchCountry;
+    }
+
+    public String getBranchCity() {
+        return branchCity;
     }
 }
