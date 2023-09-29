@@ -28,13 +28,22 @@ public class RouterRest {
         return route(
                 POST("/api/createBranch")
                         .and(accept(MediaType.APPLICATION_JSON)),
-                request -> ServerResponse.ok()
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(
-                                BodyInserters.fromPublisher(
-                                createBranchUseCase.apply(request.bodyToMono(CreateBranchCommand.class)), DomainEvent.class
-                                )
-                        )
+                request -> {
+                    return createBranchUseCase.apply(request.bodyToMono(CreateBranchCommand.class))
+                            .flatMap(domainEvent -> {
+                                return ServerResponse.ok()
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .body(BodyInserters.fromValue(domainEvent));
+                            }).next()
+                            .onErrorResume(Exception.class, e -> {
+                                if(e instanceof NullPointerException){
+                                    return ServerResponse.badRequest().bodyValue(e.getMessage());
+
+                                }
+                                return ServerResponse.badRequest().bodyValue(e.getMessage());
+                            });
+
+                }
 
                 );
     }

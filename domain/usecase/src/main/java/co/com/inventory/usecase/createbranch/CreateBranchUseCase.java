@@ -14,7 +14,6 @@ import reactor.core.publisher.Mono;
 
 
 public class CreateBranchUseCase extends UseCaseForCommand<CreateBranchCommand> {
-    //TODO: inyectar los repositorios para eventos y dominio
     private final DomainEventRepository domainEventRepository;
     private final MySqlRepository mySqlRepository;
 
@@ -25,25 +24,13 @@ public class CreateBranchUseCase extends UseCaseForCommand<CreateBranchCommand> 
 
     @Override
     public Flux<DomainEvent> apply(Mono<CreateBranchCommand> createBranchCommandMono) {
-       //TODO: guardar en base de datos y el evento
-
-
         return createBranchCommandMono
                 .flatMap(createBranchCommand->{
-
                     return mySqlRepository.saveBranch(createBranchCommand.getBranchName(),
                             createBranchCommand.getBranchCountry(), createBranchCommand.getBranchCity());
                 })
                 .flatMapIterable(
                 branch -> {
-                   // BranchName branchName = new BranchName(createBranchCommand.getBranchName());
-                   // BranchLocation branchLocation = new BranchLocation(createBranchCommand.getBranchLocation());
-
-                   // Mono<BranchId> branchIdMono = mySqlRepository.saveBranch(createBranchCommand.getBranchName(),
-                          //  createBranchCommand.getBranchLocation());
-                    //TODO: implementar el id
-                   // Branch branch = new Branch(branchIdMono.subscribe());
-
                     return branch.getUncommittedChanges();
                 }
         ).flatMap(
@@ -51,7 +38,5 @@ public class CreateBranchUseCase extends UseCaseForCommand<CreateBranchCommand> 
                     return domainEventRepository.saveEvent(domainEvent);
                 }
         );
-
-
     }
 }

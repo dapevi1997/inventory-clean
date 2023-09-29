@@ -24,16 +24,17 @@ public class MySQLAdapter implements MySqlRepository {
     }
 
     @Override
-    public Mono<Branch> saveBranch(String branchName, String branchCountry, String branchCity) {
+    public Mono<Branch> saveBranch(String branchNameP, String branchCountry, String branchCity) {
         BranchMySQL branchMySQLAux = new BranchMySQL();
-        branchMySQLAux.setBranchName(branchName);
+        BranchName branchName = new BranchName(branchNameP);
         BranchLocation branchLocation = new BranchLocation(branchCountry,branchCity);
+
         branchMySQLAux.setBranch_country(branchCountry);
         branchMySQLAux.setBranchCity(branchCity);
 
         return branchRepository.save(branchMySQLAux).map(branchMySQL -> {
             return new Branch(BranchId.of(branchMySQL.getId().toString()),
-                    new BranchName(branchName),new BranchLocation(branchCountry,branchCity)) ;
+                    branchName,branchLocation) ;
         });
 
     }
