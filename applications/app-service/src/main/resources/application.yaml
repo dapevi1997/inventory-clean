@@ -1,6 +1,10 @@
 server:
   port: 8080
 spring:
+  r2dbc:
+    url: "r2dbc:mysql://localhost:3306/prueba"
+    username: "root"
+    password: "d04m07a1997"
   application:
     name: "Inventory"
   devtools:
