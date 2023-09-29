@@ -3,24 +3,25 @@ package co.com.inventory.model.branch.events;
 import co.com.inventory.model.branch.generic.DomainEvent;
 
 public class ProductSoldRetail extends DomainEvent {
-    private Float productSoldPrice;
-    private Integer productStock;
+    private String productSaleId;
+
+    private String productSales;
 
     public ProductSoldRetail() {
         super("co.com.inventory.model.branch.events.ProductSoldRetail");
     }
 
-    public ProductSoldRetail(Float productSoldPrice, Integer productStock) {
+    public ProductSoldRetail(String productSaleId, String productSales) {
         super("co.com.inventory.model.branch.events.ProductSoldRetail");
-        this.productSoldPrice = productSoldPrice;
-        this.productStock = productStock;
+        this.productSaleId = productSaleId;
+        this.productSales = productSales;
     }
 
-    public Float getProductSoldPrice() {
-        return productSoldPrice;
+    public String getProductSaleId() {
+        return productSaleId;
     }
 
-    public Integer getProductStock() {
-        return productStock;
+    public String getProductSales() {
+        return productSales;
     }
 }

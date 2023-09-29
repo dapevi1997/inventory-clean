@@ -2,10 +2,7 @@ package co.com.inventory.model.branch;
 import co.com.inventory.model.branch.entities.Product;
 import co.com.inventory.model.branch.entities.ProductSale;
 import co.com.inventory.model.branch.entities.User;
-import co.com.inventory.model.branch.events.BranchCreated;
-import co.com.inventory.model.branch.events.ProductAdded;
-import co.com.inventory.model.branch.events.ProductSoldWholesale;
-import co.com.inventory.model.branch.events.UserRegistered;
+import co.com.inventory.model.branch.events.*;
 import co.com.inventory.model.branch.generic.AggregateRoot;
 import co.com.inventory.model.branch.generic.DomainEvent;
 import co.com.inventory.model.branch.values.*;
@@ -56,6 +53,12 @@ public class Branch extends AggregateRoot<BranchId> {
         subscribe(new BranchChange(this));
         String productSalesString = productSales.toString();
         appendChange(new ProductSoldWholesale(productSaleId.value(), productSalesString));
+    }
+
+    public void registerSaleRetail(ProductSaleId productSaleId, List<ProductSale> productSales){
+        subscribe(new BranchChange(this));
+        String productSalesString = productSales.toString();
+        appendChange(new ProductSoldRetail(productSaleId.value(), productSalesString));
     }
 
 

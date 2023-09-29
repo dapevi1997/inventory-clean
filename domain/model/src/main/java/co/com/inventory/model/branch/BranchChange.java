@@ -3,10 +3,7 @@ package co.com.inventory.model.branch;
 import co.com.inventory.model.branch.entities.Product;
 import co.com.inventory.model.branch.entities.ProductSale;
 import co.com.inventory.model.branch.entities.User;
-import co.com.inventory.model.branch.events.BranchCreated;
-import co.com.inventory.model.branch.events.ProductAdded;
-import co.com.inventory.model.branch.events.ProductSoldWholesale;
-import co.com.inventory.model.branch.events.UserRegistered;
+import co.com.inventory.model.branch.events.*;
 import co.com.inventory.model.branch.generic.EventChange;
 import co.com.inventory.model.branch.utils.Mapper;
 import co.com.inventory.model.branch.values.*;
@@ -57,7 +54,29 @@ public class BranchChange extends EventChange {
                     productSaleList.forEach(productSale -> {
 
                         Optional<Product> productFound = branch.products.stream()
-                                .filter(product -> product.identity().value() == productSale.identity().value())
+                                .filter(product -> product.identity().value().equals(productSale.identity().value()))
+                                .map(product -> {
+                                    product.setProductInventoryStock(new ProductInventoryStock(product.getProductInventoryStock().value() - productSale.getProductSaleStock().value()));
+                                    return product;
+                                }).findFirst();
+                    });
+
+
+
+                }
+        );
+        apply(
+                (ProductSoldRetail event)->{
+
+                    String productSalesJsonString = event.getProductSales().toString();
+                    List<ProductSale> productSaleList = Mapper.parseJsonToList(productSalesJsonString);
+
+                    branch.productSales = productSaleList;
+
+                    productSaleList.forEach(productSale -> {
+
+                        Optional<Product> productFound = branch.products.stream()
+                                .filter(product -> product.identity().value().equals(productSale.identity().value()))
                                 .map(product -> {
                                     product.setProductInventoryStock(new ProductInventoryStock(product.getProductInventoryStock().value() - productSale.getProductSaleStock().value()));
                                     return product;

@@ -8,6 +8,7 @@ import co.com.inventory.usecase.generic.commands.AddProductCommand;
 import co.com.inventory.usecase.generic.commands.AddProductSaleCommand;
 import co.com.inventory.usecase.generic.commands.AddUserCommand;
 import co.com.inventory.usecase.generic.commands.CreateBranchCommand;
+import co.com.inventory.usecase.registersaleretail.RegisterSaleRetailUseCase;
 import co.com.inventory.usecase.registersalewholesale.RegisterSaleWholesaleUseCase;
 import co.com.inventory.usecase.registeruser.RegisterUserUseCase;
 import org.springframework.context.annotation.Bean;
@@ -67,6 +68,18 @@ public class RouterRest {
                 POST("/api/registerSaleWholesale").and(accept(MediaType.APPLICATION_JSON)),
                 request -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                         .body(BodyInserters.fromPublisher(registerSaleWholesaleUseCase.apply(
+                                request.bodyToMono(AddProductSaleCommand.class)
+                        ), DomainEvent.class))
+        );
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> registerSaleRetail(RegisterSaleRetailUseCase registerSaleRetailUseCase){
+
+        return route(
+                POST("/api/registerSaleRetail").and(accept(MediaType.APPLICATION_JSON)),
+                request -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(registerSaleRetailUseCase.apply(
                                 request.bodyToMono(AddProductSaleCommand.class)
                         ), DomainEvent.class))
         );
