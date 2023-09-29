@@ -3,26 +3,17 @@ package co.com.inventory.usecase.generic.commands;
 import co.com.inventory.usecase.generic.Command;
 
 public class CreateBranchCommand extends Command {
-    private String branchId;
     private String branchName;
     private String branchLocation;
 
     public CreateBranchCommand() {
     }
 
-    public CreateBranchCommand(String branchId, String branchName, String branchLocation) {
-        this.branchId = branchId;
+    public CreateBranchCommand(String branchName, String branchLocation) {
         this.branchName = branchName;
         this.branchLocation = branchLocation;
     }
 
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
 
     public String getBranchName() {
         return branchName;

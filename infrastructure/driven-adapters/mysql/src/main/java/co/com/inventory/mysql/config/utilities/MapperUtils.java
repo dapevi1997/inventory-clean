@@ -1,28 +1,29 @@
 package co.com.inventory.mysql.config.utilities;
 
+import co.com.inventory.model.branch.Branch;
 import co.com.inventory.mysql.config.dto.BranchDTO;
 import co.com.inventory.mysql.config.dto.ProductDTO;
 import co.com.inventory.mysql.config.dto.UserDTO;
-import co.com.inventory.mysql.config.models.Branch;
+import co.com.inventory.mysql.config.models.BranchMySQL;
 import co.com.inventory.mysql.config.models.Product;
 import co.com.inventory.mysql.config.models.User;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
 import java.util.function.Function;
 
 @Service
 public class MapperUtils {
-    public Function<BranchDTO, Branch> mapperToBranch(){
-        return branchDTO -> {
-            Branch branch = new Branch();
-            branch.setBranchName(branchDTO.getBranchName());
-            branch.setBranchLocation(branchDTO.getBranchLocation());
+    public Function<Branch, BranchMySQL> mapperBranchToBranchMySql(){
+        return branch-> {
+            BranchMySQL branchMySQL = new BranchMySQL();
+            branchMySQL.setBranchName(branch.getBranchName().getBranchName());
+            branchMySQL.setBranchLocation(branch.getBranchLocation().getBranchLocation());
 
-            return branch;
+            return branchMySQL;
 
         };
     }
+
 
     public Function<ProductDTO, Product> mapperToProduct(){
         return productDTO -> {
