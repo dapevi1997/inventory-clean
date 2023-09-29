@@ -11,6 +11,7 @@ import co.com.inventory.model.branch.generic.EventChange;
 import co.com.inventory.model.branch.utils.Mapper;
 import co.com.inventory.model.branch.values.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +33,7 @@ public class BranchChange extends EventChange {
                             new ProductInventoryStock(event.getProductInventoryStock()),new ProductCategory(event.getProductCategory())
                     );
 
-                    branch.products = new HashSet<>();
+                    branch.products = new ArrayList<>();
                     branch.products.add(product);
                 }
         );

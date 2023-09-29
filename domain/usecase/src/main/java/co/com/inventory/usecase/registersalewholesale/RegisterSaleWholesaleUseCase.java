@@ -2,6 +2,7 @@ package co.com.inventory.usecase.registersalewholesale;
 
 
 import co.com.inventory.model.branch.Branch;
+import co.com.inventory.model.branch.entities.Product;
 import co.com.inventory.model.branch.entities.ProductSale;
 import co.com.inventory.model.branch.generic.DomainEvent;
 import co.com.inventory.model.branch.values.*;
@@ -13,6 +14,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RegisterSaleWholesaleUseCase extends UseCaseForCommand<AddProductSaleCommand> {
     private final DomainEventRepository domainEventRepository;
@@ -30,9 +33,23 @@ public class RegisterSaleWholesaleUseCase extends UseCaseForCommand<AddProductSa
                                 .flatMapIterable( events ->
                                         {
                                             Branch branch = Branch.from(BranchId.of(addProductSaleCommand.getBranchId()),events);
+
+
                                             List<ProductSale> productSales = MapperUtils.mapperListProductSaleUtilToListProductSale().apply(addProductSaleCommand.getProductSalesUtil());
 
-                                            branch.registerSaleWholesale(ProductSaleId.of(addProductSaleCommand.getProductSaleId()), productSales
+                                            List<ProductSale> collect = productSales.stream().flatMap(productSale -> {
+                                                return branch.getProducts()
+                                                        .stream()
+                                                        .filter(product ->
+                                                                product.identity().value().equals(productSale.identity().value()) )
+                                                        .map(product -> {
+                                                            productSale.setProductSalePrice(new ProductSalePrice(product.getProductPrice().getProductPrice() * 0.7F));
+                                                            return productSale;
+                                                        });
+
+                                            }).collect(Collectors.toList());
+
+                                            branch.registerSaleWholesale(ProductSaleId.of(addProductSaleCommand.getProductSaleId()), collect
 
                                                     );
 

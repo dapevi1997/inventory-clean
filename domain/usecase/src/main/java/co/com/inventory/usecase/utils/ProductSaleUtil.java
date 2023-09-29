@@ -2,15 +2,13 @@ package co.com.inventory.usecase.utils;
 
 public class ProductSaleUtil {
     private String productSaleId;
-    private String productSalePrice;
     private String productSaleStock;
 
     public ProductSaleUtil() {
     }
 
-    public ProductSaleUtil(String productSaleId, String productSalePrice, String productSaleStock) {
+    public ProductSaleUtil(String productSaleId, String productSaleStock) {
         this.productSaleId = productSaleId;
-        this.productSalePrice = productSalePrice;
         this.productSaleStock = productSaleStock;
     }
 
@@ -22,13 +20,6 @@ public class ProductSaleUtil {
         this.productSaleId = productSaleId;
     }
 
-    public String getProductSalePrice() {
-        return productSalePrice;
-    }
-
-    public void setProductSalePrice(String productSalePrice) {
-        this.productSalePrice = productSalePrice;
-    }
 
     public String getProductSaleStock() {
         return productSaleStock;
@@ -37,4 +28,5 @@ public class ProductSaleUtil {
     public void setProductSaleStock(String productSaleStock) {
         this.productSaleStock = productSaleStock;
     }
+
 }

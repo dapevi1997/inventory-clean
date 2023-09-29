@@ -10,10 +10,14 @@ public class ProductSale extends Entity<ProductSaleId> {
     private ProductSaleStock productSaleStock;
 
 
-    public ProductSale(ProductSaleId id, ProductSalePrice productSalePrice, ProductSaleStock productSaleStock) {
+    public ProductSale(ProductSaleId id, ProductSalePrice productSalePrice ,ProductSaleStock productSaleStock) {
         super(id);
         this.productSalePrice = productSalePrice;
         this.productSaleStock = productSaleStock;
+    }
+
+    public void setProductSalePrice(ProductSalePrice productSalePrice) {
+        this.productSalePrice = productSalePrice;
     }
 
     public ProductSalePrice getProductSalePrice() {

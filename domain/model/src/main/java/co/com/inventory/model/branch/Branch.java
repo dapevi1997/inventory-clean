@@ -16,7 +16,7 @@ import java.util.Set;
 public class Branch extends AggregateRoot<BranchId> {
     protected BranchName branchName;
     protected BranchLocation branchLocation;
-    protected Set<Product> products;
+    protected List<Product> products;
     protected Set<User> users;
     protected List<ProductSale> productSales;
 
@@ -75,11 +75,11 @@ public class Branch extends AggregateRoot<BranchId> {
         this.branchLocation = branchLocation;
     }
 
-    public Set<Product> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(Set<Product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 

@@ -23,8 +23,8 @@ public class Mapper {
             String[] partes = objetoStr.split(",");
 
             String productSaleId = null;
-            String productSalePrice = null;
             String productSaleStock = null;
+            String productSalePrice = null;
 
             for (String parte : partes) {
                 String[] keyValue = parte.split(":");
@@ -33,15 +33,15 @@ public class Mapper {
                     String value = keyValue[1].trim();
                     if (key.equals("productSaleId")) {
                         productSaleId = value.replaceAll("\"", "");
-                    } else if (key.equals("productSalePrice")) {
+                    } else if(key.equals("productSalePrice")){
                         productSalePrice = value;
-                    } else if(key.equals("productSaleStock")){
+                    }  else if(key.equals("productSaleStock")){
                         productSaleStock = value;
                     }
                 }
             }
 
-            if (productSaleId != null && productSalePrice != null && productSaleStock!=null) {
+            if (productSaleId != null  && productSalePrice != null && productSaleStock!=null) {
                 ProductSale productSale = new ProductSale(ProductSaleId.of(productSaleId),
                         new ProductSalePrice(Float.parseFloat(productSalePrice)),
                         new ProductSaleStock(Integer.parseInt(productSaleStock)));

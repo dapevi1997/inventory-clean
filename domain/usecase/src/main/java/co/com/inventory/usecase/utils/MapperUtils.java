@@ -17,7 +17,8 @@ public class MapperUtils {
         return productSaleUtilList -> {
             List<ProductSale> productSales = new ArrayList<>();
             productSaleUtilList.forEach(productSaleUtil -> {
-                productSales.add(new ProductSale(ProductSaleId.of(productSaleUtil.getProductSaleId()), new ProductSalePrice(Float.parseFloat(productSaleUtil.getProductSalePrice())),
+                productSales.add(new ProductSale(ProductSaleId.of(productSaleUtil.getProductSaleId()),
+                       null,
                        new ProductSaleStock( Integer.parseInt(productSaleUtil.getProductSaleStock()))));
             });
             return productSales;
