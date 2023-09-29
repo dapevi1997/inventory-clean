@@ -1,7 +1,9 @@
 package co.com.inventory.model.branch.values;
 
 
+import co.com.inventory.model.branch.exceptions.BlankStringException;
 import co.com.inventory.model.branch.generic.ValueObject;
+import co.com.inventory.model.branch.utils.Validator;
 
 import java.util.Objects;
 
@@ -13,6 +15,9 @@ public class BranchName implements ValueObject<String> {
             Objects.requireNonNull(branchName);
         }catch (NullPointerException e){
             throw new NullPointerException("El campo branchName no puede ser nulo");
+        }
+        if(branchName.isBlank()){
+            throw new BlankStringException("El campo branchName no puede estar vacío");
         }
 
         this.branchName = branchName;

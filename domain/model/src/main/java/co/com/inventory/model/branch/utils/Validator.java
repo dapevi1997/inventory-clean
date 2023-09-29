@@ -1,5 +1,15 @@
 package co.com.inventory.model.branch.utils;
 
-public class Validator {
+import java.util.Objects;
 
+public class Validator {
+    public static String notNullValidate(Object o) {
+        try {
+            Objects.requireNonNull(o);
+        }catch (NullPointerException e){
+            throw new NullPointerException("El campo " + o.toString() + " branchName no puede ser nulo");
+        }
+        return o.toString();
+
+    }
 }

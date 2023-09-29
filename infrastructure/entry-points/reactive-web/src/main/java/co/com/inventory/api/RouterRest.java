@@ -1,6 +1,7 @@
 package co.com.inventory.api;
 
 
+import co.com.inventory.model.branch.exceptions.BlankStringException;
 import co.com.inventory.model.branch.generic.DomainEvent;
 import co.com.inventory.usecase.addproduct.AddProductUseCase;
 import co.com.inventory.usecase.createbranch.CreateBranchUseCase;
@@ -26,7 +27,7 @@ public class RouterRest {
     @Bean
     public RouterFunction<ServerResponse> routerFunction(CreateBranchUseCase createBranchUseCase) {
         return route(
-                POST("/api/createBranch")
+                POST("/api/v1/branch/register")
                         .and(accept(MediaType.APPLICATION_JSON)),
                 request -> {
                     return createBranchUseCase.apply(request.bodyToMono(CreateBranchCommand.class))
@@ -38,7 +39,9 @@ public class RouterRest {
                             .onErrorResume(Exception.class, e -> {
                                 if(e instanceof NullPointerException){
                                     return ServerResponse.badRequest().bodyValue(e.getMessage());
-
+                                }
+                                if (e instanceof BlankStringException){
+                                    return ServerResponse.badRequest().bodyValue(e.getMessage());
                                 }
                                 return ServerResponse.badRequest().bodyValue(e.getMessage());
                             });
