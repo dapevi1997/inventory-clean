@@ -26,6 +26,7 @@ public class StoredEvent {
             return (DomainEvent) eventSerializer
                     .readFromJson(this.getEventBody(), Class.forName(this.getTypeName()));
         }catch (ClassNotFoundException e){
+            System.out.println("classnotfound");
             return null;
         }catch (NullPointerException e){
             System.out.println("NullPointereeeee");

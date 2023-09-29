@@ -30,4 +30,9 @@ public class Identity implements ValueObject<String> {
     public int hashCode() {
         return Objects.hash(uuid);
     }
+
+    @Override
+    public String toString() {
+        return ":"+uuid.toString()+", ";
+    }
 }

@@ -38,4 +38,24 @@ public class Product extends Entity<ProductId> {
     public ProductCategory getProductCategory() {
         return productCategory;
     }
+
+    public void setProductName(ProductName productName) {
+        this.productName = productName;
+    }
+
+    public void setProductDescription(ProductDescription productDescription) {
+        this.productDescription = productDescription;
+    }
+
+    public void setProductPrice(ProductPrice productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    public void setProductInventoryStock(ProductInventoryStock productInventoryStock) {
+        this.productInventoryStock = productInventoryStock;
+    }
+
+    public void setProductCategory(ProductCategory productCategory) {
+        this.productCategory = productCategory;
+    }
 }

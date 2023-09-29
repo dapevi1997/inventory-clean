@@ -12,4 +12,5 @@ public class ProductSaleId extends Identity {
     public static ProductSaleId of(String uuid){
         return new ProductSaleId(uuid);
     }
+
 }

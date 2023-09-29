@@ -1,8 +1,10 @@
 package co.com.inventory.model.branch;
 import co.com.inventory.model.branch.entities.Product;
+import co.com.inventory.model.branch.entities.ProductSale;
 import co.com.inventory.model.branch.entities.User;
 import co.com.inventory.model.branch.events.BranchCreated;
 import co.com.inventory.model.branch.events.ProductAdded;
+import co.com.inventory.model.branch.events.ProductSoldWholesale;
 import co.com.inventory.model.branch.events.UserRegistered;
 import co.com.inventory.model.branch.generic.AggregateRoot;
 import co.com.inventory.model.branch.generic.DomainEvent;
@@ -16,6 +18,7 @@ public class Branch extends AggregateRoot<BranchId> {
     protected BranchLocation branchLocation;
     protected Set<Product> products;
     protected Set<User> users;
+    protected List<ProductSale> productSales;
 
     public Branch(BranchId branchId, BranchName branchName, BranchLocation branchLocation) {
         super(branchId);
@@ -49,6 +52,12 @@ public class Branch extends AggregateRoot<BranchId> {
         appendChange(new UserRegistered(userId.value(),userName.value(),userPassword.value(),userEmail.value(),userRole.value()));
     }
 
+    public void registerSaleWholesale(ProductSaleId productSaleId, List<ProductSale> productSales){
+        subscribe(new BranchChange(this));
+        String productSalesString = productSales.toString();
+        appendChange(new ProductSoldWholesale(productSaleId.value(), productSalesString));
+    }
+
 
     public BranchName getBranchName() {
         return branchName;
@@ -80,5 +89,13 @@ public class Branch extends AggregateRoot<BranchId> {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public List<ProductSale> getProductSales() {
+        return productSales;
+    }
+
+    public void setProductSales(List<ProductSale> productSales) {
+        this.productSales = productSales;
     }
 }

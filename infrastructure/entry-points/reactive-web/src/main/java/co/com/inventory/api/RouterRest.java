@@ -5,8 +5,10 @@ import co.com.inventory.model.branch.generic.DomainEvent;
 import co.com.inventory.usecase.addproduct.AddProductUseCase;
 import co.com.inventory.usecase.createbranch.CreateBranchUseCase;
 import co.com.inventory.usecase.generic.commands.AddProductCommand;
+import co.com.inventory.usecase.generic.commands.AddProductSaleCommand;
 import co.com.inventory.usecase.generic.commands.AddUserCommand;
 import co.com.inventory.usecase.generic.commands.CreateBranchCommand;
+import co.com.inventory.usecase.registersalewholesale.RegisterSaleWholesaleUseCase;
 import co.com.inventory.usecase.registeruser.RegisterUserUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -54,6 +56,18 @@ public class RouterRest {
                 request -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                         .body(BodyInserters.fromPublisher(registerUserUseCase.apply(
                                 request.bodyToMono(AddUserCommand.class)
+                        ), DomainEvent.class))
+        );
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> registerSaleWholesale(RegisterSaleWholesaleUseCase registerSaleWholesaleUseCase){
+
+        return route(
+                POST("/api/registerSaleWholesale").and(accept(MediaType.APPLICATION_JSON)),
+                request -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(registerSaleWholesaleUseCase.apply(
+                                request.bodyToMono(AddProductSaleCommand.class)
                         ), DomainEvent.class))
         );
     }

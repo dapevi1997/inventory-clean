@@ -9,6 +9,7 @@ public class ProductSale extends Entity<ProductSaleId> {
     private ProductSalePrice productSalePrice;
     private ProductSaleStock productSaleStock;
 
+
     public ProductSale(ProductSaleId id, ProductSalePrice productSalePrice, ProductSaleStock productSaleStock) {
         super(id);
         this.productSalePrice = productSalePrice;
@@ -21,5 +22,14 @@ public class ProductSale extends Entity<ProductSaleId> {
 
     public ProductSaleStock getProductSaleStock() {
         return productSaleStock;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "productSaleId"+ identity().toString()+
+                "productSalePrice:" + productSalePrice +
+                ", productSaleStock:" + productSaleStock +
+                '}';
     }
 }

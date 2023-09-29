@@ -17,4 +17,9 @@ public class ProductSalePrice implements ValueObject<Float> {
     public Float getProductSalePrice() {
         return productSalePrice;
     }
+
+    @Override
+    public String toString() {
+        return productSalePrice.toString() ;
+    }
 }

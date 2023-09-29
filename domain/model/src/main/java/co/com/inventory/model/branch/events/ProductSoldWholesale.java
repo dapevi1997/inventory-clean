@@ -1,26 +1,35 @@
 package co.com.inventory.model.branch.events;
 
+import co.com.inventory.model.branch.entities.ProductSale;
 import co.com.inventory.model.branch.generic.DomainEvent;
 
+import java.util.List;
+
 public class ProductSoldWholesale extends DomainEvent {
-    private Float productSoldPrice;
-    private Integer productStock;
+    //private String branchId;
+    private String productSaleId;
+
+    private String productSales;
 
     public ProductSoldWholesale() {
         super("co.com.inventory.model.branch.events.ProductSoldWholesale");
     }
 
-    public ProductSoldWholesale(Float productSoldPrice, Integer productStock) {
+    public ProductSoldWholesale(String productSaleId, String productSales) {
         super("co.com.inventory.model.branch.events.ProductSoldWholesale");
-        this.productSoldPrice = productSoldPrice;
-        this.productStock = productStock;
+        this.productSaleId = productSaleId;
+        this.productSales = productSales;
     }
 
-    public Float getProductSoldPrice() {
-        return productSoldPrice;
+/*    public String getBranchId() {
+        return branchId;
+    }*/
+
+    public String getProductSales() {
+        return productSales;
     }
 
-    public Integer getProductStock() {
-        return productStock;
+    public String getProductSaleId() {
+        return productSaleId;
     }
 }

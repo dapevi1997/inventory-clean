@@ -17,4 +17,10 @@ public class ProductSaleStock implements ValueObject<Integer> {
     public Integer getProductSaleStock() {
         return productSaleStock;
     }
+
+    @Override
+    public String toString() {
+        return  productSaleStock.toString() ;
+
+    }
 }
