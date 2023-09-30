@@ -43,7 +43,8 @@ public class RegisterSaleRetailUseCase extends UseCaseForCommand<AddProductSaleC
                                                         .filter(product ->
                                                                 product.identity().value().equals(productSale.identity().value()) )
                                                         .map(product -> {
-                                                            productSale.setProductSalePrice(new ProductSalePrice(product.getProductPrice().getProductPrice() * 0.8F));
+                                                            Float result = product.getProductPrice().getProductPrice()*0.8F;
+                                                            productSale.setProductSalePrice(new ProductSalePrice( result.toString()));
                                                             return productSale;
                                                         });
 

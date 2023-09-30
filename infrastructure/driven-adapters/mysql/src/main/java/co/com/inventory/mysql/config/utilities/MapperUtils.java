@@ -1,11 +1,8 @@
 package co.com.inventory.mysql.config.utilities;
 
-import co.com.inventory.model.branch.Branch;
-import co.com.inventory.mysql.config.dto.BranchDTO;
 import co.com.inventory.mysql.config.dto.ProductDTO;
 import co.com.inventory.mysql.config.dto.UserDTO;
-import co.com.inventory.mysql.config.models.BranchMySQL;
-import co.com.inventory.mysql.config.models.Product;
+import co.com.inventory.mysql.config.models.ProductMySQL;
 import co.com.inventory.mysql.config.models.User;
 import org.springframework.stereotype.Service;
 
@@ -25,16 +22,16 @@ public class MapperUtils {
     }*/
 
 
-    public Function<ProductDTO, Product> mapperToProduct(){
+    public Function<ProductDTO, ProductMySQL> mapperToProduct(){
         return productDTO -> {
-            Product product = new Product();
-            product.setProductName(productDTO.getProductName());
-            product.setProductDescription(productDTO.getProductDescription());
-            product.setProductPrice(productDTO.getProductPrice());
-            product.setProductInventoryStock(productDTO.getProductInventoryStock());
-            product.setProductCategory(productDTO.getProductCategory());
+            ProductMySQL productMySQL = new ProductMySQL();
+            productMySQL.setProductName(productDTO.getProductName());
+            productMySQL.setProductDescription(productDTO.getProductDescription());
+            productMySQL.setProductPrice(productDTO.getProductPrice());
+            productMySQL.setProductInventoryStock(productDTO.getProductInventoryStock());
+            productMySQL.setProductCategory(productDTO.getProductCategory());
 
-            return product;
+            return productMySQL;
 
         };
     }

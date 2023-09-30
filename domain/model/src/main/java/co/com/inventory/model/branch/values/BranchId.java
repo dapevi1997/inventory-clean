@@ -5,6 +5,7 @@ import co.com.inventory.model.branch.generic.Identity;
 
 public class BranchId extends Identity {
     public BranchId() {
+
     }
     public BranchId(String uuid) {
         super(uuid);

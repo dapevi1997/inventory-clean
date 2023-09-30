@@ -10,16 +10,9 @@ public class BranchLocation implements ValueObject<BranchLocation.Propiedades> {
     private String branchCity;
 
     public BranchLocation(String branchCountry, String branchCity) {
-        try {
-            Objects.requireNonNull(branchCountry);
-        }catch (NullPointerException e){
-            throw new NullPointerException("El campo branchCountry no puede ser nulo");
-        }
-        try {
-            Objects.requireNonNull(branchCity);
-        }catch (NullPointerException e){
-            throw new NullPointerException("El campo branchCity no puede ser nulo");
-        }
+        Objects.requireNonNull(branchCountry,"El campo branchCountry no puede ser nulo");
+        Objects.requireNonNull(branchCity,"El campo branchCity no puede ser nulo");
+
         if(branchCountry.isBlank()){
             throw new BlankStringException("El campo branchCountry no puede estar vacío");
         }

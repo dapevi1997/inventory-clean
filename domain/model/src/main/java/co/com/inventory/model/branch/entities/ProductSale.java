@@ -5,6 +5,8 @@ import co.com.inventory.model.branch.values.ProductSaleId;
 import co.com.inventory.model.branch.values.ProductSalePrice;
 import co.com.inventory.model.branch.values.ProductSaleStock;
 
+import java.util.Objects;
+
 public class ProductSale extends Entity<ProductSaleId> {
     private ProductSalePrice productSalePrice;
     private ProductSaleStock productSaleStock;
@@ -12,6 +14,7 @@ public class ProductSale extends Entity<ProductSaleId> {
 
     public ProductSale(ProductSaleId id, ProductSalePrice productSalePrice ,ProductSaleStock productSaleStock) {
         super(id);
+        Objects.requireNonNull(id, "El ProductSaleId no puede ser nulo");
         this.productSalePrice = productSalePrice;
         this.productSaleStock = productSaleStock;
     }

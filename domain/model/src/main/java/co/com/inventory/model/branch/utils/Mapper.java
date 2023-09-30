@@ -43,8 +43,8 @@ public class Mapper {
 
             if (productSaleId != null  && productSalePrice != null && productSaleStock!=null) {
                 ProductSale productSale = new ProductSale(ProductSaleId.of(productSaleId),
-                        new ProductSalePrice(Float.parseFloat(productSalePrice)),
-                        new ProductSaleStock(Integer.parseInt(productSaleStock)));
+                        new ProductSalePrice(productSalePrice),
+                        new ProductSaleStock(productSaleStock));
                 listaDeObjetos.add(productSale);
             }
         }

@@ -28,8 +28,10 @@ public class MongoRepositoryAdapter implements DomainEventRepository
 
     @Override
     public Mono<DomainEvent> saveEvent(DomainEvent event) {
+        String rootId = event.aggregateRootId().trim().replace(":","").replace(",","");
+
         StoredEvent eventStored = new StoredEvent();
-        eventStored.setAggregateRootId(event.aggregateRootId());
+        eventStored.setAggregateRootId(rootId);
         eventStored.setTypeName(event.getClass().getTypeName());
         eventStored.setOccurredOn(new Date());
         eventStored.setEventBody(StoredEvent.wrapEvent(event, eventSerializer));

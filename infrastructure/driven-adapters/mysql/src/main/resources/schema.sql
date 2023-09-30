@@ -13,11 +13,16 @@ CREATE TABLE IF NOT EXISTS branch (
     CREATE TABLE IF NOT EXISTS product (
         id INT NOT NULL AUTO_INCREMENT,
         product_name VARCHAR(100),
-        product_description VARCHAR(255),
+        product_description VARCHAR(100),
         product_price FLOAT,
         product_inventory_stock INTEGER,
         product_category VARCHAR(100),
-        PRIMARY KEY (id)
+        branch_id INT,
+        PRIMARY KEY (id),
+        FOREIGN KEY (branch_id)
+        REFERENCES branch(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
         );
 
             -- Create the Product table

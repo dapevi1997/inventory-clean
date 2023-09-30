@@ -18,7 +18,6 @@ public class BranchChange extends EventChange {
     public BranchChange(Branch branch) {
         apply(
                 (BranchCreated event) -> {
-                    //TODO: terminar de implementar
                     branch.branchName = new BranchName(event.getBranchName());
                     branch.branchLocation = new BranchLocation(event.getBranchCountry(), event.getBranchCity());
                 }
@@ -26,8 +25,8 @@ public class BranchChange extends EventChange {
         apply(
                 (ProductAdded event)->{
                     Product product = new Product(ProductId.of(event.getProductId()), new ProductName(event.getProductName()),
-                            new ProductDescription(event.getProductDescription()), new ProductPrice(event.getProductPrice()),
-                            new ProductInventoryStock(event.getProductInventoryStock()),new ProductCategory(event.getProductCategory())
+                            new ProductDescription(event.getProductDescription()), new ProductPrice(event.getProductPrice().toString()),
+                            new ProductInventoryStock(event.getProductInventoryStock().toString()),new ProductCategory(event.getProductCategory())
                     );
 
                     branch.products = new ArrayList<>();
@@ -56,7 +55,8 @@ public class BranchChange extends EventChange {
                         Optional<Product> productFound = branch.products.stream()
                                 .filter(product -> product.identity().value().equals(productSale.identity().value()))
                                 .map(product -> {
-                                    product.setProductInventoryStock(new ProductInventoryStock(product.getProductInventoryStock().value() - productSale.getProductSaleStock().value()));
+                                    Integer result = product.getProductInventoryStock().value() - productSale.getProductSaleStock().value();
+                                    product.setProductInventoryStock(new ProductInventoryStock( result.toString()));
                                     return product;
                                 }).findFirst();
                     });
@@ -78,7 +78,8 @@ public class BranchChange extends EventChange {
                         Optional<Product> productFound = branch.products.stream()
                                 .filter(product -> product.identity().value().equals(productSale.identity().value()))
                                 .map(product -> {
-                                    product.setProductInventoryStock(new ProductInventoryStock(product.getProductInventoryStock().value() - productSale.getProductSaleStock().value()));
+                                    Integer result = product.getProductInventoryStock().value() - productSale.getProductSaleStock().value();
+                                    product.setProductInventoryStock(new ProductInventoryStock(result.toString()));
                                     return product;
                                 }).findFirst();
                     });

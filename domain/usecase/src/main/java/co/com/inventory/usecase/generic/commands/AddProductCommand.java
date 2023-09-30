@@ -4,20 +4,18 @@ import co.com.inventory.usecase.generic.Command;
 
 public class AddProductCommand extends Command {
     private String branchId;
-    private String productId;
     private String productName;
     private String productDescription;
-    private Float productPrice;
-    private Integer productInventoryStock;
+    private String productPrice;
+    private String productInventoryStock;
     private String productCategory;
 
     public AddProductCommand() {
     }
 
-    public AddProductCommand(String branchId, String productId, String productName, String productDescription,
-                             Float productPrice, Integer productInventoryStock, String productCategory) {
+    public AddProductCommand(String branchId, String productName, String productDescription,
+                             String productPrice, String productInventoryStock, String productCategory) {
         this.branchId = branchId;
-        this.productId = productId;
         this.productName = productName;
         this.productDescription = productDescription;
         this.productPrice = productPrice;
@@ -31,14 +29,6 @@ public class AddProductCommand extends Command {
 
     public void setBranchId(String branchId) {
         this.branchId = branchId;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
     }
 
     public String getProductName() {
@@ -57,19 +47,19 @@ public class AddProductCommand extends Command {
         this.productDescription = productDescription;
     }
 
-    public Float getProductPrice() {
+    public String getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(Float productPrice) {
+    public void setProductPrice(String productPrice) {
         this.productPrice = productPrice;
     }
 
-    public Integer getProductInventoryStock() {
+    public String getProductInventoryStock() {
         return productInventoryStock;
     }
 
-    public void setProductInventoryStock(Integer productInventoryStock) {
+    public void setProductInventoryStock(String productInventoryStock) {
         this.productInventoryStock = productInventoryStock;
     }
 

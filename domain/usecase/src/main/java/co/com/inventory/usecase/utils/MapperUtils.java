@@ -19,7 +19,7 @@ public class MapperUtils {
             productSaleUtilList.forEach(productSaleUtil -> {
                 productSales.add(new ProductSale(ProductSaleId.of(productSaleUtil.getProductSaleId()),
                        null,
-                       new ProductSaleStock( Integer.parseInt(productSaleUtil.getProductSaleStock()))));
+                       new ProductSaleStock( productSaleUtil.getProductSaleStock())));
             });
             return productSales;
         };
