@@ -3,7 +3,7 @@ package co.com.inventory.mysql.config.utilities;
 import co.com.inventory.mysql.config.dto.ProductDTO;
 import co.com.inventory.mysql.config.dto.UserDTO;
 import co.com.inventory.mysql.config.models.ProductMySQL;
-import co.com.inventory.mysql.config.models.User;
+import co.com.inventory.mysql.config.models.UserMySQL;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Function;
@@ -36,15 +36,15 @@ public class MapperUtils {
         };
     }
 
-    public Function<UserDTO, User> mapperToUser(){
+    public Function<UserDTO, UserMySQL> mapperToUser(){
         return userDTO -> {
-            User user = new User();
-            user.setUserName(userDTO.getUserName());
-            user.setUserLastName(userDTO.getUserLastName());
-            user.setUserPassword(userDTO.getUserPassword());
-            user.setUserEmail(userDTO.getUserEmail());
-            user.setUserRole(userDTO.getUserRole());
-            return user;
+            UserMySQL userMySQL = new UserMySQL();
+            userMySQL.setUserName(userDTO.getUserName());
+            userMySQL.setUserLastName(userDTO.getUserLastName());
+            userMySQL.setUserPassword(userDTO.getUserPassword());
+            userMySQL.setUserEmail(userDTO.getUserEmail());
+            userMySQL.setUserRole(userDTO.getUserRole());
+            return userMySQL;
 
         };
     }

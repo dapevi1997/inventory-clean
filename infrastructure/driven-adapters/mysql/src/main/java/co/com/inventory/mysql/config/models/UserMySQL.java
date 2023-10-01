@@ -6,8 +6,8 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Data
-@Table("prueba.user_table")
-public class User {
+@Table("prueba1.user_table")
+public class UserMySQL {
     @Id
     @Column("id")
     private Long id;
@@ -21,4 +21,6 @@ public class User {
     private String userEmail;
     @Column("user_role")
     private String userRole;
+    @Column("branch_id")
+    private Long branchId;
 }

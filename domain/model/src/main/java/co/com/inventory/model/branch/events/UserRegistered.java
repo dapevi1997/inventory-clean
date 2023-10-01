@@ -5,6 +5,7 @@ import co.com.inventory.model.branch.generic.DomainEvent;
 public class UserRegistered extends DomainEvent {
     private String userId;
     private String userName;
+    private String userLastName;
     private String userPassword;
     private String userEmail;
     private String userRole;
@@ -13,13 +14,14 @@ public class UserRegistered extends DomainEvent {
         super("co.com.inventory.model.branch.events.UserRegistered");
     }
 
-    public UserRegistered(String userId,String userName, String userPassword, String userEmail, String userRole) {
+    public UserRegistered(String userId,String userName,String userLastName ,String userPassword, String userEmail, String userRole) {
         super("co.com.inventory.model.branch.events.UserRegistered");
         this.userId = userId;
         this.userName = userName;
         this.userPassword = userPassword;
         this.userEmail = userEmail;
         this.userRole = userRole;
+        this.userLastName = userLastName;
     }
 
     public String getUserId() {
@@ -28,6 +30,10 @@ public class UserRegistered extends DomainEvent {
 
     public String getUserName() {
         return userName;
+    }
+
+    public String getUserLastName() {
+        return userLastName;
     }
 
     public String getUserPassword() {

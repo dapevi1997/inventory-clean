@@ -36,6 +36,7 @@ public class BranchChange extends EventChange {
         apply(
                 (UserRegistered event) -> {
                     User user = new User(UserId.of(event.getUserId()), new UserName(event.getUserName()),
+                            new UserlastName(event.getUserLastName()),
                             new UserPassword(event.getUserPassword()), new UserEmail(event.getUserEmail()),
                             new UserRole(event.getUserRole()));
                     branch.users = new HashSet<>();

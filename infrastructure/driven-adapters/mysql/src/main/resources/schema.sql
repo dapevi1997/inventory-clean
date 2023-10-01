@@ -29,9 +29,14 @@ CREATE TABLE IF NOT EXISTS branch (
             CREATE TABLE IF NOT EXISTS user_table (
                 id INT NOT NULL AUTO_INCREMENT,
                 user_name VARCHAR(100),
-                user_lastName VARCHAR(255),
-                user_password VARCHAR(255),
-                user_email VARCHAR(255),
-                user_role VARCHAR(255),
-                PRIMARY KEY (id)
+                user_lastName VARCHAR(100),
+                user_password VARCHAR(100),
+                user_email VARCHAR(100),
+                user_role VARCHAR(100),
+                branch_id INT,
+                PRIMARY KEY (id),
+                FOREIGN KEY (branch_id)
+                REFERENCES branch(id)
+                ON DELETE CASCADE
+                ON UPDATE CASCADE
                 );

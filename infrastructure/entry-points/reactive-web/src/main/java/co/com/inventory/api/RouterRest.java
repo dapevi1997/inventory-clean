@@ -83,11 +83,28 @@ public class RouterRest {
     @Bean
     public RouterFunction<ServerResponse> registerUser(RegisterUserUseCase registerUserUseCase){
         return route(
-                POST("/api/registerUser").and(accept(MediaType.APPLICATION_JSON)),
-                request -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
-                        .body(BodyInserters.fromPublisher(registerUserUseCase.apply(
-                                request.bodyToMono(AddUserCommand.class)
-                        ), DomainEvent.class))
+                POST("/api/v1/user/register").and(accept(MediaType.APPLICATION_JSON)),
+                request ->{
+                    return registerUserUseCase.apply(request.bodyToMono(AddUserCommand.class))
+                            .flatMap(domainEvent -> {
+                                return ServerResponse.ok()
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .body(BodyInserters.fromValue(domainEvent));
+                            }).next()
+                            .onErrorResume(Exception.class, e -> {
+                                if(e instanceof NullPointerException){
+                                    return ServerResponse.badRequest().bodyValue(e.getMessage());
+                                }
+                                if (e instanceof BlankStringException){
+                                    return ServerResponse.badRequest().bodyValue(e.getMessage());
+                                }
+                                if (e instanceof NumberFormatException){
+                                    return ServerResponse.badRequest().bodyValue(e.getMessage());
+                                }
+                                return ServerResponse.badRequest().bodyValue(e.getMessage());
+                            });
+                }
+
         );
     }
 

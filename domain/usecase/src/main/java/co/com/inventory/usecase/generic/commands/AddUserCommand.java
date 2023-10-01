@@ -4,7 +4,6 @@ import co.com.inventory.usecase.generic.Command;
 
 public class AddUserCommand extends Command {
     private String branchId;
-    private String userId;
     private String userName;
     private String userLastname;
     private String userPassword;
@@ -13,9 +12,8 @@ public class AddUserCommand extends Command {
 
     public AddUserCommand() {
     }
-    public AddUserCommand(String branchId, String userId, String userName, String userLastname, String userPassword, String userEmail, String userRole) {
+    public AddUserCommand(String branchId, String userName, String userLastname, String userPassword, String userEmail, String userRole) {
         this.branchId = branchId;
-        this.userId = userId;
         this.userName = userName;
         this.userLastname = userLastname;
         this.userPassword = userPassword;
@@ -27,9 +25,6 @@ public class AddUserCommand extends Command {
         return branchId;
     }
 
-    public String getUserId() {
-        return userId;
-    }
 
     public String getUserName() {
         return userName;
