@@ -33,15 +33,16 @@ public class Mapper {
                     String value = keyValue[1].trim();
                     if (key.equals("productSaleId")) {
                         productSaleId = value.replaceAll("\"", "");
-                    } else if(key.equals("productSalePrice")){
-                        productSalePrice = value;
-                    }  else if(key.equals("productSaleStock")){
+                    } else if(key.equals("productSaleStock")){
                         productSaleStock = value;
+                    }
+                    else if(key.equals("productSalePrice")){
+                        productSalePrice = value;
                     }
                 }
             }
 
-            if (productSaleId != null  && productSalePrice != null && productSaleStock!=null) {
+            if (productSaleId != null && productSalePrice !=null && productSaleStock!=null) {
                 ProductSale productSale = new ProductSale(ProductSaleId.of(productSaleId),
                         new ProductSalePrice(productSalePrice),
                         new ProductSaleStock(productSaleStock));

@@ -1,8 +1,7 @@
 package co.com.inventory.usecase.generic.commands;
 
-import co.com.inventory.model.branch.entities.ProductSale;
 import co.com.inventory.usecase.generic.Command;
-import co.com.inventory.usecase.utils.ProductSaleUtil;
+import co.com.inventory.model.branch.utils.ProductSaleUtil;
 
 import java.util.List;
 

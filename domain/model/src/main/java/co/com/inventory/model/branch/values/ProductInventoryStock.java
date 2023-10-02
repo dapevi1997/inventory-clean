@@ -12,7 +12,7 @@ public class ProductInventoryStock implements ValueObject<Integer> {
         try {
             this.productInventoryStock = Integer.parseInt(productInventoryStock);
         }catch (Exception e){
-            throw new NumberFormatException("El campo productPrice debe ser un número entero");
+            throw new NumberFormatException("El campo productInventoryStock debe ser un número entero");
         }
 
     }

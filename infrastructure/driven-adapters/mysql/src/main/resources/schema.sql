@@ -40,3 +40,39 @@ CREATE TABLE IF NOT EXISTS branch (
                 ON DELETE CASCADE
                 ON UPDATE CASCADE
                 );
+            -- Create the Product table
+            CREATE TABLE IF NOT EXISTS product_sale (
+                id INT NOT NULL AUTO_INCREMENT,
+                product_sale_price FLOAT,
+                product_sale_amount INT,
+                product_id INT,
+                branch_id INT,
+                PRIMARY KEY (id),
+                FOREIGN KEY (branch_id)
+                REFERENCES branch(id)
+                ON DELETE CASCADE
+                ON UPDATE CASCADE,
+                FOREIGN KEY (product_id)
+                 REFERENCES product(id)
+                                ON DELETE CASCADE
+                                ON UPDATE CASCADE
+                );
+
+
+                          -- Create the Product table
+                            CREATE TABLE IF NOT EXISTS sale (
+                                id INT NOT NULL AUTO_INCREMENT,
+                                product_id INT NOT NULL,
+                                product_sale_id INT NOT NULL,
+                                sale_uuid VARCHAR(500),
+
+                                PRIMARY KEY (id),
+                                FOREIGN KEY (product_id)
+                                REFERENCES product(id)
+                                ON DELETE CASCADE
+                                ON UPDATE CASCADE,
+                                     FOREIGN KEY (product_sale_id)
+                                       REFERENCES product_sale(id)
+                                                ON DELETE CASCADE
+                                                ON UPDATE CASCADE
+                                );

@@ -112,11 +112,28 @@ public class RouterRest {
     public RouterFunction<ServerResponse> registerSaleWholesale(RegisterSaleWholesaleUseCase registerSaleWholesaleUseCase){
 
         return route(
-                POST("/api/registerSaleWholesale").and(accept(MediaType.APPLICATION_JSON)),
-                request -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
-                        .body(BodyInserters.fromPublisher(registerSaleWholesaleUseCase.apply(
-                                request.bodyToMono(AddProductSaleCommand.class)
-                        ), DomainEvent.class))
+                POST("/api/v1/sale/register/wholesale").and(accept(MediaType.APPLICATION_JSON)),
+                request ->{
+                    return registerSaleWholesaleUseCase.apply(request.bodyToMono(AddProductSaleCommand.class))
+                            .flatMap(domainEvent -> {
+                                return ServerResponse.ok()
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .body(BodyInserters.fromValue(domainEvent));
+                            }).next()
+                            .onErrorResume(Exception.class, e -> {
+                                if(e instanceof NullPointerException){
+                                    return ServerResponse.badRequest().bodyValue(e.getMessage());
+                                }
+                                if (e instanceof BlankStringException){
+                                    return ServerResponse.badRequest().bodyValue(e.getMessage());
+                                }
+                                if (e instanceof NumberFormatException){
+                                    return ServerResponse.badRequest().bodyValue(e.getMessage());
+                                }
+                                return ServerResponse.badRequest().bodyValue(e.getMessage());
+                            });
+                }
+
         );
     }
 
@@ -124,11 +141,28 @@ public class RouterRest {
     public RouterFunction<ServerResponse> registerSaleRetail(RegisterSaleRetailUseCase registerSaleRetailUseCase){
 
         return route(
-                POST("/api/registerSaleRetail").and(accept(MediaType.APPLICATION_JSON)),
-                request -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
-                        .body(BodyInserters.fromPublisher(registerSaleRetailUseCase.apply(
-                                request.bodyToMono(AddProductSaleCommand.class)
-                        ), DomainEvent.class))
+                POST("/api/v1/sale/register/retail").and(accept(MediaType.APPLICATION_JSON)),
+                request ->{
+                    return registerSaleRetailUseCase.apply(request.bodyToMono(AddProductSaleCommand.class))
+                            .flatMap(domainEvent -> {
+                                return ServerResponse.ok()
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .body(BodyInserters.fromValue(domainEvent));
+                            }).next()
+                            .onErrorResume(Exception.class, e -> {
+                                if(e instanceof NullPointerException){
+                                    return ServerResponse.badRequest().bodyValue(e.getMessage());
+                                }
+                                if (e instanceof BlankStringException){
+                                    return ServerResponse.badRequest().bodyValue(e.getMessage());
+                                }
+                                if (e instanceof NumberFormatException){
+                                    return ServerResponse.badRequest().bodyValue(e.getMessage());
+                                }
+                                return ServerResponse.badRequest().bodyValue(e.getMessage());
+                            });
+                }
+
         );
     }
 

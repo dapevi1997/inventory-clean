@@ -12,7 +12,7 @@ public class ProductSalePrice implements ValueObject<Float> {
         try {
             this.productSalePrice = Float.parseFloat(productSalePrice);
         }catch (Exception e){
-            throw new NumberFormatException("El campo productPrice debe ser un número entero");
+            throw new NumberFormatException("El campo productSalePrice debe ser un número entero");
         }
 
 

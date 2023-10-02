@@ -1,8 +1,9 @@
-package co.com.inventory.usecase.utils;
+package co.com.inventory.model.branch.utils;
 
 public class ProductSaleUtil {
     private String productSaleId;
     private String productSaleStock;
+    private String productSalePrice = "";
 
     public ProductSaleUtil() {
     }
@@ -29,4 +30,20 @@ public class ProductSaleUtil {
         this.productSaleStock = productSaleStock;
     }
 
+    public String getProductSalePrice() {
+        return productSalePrice;
+    }
+
+    public void setProductSalePrice(String productSalePrice) {
+        this.productSalePrice = productSalePrice;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "productSaleId:" + productSaleId  +
+                ", productSalePrice:" + productSalePrice  +
+                ", productSaleStock:" + productSaleStock +
+                '}';
+    }
 }

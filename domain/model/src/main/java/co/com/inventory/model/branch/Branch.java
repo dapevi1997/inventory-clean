@@ -47,7 +47,7 @@ public class Branch extends AggregateRoot<BranchId> {
 
     public void registerUser(UserId userId,UserName userName,UserlastName userlastName ,UserPassword userPassword, UserEmail userEmail, UserRole userRole){
         subscribe(new BranchChange(this));
-        appendChange(new UserRegistered(userId.value(),userName.value(),userName.value(),userPassword.value(),userEmail.value(),userRole.value()));
+        appendChange(new UserRegistered(userId.value(),userName.value(),userlastName.value(),userPassword.value(),userEmail.value(),userRole.value()));
     }
 
     public void registerSaleWholesale(ProductSaleId productSaleId, List<ProductSale> productSales){
