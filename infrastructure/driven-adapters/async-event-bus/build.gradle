@@ -1,0 +1,9 @@
+dependencies {
+    implementation project(':model')
+    implementation project(':mapper')
+    implementation project(':usecase')
+    //implementation 'org.reactivecommons:async-commons-rabbit-starter:2.0.1'
+    implementation 'org.springframework:spring-context'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-amqp
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-amqp', version: '3.0.3'
+}

@@ -9,6 +9,7 @@ import co.com.inventory.model.branch.values.ProductSaleId;
 import co.com.inventory.usecase.generic.UseCaseForCommand;
 import co.com.inventory.usecase.generic.commands.AddProductSaleCommand;
 import co.com.inventory.usecase.generic.gateways.DomainEventRepository;
+import co.com.inventory.usecase.generic.gateways.EventBus;
 import co.com.inventory.usecase.generic.gateways.MySqlRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -18,10 +19,13 @@ import java.util.UUID;
 public class RegisterSaleWholesaleUseCase extends UseCaseForCommand<AddProductSaleCommand> {
     private final DomainEventRepository domainEventRepository;
     private final MySqlRepository mySqlRepository;
+    private final EventBus eventBus;
 
-    public RegisterSaleWholesaleUseCase(DomainEventRepository domainEventRepository, MySqlRepository mySqlRepository) {
+
+    public RegisterSaleWholesaleUseCase(DomainEventRepository domainEventRepository, MySqlRepository mySqlRepository, EventBus eventBus) {
         this.domainEventRepository = domainEventRepository;
         this.mySqlRepository = mySqlRepository;
+        this.eventBus = eventBus;
     }
 
     @Override
@@ -43,47 +47,13 @@ public class RegisterSaleWholesaleUseCase extends UseCaseForCommand<AddProductSa
 
                         );
                         return Flux.fromIterable(branch.getUncommittedChanges())
-                                .flatMap(domainEventRepository::saveEvent);
+                                .flatMap(domainEventRepository::saveEvent).map(domainEvent -> {
+                                    eventBus.publish(domainEvent);
+                                    return domainEvent;
+                                });
 
                     });
         });
 
-/*        return addProductSaleCommandMono.flatMapMany(
-                addProductSaleCommand ->
-                        domainEventRepository.findById(addProductSaleCommand.getBranchId())
-                                .collectList()
-                                .flatMapIterable( events ->
-                                        {
-                                            Branch branch = Branch.from(BranchId.of(addProductSaleCommand.getBranchId()),events);
-
-
-                                            List<ProductSale> productSales = MapperUtils.mapperListProductSaleUtilToListProductSale().apply(addProductSaleCommand.getProductSalesUtil());
-
-                                            List<ProductSale> collect = productSales.stream().flatMap(productSale -> {
-                                                return branch.getProducts()
-                                                        .stream()
-                                                        .filter(product ->
-                                                                product.identity().value().equals(productSale.identity().value()) )
-                                                        .map(product -> {
-                                                            Float result = product.getProductPrice().getProductPrice() * 0.7F;
-                                                            productSale.setProductSalePrice(new ProductSalePrice(result.toString()));
-                                                            return productSale;
-                                                        });
-
-                                            }).collect(Collectors.toList());
-
-                                            branch.registerSaleWholesale(ProductSaleId.of(addProductSaleCommand.getProductSaleId()), collect
-
-                                                    );
-
-
-
-                                            return branch.getUncommittedChanges();
-                                        }
-                                ).flatMap(
-                                        domainEvent -> {
-                                            return domainEventRepository.saveEvent(domainEvent);
-                                        }
-                                ));*/
     }
 }

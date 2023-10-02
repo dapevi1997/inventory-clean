@@ -7,19 +7,21 @@ import co.com.inventory.model.branch.values.*;
 import co.com.inventory.usecase.generic.UseCaseForCommand;
 import co.com.inventory.usecase.generic.commands.AddProductCommand;
 import co.com.inventory.usecase.generic.gateways.DomainEventRepository;
+import co.com.inventory.usecase.generic.gateways.EventBus;
 import co.com.inventory.usecase.generic.gateways.MySqlRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-
 public class AddProductUseCase extends UseCaseForCommand<AddProductCommand> {
     private final DomainEventRepository domainEventRepository;
     private final MySqlRepository mySqlRepository;
+    private final EventBus eventBus;
 
-    public AddProductUseCase(DomainEventRepository domainEventRepository, MySqlRepository mySqlRepository) {
+
+    public AddProductUseCase(DomainEventRepository domainEventRepository, MySqlRepository mySqlRepository, EventBus eventBus) {
         this.domainEventRepository = domainEventRepository;
         this.mySqlRepository = mySqlRepository;
+        this.eventBus = eventBus;
     }
 
     @Override
@@ -45,7 +47,12 @@ public class AddProductUseCase extends UseCaseForCommand<AddProductCommand> {
                                 product.getProductCategory()
                         );
                         return Flux.fromIterable(branch.getUncommittedChanges())
-                                .flatMap(domainEventRepository::saveEvent);
+                                .flatMap(domainEventRepository::saveEvent).map(
+                                        domainEvent -> {
+                                            eventBus.publish(domainEvent);
+                                            return domainEvent;
+                                        }
+                                );
 
                     });
         });
