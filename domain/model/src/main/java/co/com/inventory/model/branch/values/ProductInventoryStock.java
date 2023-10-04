@@ -1,10 +1,9 @@
 package co.com.inventory.model.branch.values;
 
-import co.com.inventory.model.branch.generic.ValueObject;
 
 import java.util.Objects;
 
-public class ProductInventoryStock implements ValueObject<Integer> {
+public class ProductInventoryStock {
     private Integer productInventoryStock;
 
     public ProductInventoryStock(String productInventoryStock) {
@@ -17,9 +16,8 @@ public class ProductInventoryStock implements ValueObject<Integer> {
 
     }
 
-    @Override
-    public Integer value() {
-        return productInventoryStock;
+    public void setProductInventoryStock(Integer productInventoryStock) {
+        this.productInventoryStock = productInventoryStock;
     }
 
     public Integer getProductInventoryStock() {

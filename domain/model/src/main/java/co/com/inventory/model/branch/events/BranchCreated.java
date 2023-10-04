@@ -1,6 +1,6 @@
 package co.com.inventory.model.branch.events;
 
-import co.com.inventory.model.branch.generic.DomainEvent;
+import co.com.inventory.model.branch.utils.DomainEvent;
 
 public class BranchCreated extends DomainEvent {
     private String branchName;
@@ -8,11 +8,11 @@ public class BranchCreated extends DomainEvent {
     private String branchCity;
 
     public BranchCreated() {
-        super("co.com.inventory.model.branch.events.BranchCreated");
+        super("co.com.inventory.model.branch.events.BranchCreated","branch");
     }
 
     public BranchCreated(String branchName, String branchCountry, String branchCity) {
-        super("co.com.inventory.model.branch.events.BranchCreated");
+        super("co.com.inventory.model.branch.events.BranchCreated", "branch");
         this.branchName = branchName;
         this.branchCountry = branchCountry;
         this.branchCity = branchCity;

@@ -9,11 +9,19 @@ pluginManagement {
 rootProject.name = 'Inventory'
 
 include ':app-service'
-include ':model'
-include ':usecase'
 project(':app-service').projectDir = file('./applications/app-service')
+include 'app-gama'
+project(':app-gama').projectDir = file('./applications/app-gama')
+include 'app-beta'
+project(':app-beta').projectDir = file('./applications/app-beta')
+include ':model'
 project(':model').projectDir = file('./domain/model')
+include ':usecase'
 project(':usecase').projectDir = file('./domain/usecase')
+include 'reactive-web-commands'
+project(':reactive-web-commands').projectDir = file('./infrastructure/entry-points/alpha/reactive-web-commands')
+include 'rabbitmq-listener-commands'
+project(':rabbitmq-listener-commands').projectDir = file('./infrastructure/entry-points/alpha/rabbitmq-listener-commands')
 include ':mapper'
 project(':mapper').projectDir = file('./infrastructure/helpers/mapper')
 include ':reactive-web'

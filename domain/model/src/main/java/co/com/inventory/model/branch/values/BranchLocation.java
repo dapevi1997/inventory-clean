@@ -1,11 +1,10 @@
 package co.com.inventory.model.branch.values;
 
 import co.com.inventory.model.branch.exceptions.BlankStringException;
-import co.com.inventory.model.branch.generic.ValueObject;
 
 import java.util.Objects;
 
-public class BranchLocation implements ValueObject<BranchLocation.Propiedades> {
+public class BranchLocation {
     private String branchCountry;
     private String branchCity;
 
@@ -25,22 +24,6 @@ public class BranchLocation implements ValueObject<BranchLocation.Propiedades> {
         this.branchCity = branchCity;
     }
 
-    @Override
-    public Propiedades value() {
-
-        return new Propiedades() {
-            @Override
-            public String branchCountry() {
-                return branchCountry;
-            }
-
-            @Override
-            public String branchCity() {
-                return branchCity;
-            }
-        };
-    }
-
     public String getBranchCountry() {
         return branchCountry;
     }
@@ -48,11 +31,7 @@ public class BranchLocation implements ValueObject<BranchLocation.Propiedades> {
     public String getBranchCity() {
         return branchCity;
     }
-    public interface Propiedades{
-        String branchCountry();
-        String branchCity();
 
-    }
 }
 
 

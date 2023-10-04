@@ -1,11 +1,10 @@
 package co.com.inventory.model.branch.values;
 
 import co.com.inventory.model.branch.exceptions.BlankStringException;
-import co.com.inventory.model.branch.generic.ValueObject;
 
 import java.util.Objects;
 
-public class ProductName implements ValueObject<String> {
+public class ProductName {
     private String productName;
 
     public ProductName(String productName) {
@@ -17,9 +16,8 @@ public class ProductName implements ValueObject<String> {
         this.productName = productName;
     }
 
-    @Override
-    public String value() {
-        return productName;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getProductName() {

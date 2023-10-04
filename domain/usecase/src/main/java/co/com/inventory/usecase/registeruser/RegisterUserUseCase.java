@@ -1,32 +1,27 @@
 package co.com.inventory.usecase.registeruser;
 
 
-import co.com.inventory.model.branch.Branch;
-import co.com.inventory.model.branch.generic.DomainEvent;
-import co.com.inventory.model.branch.values.*;
+import co.com.inventory.model.branch.utils.DomainEvent;
 import co.com.inventory.usecase.generic.UseCaseForCommand;
 import co.com.inventory.usecase.generic.commands.AddUserCommand;
 import co.com.inventory.usecase.generic.gateways.DomainEventRepository;
 import co.com.inventory.usecase.generic.gateways.EventBus;
-import co.com.inventory.usecase.generic.gateways.MySqlRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public class RegisterUserUseCase extends UseCaseForCommand<AddUserCommand> {
     private final DomainEventRepository domainEventRepository;
-    private final MySqlRepository mySqlRepository;
     private final EventBus eventBus;
 
-
-    public RegisterUserUseCase(DomainEventRepository domainEventRepository, MySqlRepository mySqlRepository, EventBus eventBus) {
+    public RegisterUserUseCase(DomainEventRepository domainEventRepository, EventBus eventBus) {
         this.domainEventRepository = domainEventRepository;
-        this.mySqlRepository = mySqlRepository;
         this.eventBus = eventBus;
     }
 
     @Override
     public Flux<DomainEvent> apply(Mono<AddUserCommand> addUserCommandMono) {
-        return addUserCommandMono.flatMap(addUserCommand -> {
+        return null;
+/*        return addUserCommandMono.flatMap(addUserCommand -> {
             return mySqlRepository.saveUser(addUserCommand.getBranchId(),
                     addUserCommand.getUserName(),
                     addUserCommand.getUserLastname(),
@@ -56,6 +51,6 @@ public class RegisterUserUseCase extends UseCaseForCommand<AddUserCommand> {
                                 );
 
                     });
-        });
+        });*/
     }
 }

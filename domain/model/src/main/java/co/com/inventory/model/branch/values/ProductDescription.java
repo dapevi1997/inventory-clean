@@ -1,11 +1,10 @@
 package co.com.inventory.model.branch.values;
 
 import co.com.inventory.model.branch.exceptions.BlankStringException;
-import co.com.inventory.model.branch.generic.ValueObject;
 
 import java.util.Objects;
 
-public class ProductDescription implements ValueObject<String> {
+public class ProductDescription {
     private String productDescription;
 
     public ProductDescription(String productDescription) {
@@ -16,9 +15,8 @@ public class ProductDescription implements ValueObject<String> {
         this.productDescription = productDescription;
     }
 
-    @Override
-    public String value() {
-        return productDescription;
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
     }
 
     public String getProductDescription() {

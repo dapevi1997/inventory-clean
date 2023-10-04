@@ -11,14 +11,15 @@ import co.com.inventory.mysql.config.repositories.*;
 import co.com.inventory.mysql.config.utilities.MapperUtils;
 import co.com.inventory.usecase.generic.gateways.MySqlRepository;
 import co.com.inventory.model.branch.utils.ProductSaleUtil;
+import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.stereotype.Repository;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
 
 @Repository
 public class MySQLAdapter implements MySqlRepository {
+    private final R2dbcEntityTemplate r2dbcEntityTemplate;
 
     private final BranchRepository branchRepository;
     private final ProductRepository productRepository;
@@ -27,7 +28,11 @@ public class MySQLAdapter implements MySqlRepository {
     private final SaleRepository saleRepository;
     private final MapperUtils mapperUtils;
 
-    public MySQLAdapter(BranchRepository branchRepository, ProductRepository productRepository, UserRepository userRepository, ProductSaleRepository productSaleRepository, SaleRepository saleRepository, MapperUtils mapperUtils) {
+    public MySQLAdapter(R2dbcEntityTemplate r2dbcEntityTemplate, BranchRepository branchRepository,
+                        ProductRepository productRepository, UserRepository userRepository,
+                        ProductSaleRepository productSaleRepository, SaleRepository saleRepository,
+                        MapperUtils mapperUtils) {
+        this.r2dbcEntityTemplate = r2dbcEntityTemplate;
         this.branchRepository = branchRepository;
         this.productRepository = productRepository;
         this.userRepository = userRepository;
@@ -37,25 +42,26 @@ public class MySQLAdapter implements MySqlRepository {
     }
 
     @Override
-    public Mono<Branch> saveBranch(String branchNameP, String branchCountry, String branchCity) {
+    public Mono<Branch> saveBranch(String branchId,String branchNameP, String branchCountry, String branchCity) {
         BranchMySQL branchMySQLAux = new BranchMySQL();
         BranchName branchName = new BranchName(branchNameP);
         BranchLocation branchLocation = new BranchLocation(branchCountry, branchCity);
 
+        branchMySQLAux.setBranch_id(branchId);
         branchMySQLAux.setBranchName(branchNameP);
         branchMySQLAux.setBranch_country(branchCountry);
         branchMySQLAux.setBranchCity(branchCity);
 
-        return branchRepository.save(branchMySQLAux).map(branchMySQL -> {
-            return new Branch(BranchId.of(branchMySQL.getId().toString()),
-                    branchName, branchLocation);
-        });
+        return r2dbcEntityTemplate.insert(branchMySQLAux).map(branchMySQL -> {
+            return new Branch(BranchId.of(branchMySQL.getBranch_id().toString()),
+                    branchName, branchLocation);});
 
     }
 
     @Override
     public Mono<Product> saveProduct(String branchId, String productName, String description, String productPrice, String productInventoryStock, String productCategory) {
-        try {
+        return null;
+/*        try {
             Long.parseLong(branchId);
         } catch (NumberFormatException e) {
             throw new NumberFormatException("El campo branchId debe ser un entero y no puede ser null");
@@ -77,7 +83,7 @@ public class MySQLAdapter implements MySqlRepository {
                     new ProductPrice(productPrice),
                     new ProductInventoryStock(productInventoryStock),
                     new ProductCategory(productCategory));
-        });
+        });*/
     }
 
     @Override
@@ -118,8 +124,9 @@ public class MySQLAdapter implements MySqlRepository {
 
     @Override
     public Mono<WraperSaveProductSales> saveProductSales(String branchId, List<ProductSaleUtil> productSaleUtilList, String uuid, Float discount) {
+        return null;
 
-        return Flux.fromIterable(productSaleUtilList)
+/*        return Flux.fromIterable(productSaleUtilList)
                 .flatMap(productSaleUtil -> {
                     return findProductbyId(Long.parseLong(productSaleUtil.getProductSaleId()))
                             .flatMap(
@@ -159,7 +166,7 @@ public class MySQLAdapter implements MySqlRepository {
                             return new WraperSaveProductSales(productSaleUtilList,uuid,Long.parseLong(branchId));
 
                         }
-                );
+                );*/
 
     }
 }

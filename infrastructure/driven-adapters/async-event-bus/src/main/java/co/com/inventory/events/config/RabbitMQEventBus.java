@@ -2,7 +2,7 @@ package co.com.inventory.events.config;
 
 import co.com.inventory.events.config.data.Notification;
 import co.com.inventory.mapper.JSONMapper;
-import co.com.inventory.model.branch.generic.DomainEvent;
+import co.com.inventory.model.branch.utils.DomainEvent;
 import co.com.inventory.usecase.generic.gateways.EventBus;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;

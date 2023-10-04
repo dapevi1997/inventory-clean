@@ -1,9 +1,9 @@
 package co.com.inventory.model.branch.events;
 
-import co.com.inventory.model.branch.generic.DomainEvent;
+import co.com.inventory.model.branch.utils.DomainEvent;
 
-public class UserRegistered extends DomainEvent {
-    private String userId;
+public class UserRegistered /*extends DomainEvent*/ {
+/*    private String userId;
     private String userName;
     private String userLastName;
     private String userPassword;
@@ -46,5 +46,5 @@ public class UserRegistered extends DomainEvent {
 
     public String getUserRole() {
         return userRole;
-    }
+    }*/
 }

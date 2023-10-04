@@ -1,11 +1,11 @@
 package co.com.inventory.model.branch.values;
 
 import co.com.inventory.model.branch.exceptions.BlankStringException;
-import co.com.inventory.model.branch.generic.ValueObject;
+
 
 import java.util.Objects;
 
-public class UserRole implements ValueObject<String> {
+public class UserRole {
     private String userRole;
 
     public UserRole(String userRole) {
@@ -16,9 +16,8 @@ public class UserRole implements ValueObject<String> {
         this.userRole = userRole;
     }
 
-    @Override
-    public String value() {
-        return userRole;
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 
     public String getUserRole() {

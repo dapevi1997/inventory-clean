@@ -1,12 +1,25 @@
 package co.com.inventory.model.branch.values;
 
-import co.com.inventory.model.branch.generic.Identity;
 
-public class UserId extends Identity {
-    public UserId() {
+import java.util.Objects;
+
+public class UserId{
+    private Long userId;
+    public UserId(String userId) {
+        Objects.requireNonNull(userId, "El campo userId no puede ser nulo");
+        try {
+            this.userId = Long.parseLong(userId);
+        }catch (Exception e){
+            throw new NumberFormatException("El campo userId debe ser un número entero");
+        }
     }
-    public UserId(String uuid) {
-        super(uuid);
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public static UserId of(String uuid){

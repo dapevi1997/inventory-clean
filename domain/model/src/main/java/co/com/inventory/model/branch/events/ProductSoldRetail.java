@@ -1,9 +1,9 @@
 package co.com.inventory.model.branch.events;
 
-import co.com.inventory.model.branch.generic.DomainEvent;
+import co.com.inventory.model.branch.utils.DomainEvent;
 
-public class ProductSoldRetail extends DomainEvent {
-    private String productSaleId;
+public class ProductSoldRetail /*extends DomainEvent*/ {
+/*    private String productSaleId;
 
     private String productSales;
 
@@ -23,5 +23,5 @@ public class ProductSoldRetail extends DomainEvent {
 
     public String getProductSales() {
         return productSales;
-    }
+    }*/
 }

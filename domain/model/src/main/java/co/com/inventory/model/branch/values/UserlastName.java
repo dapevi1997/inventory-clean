@@ -1,11 +1,10 @@
 package co.com.inventory.model.branch.values;
 
 import co.com.inventory.model.branch.exceptions.BlankStringException;
-import co.com.inventory.model.branch.generic.ValueObject;
 
 import java.util.Objects;
 
-public class UserlastName implements ValueObject<String> {
+public class UserlastName {
     private String userLastName;
 
     public UserlastName(String userLastName) {
@@ -14,11 +13,6 @@ public class UserlastName implements ValueObject<String> {
             throw new BlankStringException("El campo userLastName no puede estar vacío");
         }
         this.userLastName = userLastName;
-    }
-
-    @Override
-    public String value() {
-        return userLastName;
     }
 
     public String getUserLastName() {

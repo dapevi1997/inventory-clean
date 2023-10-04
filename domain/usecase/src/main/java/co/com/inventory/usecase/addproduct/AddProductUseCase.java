@@ -1,31 +1,29 @@
 package co.com.inventory.usecase.addproduct;
 
 
-import co.com.inventory.model.branch.Branch;
-import co.com.inventory.model.branch.generic.DomainEvent;
-import co.com.inventory.model.branch.values.*;
+import co.com.inventory.model.branch.utils.DomainEvent;
 import co.com.inventory.usecase.generic.UseCaseForCommand;
 import co.com.inventory.usecase.generic.commands.AddProductCommand;
 import co.com.inventory.usecase.generic.gateways.DomainEventRepository;
 import co.com.inventory.usecase.generic.gateways.EventBus;
-import co.com.inventory.usecase.generic.gateways.MySqlRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public class AddProductUseCase extends UseCaseForCommand<AddProductCommand> {
     private final DomainEventRepository domainEventRepository;
-    private final MySqlRepository mySqlRepository;
     private final EventBus eventBus;
 
 
-    public AddProductUseCase(DomainEventRepository domainEventRepository, MySqlRepository mySqlRepository, EventBus eventBus) {
+    public AddProductUseCase(DomainEventRepository domainEventRepository, EventBus eventBus) {
         this.domainEventRepository = domainEventRepository;
-        this.mySqlRepository = mySqlRepository;
+
         this.eventBus = eventBus;
     }
 
     @Override
     public Flux<DomainEvent> apply(Mono<AddProductCommand> addProductCommandMono) {
+        return null;
+/*
         return addProductCommandMono.flatMap(addProductCommand -> {
             return mySqlRepository.saveProduct(addProductCommand.getBranchId(),
                     addProductCommand.getProductName(), addProductCommand.getProductDescription(),
@@ -56,6 +54,7 @@ public class AddProductUseCase extends UseCaseForCommand<AddProductCommand> {
 
                     });
         });
+*/
 
 
 

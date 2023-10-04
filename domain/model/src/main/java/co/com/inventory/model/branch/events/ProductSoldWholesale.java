@@ -1,12 +1,9 @@
 package co.com.inventory.model.branch.events;
 
-import co.com.inventory.model.branch.entities.ProductSale;
-import co.com.inventory.model.branch.generic.DomainEvent;
+import co.com.inventory.model.branch.utils.DomainEvent;
 
-import java.util.List;
-
-public class ProductSoldWholesale extends DomainEvent {
-    //private String branchId;
+public class ProductSoldWholesale /*extends DomainEvent*/ {
+/*    //private String branchId;
     private String productSaleId;
 
     private String productSales;
@@ -21,9 +18,9 @@ public class ProductSoldWholesale extends DomainEvent {
         this.productSales = productSales;
     }
 
-/*    public String getBranchId() {
+*//*    public String getBranchId() {
         return branchId;
-    }*/
+    }*//*
 
     public String getProductSales() {
         return productSales;
@@ -31,5 +28,5 @@ public class ProductSoldWholesale extends DomainEvent {
 
     public String getProductSaleId() {
         return productSaleId;
-    }
+    }*/
 }

@@ -2,9 +2,8 @@ package co.com.inventory.api;
 
 
 import co.com.inventory.model.branch.exceptions.BlankStringException;
-import co.com.inventory.model.branch.generic.DomainEvent;
 import co.com.inventory.usecase.addproduct.AddProductUseCase;
-import co.com.inventory.usecase.createbranch.CreateBranchUseCase;
+import co.com.inventory.usecase.alpha.CreateBranchUseCase;
 import co.com.inventory.usecase.generic.commands.AddProductCommand;
 import co.com.inventory.usecase.generic.commands.AddProductSaleCommand;
 import co.com.inventory.usecase.generic.commands.AddUserCommand;
@@ -27,7 +26,7 @@ public class RouterRest {
     @Bean
     public RouterFunction<ServerResponse> routerFunction(CreateBranchUseCase createBranchUseCase) {
         return route(
-                POST("/api/v1/branch/register")
+                POST("/api/v1/branch/register/yaEnReactiveCommands")
                         .and(accept(MediaType.APPLICATION_JSON)),
                 request -> {
                     return createBranchUseCase.apply(request.bodyToMono(CreateBranchCommand.class))

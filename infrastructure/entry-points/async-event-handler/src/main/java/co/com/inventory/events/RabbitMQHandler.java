@@ -6,17 +6,19 @@ import org.springframework.stereotype.Component;
 
 import java.util.logging.Logger;
 
-@Component
+//@Component
 public class RabbitMQHandler {
     public static final String EVENTS_QUEUE = "events.queue";
     private final Logger logger = Logger.getLogger("RabbitMqEventHandler");
 
-    @RabbitListener(queues = EVENTS_QUEUE)
+    public RabbitMQHandler() {
+    }
+/*    @RabbitListener(queues = EVENTS_QUEUE)
     public void listener(String message) throws ClassNotFoundException{
         Notification notification = Notification.from(message);
         logger.info(notification.toString());
 
-    }
+    }*/
 
 
 }

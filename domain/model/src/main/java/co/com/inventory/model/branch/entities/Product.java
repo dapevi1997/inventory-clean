@@ -1,11 +1,11 @@
 package co.com.inventory.model.branch.entities;
 
-import co.com.inventory.model.branch.generic.Entity;
 import co.com.inventory.model.branch.values.*;
 
 import java.util.Objects;
 
-public class Product extends Entity<ProductId> {
+public class Product {
+    private ProductId productId;
     private ProductName productName;
     private ProductDescription productDescription;
     private ProductPrice productPrice;
@@ -13,8 +13,8 @@ public class Product extends Entity<ProductId> {
     private ProductCategory productCategory;
 
     public Product(ProductId productId, ProductName productName, ProductDescription productDescription, ProductPrice productPrice, ProductInventoryStock productInventoryStock, ProductCategory productCategory) {
-        super(productId);
         Objects.requireNonNull(productId, "El ProductId no puede ser nulo");
+        this.productId = productId;
         this.productName = productName;
         this.productDescription = productDescription;
         this.productPrice = productPrice;

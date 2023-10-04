@@ -1,20 +1,20 @@
 package co.com.inventory.model.branch.entities;
 
-import co.com.inventory.model.branch.generic.Entity;
 import co.com.inventory.model.branch.values.*;
 
 import java.util.Objects;
 
-public class User extends Entity<UserId> {
+public class User {
+    private UserId userId;
     private UserName userName;
     private UserlastName userlastName;
     private UserPassword userPassword;
     private UserEmail userEmail;
     private UserRole userRole;
 
-    public User(UserId id, UserName userName, UserlastName userlastName,UserPassword userPassword, UserEmail userEmail, UserRole userRole) {
-        super(id);
-        Objects.requireNonNull(id, "El UserId no puede ser nulo");
+    public User(UserId userId, UserName userName, UserlastName userlastName,UserPassword userPassword, UserEmail userEmail, UserRole userRole) {
+        Objects.requireNonNull(userId, "El UserId no puede ser nulo");
+        this.userId = userId;
         this.userName = userName;
         this.userPassword = userPassword;
         this.userEmail = userEmail;

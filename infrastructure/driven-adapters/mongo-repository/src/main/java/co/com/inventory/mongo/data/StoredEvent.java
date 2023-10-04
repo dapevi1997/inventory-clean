@@ -1,7 +1,7 @@
 package co.com.inventory.mongo.data;
 
 import co.com.inventory.mapper.JSONMapper;
-import co.com.inventory.model.branch.generic.DomainEvent;
+import co.com.inventory.model.branch.utils.DomainEvent;
 
 import java.util.Date;
 

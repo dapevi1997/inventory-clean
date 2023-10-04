@@ -1,6 +1,6 @@
 package co.com.inventory.usecase.generic;
 
-import co.com.inventory.model.branch.generic.DomainEvent;
+import co.com.inventory.model.branch.utils.DomainEvent;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

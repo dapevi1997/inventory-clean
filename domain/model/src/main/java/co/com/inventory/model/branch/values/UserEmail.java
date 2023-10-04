@@ -1,12 +1,11 @@
 package co.com.inventory.model.branch.values;
 
-import co.com.inventory.model.branch.generic.ValueObject;
 
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class UserEmail implements ValueObject<String> {
+public class UserEmail {
     private String userEmail;
 
     public UserEmail(String userEmail) {
@@ -22,9 +21,8 @@ public class UserEmail implements ValueObject<String> {
         this.userEmail = userEmail;
     }
 
-    @Override
-    public String value() {
-        return userEmail;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public String getUserEmail() {

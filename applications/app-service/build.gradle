@@ -1,18 +1,28 @@
 apply plugin: 'org.springframework.boot'
 
 dependencies {
-	implementation project( ':async-event-handler')
-	implementation project( ':async-event-bus')
-	implementation project( ':mysql')
-	implementation 'org.reactivecommons.utils:object-mapper:0.1.0'
-	implementation project( ':mongo-repository')
-	implementation project( ':reactive-web')
-	implementation project( ':mapper')
+	//implementation project( ':async-event-handler')
+
+
+	//implementation 'org.reactivecommons.utils:object-mapper:0.1.0'
+
+	//implementation project( ':reactive-web')
+
+
+    implementation project (':reactive-web-commands')
+    implementation project( ':mongo-repository')
+    implementation project (':rabbitmq-listener-commands')
+    implementation project( ':mapper')
+    implementation project( ':async-event-bus')
+    implementation project( ':mysql')
+
     implementation project(':model')
     implementation project(':usecase')
     implementation 'org.springframework.boot:spring-boot-starter'
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
     testImplementation 'com.tngtech.archunit:archunit:1.0.1'
+
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-amqp', version: '3.0.4'
 }
 
 tasks.register('explodedJar', Copy) {

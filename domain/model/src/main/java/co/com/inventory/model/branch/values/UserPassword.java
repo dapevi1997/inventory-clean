@@ -1,12 +1,11 @@
 package co.com.inventory.model.branch.values;
 
-import co.com.inventory.model.branch.generic.ValueObject;
 
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class UserPassword implements ValueObject<String> {
+public class UserPassword {
     private String password;
 
     public UserPassword(String password) {
@@ -20,9 +19,8 @@ public class UserPassword implements ValueObject<String> {
         this.password = password;
     }
 
-    @Override
-    public String value() {
-        return password;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPassword() {

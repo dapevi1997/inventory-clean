@@ -2,12 +2,11 @@ package co.com.inventory.model.branch.values;
 
 
 import co.com.inventory.model.branch.exceptions.BlankStringException;
-import co.com.inventory.model.branch.generic.ValueObject;
 
 
 import java.util.Objects;
 
-public class BranchName implements ValueObject<String> {
+public class BranchName {
     private String branchName;
 
     public BranchName(String branchName) {
@@ -20,9 +19,8 @@ public class BranchName implements ValueObject<String> {
         this.branchName = branchName;
     }
 
-    @Override
-    public String value() {
-        return branchName;
+    public void setBranchName(String branchName) {
+        this.branchName = branchName;
     }
 
     public String getBranchName() {

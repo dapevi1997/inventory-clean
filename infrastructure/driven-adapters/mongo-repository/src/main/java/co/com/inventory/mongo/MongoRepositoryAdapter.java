@@ -1,12 +1,16 @@
 package co.com.inventory.mongo;
 
 import co.com.inventory.mapper.JSONMapper;
-import co.com.inventory.model.branch.generic.DomainEvent;
+import co.com.inventory.model.branch.utils.DomainEvent;
+import co.com.inventory.model.branch.utils.StoredEventModel;
+import co.com.inventory.mongo.data.Sequence;
 import co.com.inventory.mongo.data.StoredEvent;
 import co.com.inventory.usecase.generic.gateways.DomainEventRepository;
+import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -16,8 +20,7 @@ import java.util.Comparator;
 import java.util.Date;
 
 @Repository
-public class MongoRepositoryAdapter implements DomainEventRepository
-{
+public class MongoRepositoryAdapter implements DomainEventRepository {
     private final ReactiveMongoTemplate mongoRepository;
     private final JSONMapper eventSerializer;
 
@@ -25,21 +28,19 @@ public class MongoRepositoryAdapter implements DomainEventRepository
         this.mongoRepository = mongoRepository;
         this.eventSerializer = eventSerializer;
     }
-
     @Override
     public Mono<DomainEvent> saveEvent(DomainEvent event) {
-        String rootId = event.aggregateRootId().trim().replace(":","").replace(",","");
 
         StoredEvent eventStored = new StoredEvent();
-        eventStored.setAggregateRootId(rootId);
-        eventStored.setTypeName(event.getClass().getTypeName());
+        eventStored.setAggregateRootId(event.getAggregateRootId());
+        eventStored.setTypeName(event.getType());
         eventStored.setOccurredOn(new Date());
         eventStored.setEventBody(StoredEvent.wrapEvent(event, eventSerializer));
 
         return mongoRepository.save(eventStored)
-                .map(storeEvent -> storeEvent.deserializeEvent(eventSerializer));
+                .map(storeEvent ->
+                        storeEvent.deserializeEvent(eventSerializer));
     }
-
     @Override
     public Flux<DomainEvent> findById(String aggregateId) {
         var query = new Query(Criteria.where("aggregateRootId").is(aggregateId));

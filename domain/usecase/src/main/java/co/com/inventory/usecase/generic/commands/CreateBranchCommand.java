@@ -1,8 +1,7 @@
 package co.com.inventory.usecase.generic.commands;
 
-import co.com.inventory.usecase.generic.Command;
 
-public class CreateBranchCommand extends Command {
+public class CreateBranchCommand {
     private String branchName;
     private String branchCountry;
     private String branchCity;

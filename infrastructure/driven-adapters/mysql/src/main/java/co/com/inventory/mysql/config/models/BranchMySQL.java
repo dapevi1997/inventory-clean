@@ -9,8 +9,8 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("prueba1.branch")
 public class BranchMySQL {
     @Id
-    @Column("id")
-    private Long id;
+    @Column("branch_id")
+    private String branch_id;
     @Column("branch_name")
     private String branchName;
     @Column("branch_country")

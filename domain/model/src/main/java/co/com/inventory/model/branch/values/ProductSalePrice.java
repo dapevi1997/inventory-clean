@@ -1,10 +1,9 @@
 package co.com.inventory.model.branch.values;
 
-import co.com.inventory.model.branch.generic.ValueObject;
 
 import java.util.Objects;
 
-public class ProductSalePrice implements ValueObject<Float> {
+public class ProductSalePrice {
     private Float productSalePrice;
 
     public ProductSalePrice(String productSalePrice) {
@@ -18,17 +17,12 @@ public class ProductSalePrice implements ValueObject<Float> {
 
     }
 
-    @Override
-    public Float value() {
-        return productSalePrice;
+    public void setProductSalePrice(Float productSalePrice) {
+        this.productSalePrice = productSalePrice;
     }
 
     public Float getProductSalePrice() {
         return productSalePrice;
     }
 
-    @Override
-    public String toString() {
-        return productSalePrice.toString() ;
-    }
 }
