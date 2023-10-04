@@ -4,6 +4,7 @@ import co.com.inventory.events.data.Notification;
 import co.com.inventory.mapper.JSONMapperImpl;
 import co.com.inventory.model.branch.events.BranchCreated;
 import co.com.inventory.model.branch.events.ProductAdded;
+import co.com.inventory.model.branch.events.ProductSoldWholesale;
 import co.com.inventory.model.branch.events.UserRegistered;
 import co.com.inventory.usecase.alpha.SaveBranchViewUseCase;
 import co.com.inventory.usecase.alpha.SaveProductViewUseCase;
@@ -65,6 +66,17 @@ public class RabbitMQHandler {
                     .subscribe(branch -> {
                         logger.info(notification.toString());
                     });
+            logger.info(notification.toString());
+        }
+        if(notification.getType().equals("co.com.inventory.model.branch.events.ProductSoldWholesale")){
+            ProductSoldWholesale productSoldWholesale = (ProductSoldWholesale) jsonMapper.readFromJson(notification.getBody(), ProductSoldWholesale.class);
+
+  /*          saveUserViewUseCase.execute(userRegistered.getAggregateRootId(), userRegistered.getUserName(),
+                            userRegistered.getUserLastName(), userRegistered.getUserPassword(),
+                            userRegistered.getUserEmail(), userRegistered.getUserRole())
+                    .subscribe(branch -> {
+                        logger.info(notification.toString());
+                    });*/
             logger.info(notification.toString());
         }
 

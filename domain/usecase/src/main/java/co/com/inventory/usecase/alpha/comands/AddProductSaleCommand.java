@@ -1,11 +1,11 @@
-package co.com.inventory.usecase.generic.commands;
+package co.com.inventory.usecase.alpha.comands;
 
 import co.com.inventory.usecase.generic.Command;
 import co.com.inventory.model.branch.utils.ProductSaleUtil;
 
 import java.util.List;
 
-public class AddProductSaleCommand extends Command {
+public class AddProductSaleCommand {
     private String branchId;
     private String productSaleId;
     private List<ProductSaleUtil> productSalesUtil;

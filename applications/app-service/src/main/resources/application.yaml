@@ -1,3 +1,5 @@
+beta: 8081
+gama: 8082
 server:
   port: 8080
 spring:

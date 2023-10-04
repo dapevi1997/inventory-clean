@@ -3,13 +3,13 @@ package co.com.inventory.usecase.registersaleretail;
 
 import co.com.inventory.model.branch.utils.DomainEvent;
 import co.com.inventory.usecase.generic.UseCaseForCommand;
-import co.com.inventory.usecase.generic.commands.AddProductSaleCommand;
+import co.com.inventory.usecase.alpha.comands.AddProductSaleCommand;
 import co.com.inventory.usecase.generic.gateways.DomainEventRepository;
 import co.com.inventory.usecase.generic.gateways.EventBus;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public class RegisterSaleRetailUseCase extends UseCaseForCommand<AddProductSaleCommand> {
+public class RegisterSaleRetailUseCase{
     private final DomainEventRepository domainEventRepository;
     private final EventBus eventBus;
 
@@ -20,7 +20,7 @@ public class RegisterSaleRetailUseCase extends UseCaseForCommand<AddProductSaleC
         this.eventBus = eventBus;
     }
 
-    @Override
+
     public Flux<DomainEvent> apply(Mono<AddProductSaleCommand> addProductSaleCommandMono) {
         return null;
 /*        return addProductSaleCommandMono.flatMap(addProductSaleCommand -> {

@@ -42,7 +42,6 @@ public class ProductSaleUtil {
     public String toString() {
         return "{" +
                 "productSaleId:" + productSaleId  +
-                ", productSalePrice:" + productSalePrice  +
                 ", productSaleStock:" + productSaleStock +
                 '}';
     }

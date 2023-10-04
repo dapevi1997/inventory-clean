@@ -11,4 +11,6 @@ public class GenericConfig {
     public JSONMapper jsonMapper(){
         return new JSONMapperImpl();
     }
+
+
 }

@@ -6,7 +6,7 @@ dependencies {
 	implementation project( ':mysql')
 	implementation 'org.reactivecommons.utils:object-mapper:0.1.0'
 	implementation project( ':mongo-repository')
-	implementation project( ':reactive-web')
+	//implementation project( ':reactive-web')
 	implementation project( ':mapper')
     implementation project(':model')
     implementation project(':usecase')

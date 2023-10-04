@@ -10,10 +10,10 @@ dependencies {
 	//implementation project( ':mapper')
 
 
-
-
     implementation project(':model')
     implementation project(':usecase')
+    implementation project(':reactive-web-query')
+    implementation project (':mysql-query')
     implementation 'org.springframework.boot:spring-boot-starter'
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
     testImplementation 'com.tngtech.archunit:archunit:1.0.1'

@@ -16,7 +16,5 @@ public interface MySqlRepository {
                               String productInventoryStock, String productCategory);
     Mono<User> saveUser(String branchId, String userName,String userLastName,String userPassword, String userEmail, String userRol);
 
-    Mono<Product> findProductbyId(Long productId);
-
     Mono<WraperSaveProductSales> saveProductSales(String branchId, List<ProductSaleUtil> productSaleUtilList, String uuid, Float discount);
 }

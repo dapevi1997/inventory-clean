@@ -95,20 +95,6 @@ public class MySQLAdapter implements MySqlRepository {
     }
 
     @Override
-    public Mono<Product> findProductbyId(Long productId) {
-        return null;
-/*        return productRepository.findById(productId)
-                .map(productMySQL -> {
-                    return new Product(ProductId.of(productMySQL.getProductId().toString()),
-                            new ProductName(productMySQL.getProductName()),
-                            new ProductDescription(productMySQL.getProductDescription()),
-                            new ProductPrice(productMySQL.getProductPrice().toString()),
-                            new ProductInventoryStock(productMySQL.getProductInventoryStock().toString()),
-                            new ProductCategory(productMySQL.getProductCategory()));
-                });*/
-    }
-
-    @Override
     public Mono<WraperSaveProductSales> saveProductSales(String branchId, List<ProductSaleUtil> productSaleUtilList, String uuid, Float discount) {
         return null;
 
