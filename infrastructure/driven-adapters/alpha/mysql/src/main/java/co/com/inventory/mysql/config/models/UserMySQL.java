@@ -9,8 +9,8 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("prueba1.user_table")
 public class UserMySQL {
     @Id
-    @Column("id")
-    private Long id;
+    @Column("user_id")
+    private String userId;
     @Column("user_name")
     private String userName;
     @Column("user_lastName")
@@ -22,5 +22,5 @@ public class UserMySQL {
     @Column("user_role")
     private String userRole;
     @Column("branch_id")
-    private Long branchId;
+    private String branchId;
 }

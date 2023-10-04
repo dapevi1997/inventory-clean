@@ -24,3 +24,18 @@ CREATE TABLE IF NOT EXISTS branch (
         ON UPDATE CASCADE
         );
 
+            -- Create the Product table
+            CREATE TABLE IF NOT EXISTS user_table (
+                user_id VARCHAR(500) NOT NULL,
+                user_name VARCHAR(100),
+                user_lastName VARCHAR(100),
+                user_password VARCHAR(100),
+                user_email VARCHAR(100),
+                user_role VARCHAR(100),
+                branch_id VARCHAR(500) NOT NULL,
+                PRIMARY KEY (user_id),
+                FOREIGN KEY (branch_id)
+                REFERENCES branch(branch_id)
+                ON DELETE CASCADE
+                ON UPDATE CASCADE
+                );

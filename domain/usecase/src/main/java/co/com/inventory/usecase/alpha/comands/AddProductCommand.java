@@ -1,8 +1,6 @@
 package co.com.inventory.usecase.alpha.comands;
 
-import co.com.inventory.usecase.generic.Command;
-
-public class AddProductCommand extends Command {
+public class AddProductCommand{
     private String branchId;
     private String productName;
     private String productDescription;

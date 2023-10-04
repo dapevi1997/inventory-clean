@@ -1,8 +1,7 @@
-package co.com.inventory.usecase.generic.commands;
+package co.com.inventory.usecase.alpha.comands;
 
-import co.com.inventory.usecase.generic.Command;
 
-public class AddUserCommand extends Command {
+public class AddUserCommand{
     private String branchId;
     private String userName;
     private String userLastname;

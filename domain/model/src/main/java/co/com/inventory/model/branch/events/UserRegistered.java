@@ -2,8 +2,9 @@ package co.com.inventory.model.branch.events;
 
 import co.com.inventory.model.branch.utils.DomainEvent;
 
-public class UserRegistered /*extends DomainEvent*/ {
-/*    private String userId;
+public class UserRegistered extends DomainEvent {
+    private String branchId;
+    private String userId;
     private String userName;
     private String userLastName;
     private String userPassword;
@@ -11,11 +12,13 @@ public class UserRegistered /*extends DomainEvent*/ {
     private String userRole;
 
     public UserRegistered() {
-        super("co.com.inventory.model.branch.events.UserRegistered");
+        super("co.com.inventory.model.branch.events.UserRegistered","branch");
     }
 
-    public UserRegistered(String userId,String userName,String userLastName ,String userPassword, String userEmail, String userRole) {
-        super("co.com.inventory.model.branch.events.UserRegistered");
+    public UserRegistered(String branchId, String userId, String userName, String userLastName , String userPassword, String userEmail, String userRole) {
+        super("co.com.inventory.model.branch.events.UserRegistered","branch");
+        super.setAggregateRootId(branchId);
+        this.branchId = branchId;
         this.userId = userId;
         this.userName = userName;
         this.userPassword = userPassword;
@@ -46,5 +49,5 @@ public class UserRegistered /*extends DomainEvent*/ {
 
     public String getUserRole() {
         return userRole;
-    }*/
+    }
 }

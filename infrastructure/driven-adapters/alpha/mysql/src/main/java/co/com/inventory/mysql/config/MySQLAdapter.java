@@ -15,24 +15,18 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class MySQLAdapter implements MySqlRepository {
     private final R2dbcEntityTemplate r2dbcEntityTemplate;
-
-    private final ProductRepository productRepository;
-    private final UserRepository userRepository;
     private final ProductSaleRepository productSaleRepository;
     private final SaleRepository saleRepository;
 
     public MySQLAdapter(R2dbcEntityTemplate r2dbcEntityTemplate,
-                        ProductRepository productRepository, UserRepository userRepository,
                         ProductSaleRepository productSaleRepository, SaleRepository saleRepository
                         ) {
         this.r2dbcEntityTemplate = r2dbcEntityTemplate;
-
-        this.productRepository = productRepository;
-        this.userRepository = userRepository;
         this.productSaleRepository = productSaleRepository;
         this.saleRepository = saleRepository;
     }
@@ -81,23 +75,23 @@ public class MySQLAdapter implements MySqlRepository {
     public Mono<User> saveUser(String branchId, String userName, String userLastName, String userPassword, String userEmail, String userRol) {
 
         UserMySQL userMySQL = new UserMySQL();
-        userMySQL.setBranchId(Long.parseLong(branchId));
+        userMySQL.setUserId(UUID.randomUUID().toString());
         userMySQL.setUserName(userName);
         userMySQL.setUserLastName(userLastName);
         userMySQL.setUserPassword(userPassword);
         userMySQL.setUserEmail(userEmail);
         userMySQL.setUserRole(userRol);
+        userMySQL.setBranchId(branchId);
 
-
-        return userRepository.save(userMySQL).map(userMySQL1 -> {
-            return new User(UserId.of(userMySQL1.getId().toString()),
-                    new UserName(userName),
-                    new UserlastName(userLastName),
-                    new UserPassword(userPassword),
-                    new UserEmail(userEmail),
-                    new UserRole(userRol)
-            );
-        });
+        return r2dbcEntityTemplate.insert(userMySQL).map(userMySQL1 -> {
+            return new User(UserId.of(userMySQL1.getUserId()),
+                    new UserName(userMySQL1.getUserName()),
+                    new UserlastName(userMySQL1.getUserLastName()),
+                    new UserPassword(userMySQL1.getUserPassword()),
+                    new UserEmail(userMySQL1.getUserEmail()),
+                    new UserRole(userMySQL1.getUserRole()));
+        }
+        );
     }
 
     @Override
