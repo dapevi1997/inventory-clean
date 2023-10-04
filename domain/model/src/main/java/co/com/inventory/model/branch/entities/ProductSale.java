@@ -19,6 +19,10 @@ public class ProductSale {
         this.productSaleStock = productSaleStock;
     }
 
+    public ProductSaleId getProductSaleId() {
+        return productSaleId;
+    }
+
     public void setProductSalePrice(ProductSalePrice productSalePrice) {
         this.productSalePrice = productSalePrice;
     }

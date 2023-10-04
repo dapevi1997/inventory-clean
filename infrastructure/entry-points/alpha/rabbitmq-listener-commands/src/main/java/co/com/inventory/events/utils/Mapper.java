@@ -1,4 +1,4 @@
-package co.com.inventory.model.branch.utils;
+package co.com.inventory.events.utils;
 
 import co.com.inventory.model.branch.entities.ProductSale;
 import co.com.inventory.model.branch.values.ProductSaleId;
@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Mapper {
-    public static List<ProductSale> parseJsonToList(String jsonString) {
+    public static List<ProductSale> parseJsonToListOfProductSale(String jsonString) {
         List<ProductSale> listaDeObjetos = new ArrayList<>();
 
         Pattern pattern = Pattern.compile("\\{[^\\}]*\\}");
@@ -40,7 +40,7 @@ public class Mapper {
 
             if (productSaleId != null && productSaleStock!=null) {
                 ProductSale productSale = new ProductSale(ProductSaleId.of(productSaleId),
-                        new ProductSalePrice(""),
+                        new ProductSalePrice("0"),
                         new ProductSaleStock(productSaleStock));
                 listaDeObjetos.add(productSale);
             }

@@ -1,19 +1,20 @@
 package co.com.inventory.usecase.alpha;
 
+import co.com.inventory.model.branch.entities.ProductSale;
 import co.com.inventory.model.branch.entities.User;
 import co.com.inventory.usecase.generic.gateways.MySqlRepository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 public class SaveWholesaleViewUseCase {
     private final MySqlRepository mySqlRepository;
     public SaveWholesaleViewUseCase(MySqlRepository mySqlRepository) {
         this.mySqlRepository = mySqlRepository;
     }
-    public Mono<User> execute(String branchId, String userName, String userLastName, String userPassword, String userEmail, String userRol){
-        return mySqlRepository.saveUser( branchId, userName,
-                userLastName,
-                userPassword,
-                userEmail,
-                userRol);
+    public Flux<ProductSale> execute(String branchId, List<ProductSale> productSaleList, Float discount){
+        return mySqlRepository.saveSale( branchId, productSaleList, discount
+               );
     }
 }

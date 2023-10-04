@@ -2,9 +2,8 @@ package co.com.inventory.usecase.generic.gateways;
 
 import co.com.inventory.model.branch.Branch;
 import co.com.inventory.model.branch.entities.Product;
+import co.com.inventory.model.branch.entities.ProductSale;
 import co.com.inventory.model.branch.entities.User;
-import co.com.inventory.model.branch.utils.ProductSaleUtil;
-import co.com.inventory.model.branch.utils.WraperSaveProductSales;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -16,5 +15,5 @@ public interface MySqlRepository {
                               String productInventoryStock, String productCategory);
     Mono<User> saveUser(String branchId, String userName,String userLastName,String userPassword, String userEmail, String userRol);
 
-    Mono<WraperSaveProductSales> saveProductSales(String branchId, List<ProductSaleUtil> productSaleUtilList, String uuid, Float discount);
+    Flux<ProductSale> saveSale(String branchId, List<ProductSale> productSaleList, Float discount);
 }

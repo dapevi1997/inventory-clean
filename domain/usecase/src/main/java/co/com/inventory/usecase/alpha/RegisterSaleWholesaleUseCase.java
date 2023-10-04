@@ -35,9 +35,6 @@ public class RegisterSaleWholesaleUseCase {
                     addProductSaleCommand.getProductSalesUtil().toString()
             );
 
-
-
-
             return domainEventRepository.saveEvent(productSoldWholesale)
                     .map(domainEvent -> {
                         eventBus.publish(domainEvent);
@@ -48,7 +45,7 @@ public class RegisterSaleWholesaleUseCase {
 
 /*        return addProductSaleCommandMono.flatMap(addProductSaleCommand -> {
             String uuid = UUID.randomUUID().toString();
-            return mySqlRepository.saveProductSales(addProductSaleCommand.getBranchId(),
+            return mySqlRepository.saveSale(addProductSaleCommand.getBranchId(),
                     addProductSaleCommand.getProductSalesUtil(),uuid,0.7F);
 
         }).flatMapMany(wraperSaveProductSales -> {

@@ -5,7 +5,6 @@ import co.com.inventory.model.branch.utils.DomainEvent;
 public class ProductSoldWholesale extends DomainEvent {
     private String branchId;
     private String productSaleId;
-
     private String productSales;
 
     public ProductSoldWholesale() {

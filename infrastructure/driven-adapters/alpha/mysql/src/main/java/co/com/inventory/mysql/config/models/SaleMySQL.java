@@ -8,13 +8,10 @@ import org.springframework.data.relational.core.mapping.Table;
 @Data
 @Table("prueba1.sale")
 public class SaleMySQL {
-    @Id
-    @Column("id")
-    private Long id;
+    @Column("branch_id")
+    private String branchId;
     @Column("product_id")
-    private Long productId;
+    private String productId;
     @Column("product_sale_id")
-    private Long productSaleId;
-    @Column("sale_uuid")
-    private String saleUuid;
+    private String productSaleId;
 }

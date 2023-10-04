@@ -25,7 +25,7 @@ public class RegisterSaleRetailUseCase{
         return null;
 /*        return addProductSaleCommandMono.flatMap(addProductSaleCommand -> {
             String uuid = UUID.randomUUID().toString();
-            return mySqlRepository.saveProductSales(addProductSaleCommand.getBranchId(),
+            return mySqlRepository.saveSale(addProductSaleCommand.getBranchId(),
                     addProductSaleCommand.getProductSalesUtil(),uuid, 0.8F);
 
         }).flatMapMany(wraperSaveProductSales -> {

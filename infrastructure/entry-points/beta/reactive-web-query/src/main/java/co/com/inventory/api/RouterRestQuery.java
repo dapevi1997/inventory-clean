@@ -22,7 +22,7 @@ public class RouterRestQuery {
                 request -> {
                     return getPriceByIdUC.execute(request.pathVariable("id")).flatMap(
                             id -> {
-                                return ServerResponse.ok().bodyValue(id.toString());
+                                return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(id);
                             }
                     ).switchIfEmpty(Mono.empty());
         /*            return createBranchUseCase.apply(request.bodyToMono(CreateBranchCommand.class))
