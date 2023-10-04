@@ -7,6 +7,9 @@ import java.util.Objects;
 public class ProductName {
     private String productName;
 
+    public ProductName() {
+    }
+
     public ProductName(String productName) {
         Objects.requireNonNull(productName, "El campo productName no puede ser nulo");
         if(productName.isBlank()){

@@ -6,6 +6,9 @@ import java.util.Objects;
 public class ProductPrice {
     private Float productPrice;
 
+    public ProductPrice() {
+    }
+
     public ProductPrice(String productPrice) {
         Objects.requireNonNull(productPrice,"El campo productPrice no puede ser nulo");
         try {

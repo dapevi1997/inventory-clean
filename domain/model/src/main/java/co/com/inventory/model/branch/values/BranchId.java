@@ -7,6 +7,10 @@ import java.util.Objects;
 
 public class BranchId{
     private String branchId;
+
+    public BranchId() {
+    }
+
     public BranchId(String branchId) {
         Objects.requireNonNull(branchId, "El campo branchId no puede ser nulo");
         if(branchId.isBlank()){

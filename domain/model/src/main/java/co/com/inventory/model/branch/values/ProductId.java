@@ -1,24 +1,28 @@
 package co.com.inventory.model.branch.values;
 
 
+import co.com.inventory.model.branch.exceptions.BlankStringException;
+
 import java.util.Objects;
 
 public class ProductId {
-    private Long productId;
+    private String productId;
+
+    public ProductId() {
+    }
+
     public ProductId(String productId) {
         Objects.requireNonNull(productId, "El campo productId no puede ser nulo");
-        try {
-            this.productId = Long.parseLong(productId);
-        }catch (Exception e){
-            throw new NumberFormatException("El campo productId debe ser un número entero");
+        if(productId.isBlank()){
+            throw new BlankStringException("El campo productId no puede estar vacío");
         }
     }
 
-    public Long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 

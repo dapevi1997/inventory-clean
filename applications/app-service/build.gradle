@@ -13,7 +13,7 @@ dependencies {
     implementation project( ':mongo-repository')
     implementation project (':rabbitmq-listener-commands')
     implementation project( ':mapper')
-    implementation project( ':async-event-bus')
+    implementation project( ':rabbitmq-bus')
     implementation project( ':mysql')
 
     implementation project(':model')

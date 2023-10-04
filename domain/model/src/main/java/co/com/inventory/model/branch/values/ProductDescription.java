@@ -2,10 +2,14 @@ package co.com.inventory.model.branch.values;
 
 import co.com.inventory.model.branch.exceptions.BlankStringException;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class ProductDescription {
+public class ProductDescription  {
     private String productDescription;
+
+    public ProductDescription() {
+    }
 
     public ProductDescription(String productDescription) {
         Objects.requireNonNull(productDescription, "El campo productDescription no puede ser nulo");

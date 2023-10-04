@@ -6,6 +6,9 @@ import java.util.Objects;
 public class ProductInventoryStock {
     private Integer productInventoryStock;
 
+    public ProductInventoryStock() {
+    }
+
     public ProductInventoryStock(String productInventoryStock) {
         Objects.requireNonNull(productInventoryStock, "El campo productInventoryStock no puede ser nulo");
         try {

@@ -2,12 +2,12 @@ package co.com.inventory.api;
 
 
 import co.com.inventory.model.branch.exceptions.BlankStringException;
-import co.com.inventory.usecase.addproduct.AddProductUseCase;
+import co.com.inventory.usecase.alpha.AddProductUseCase;
 import co.com.inventory.usecase.alpha.CreateBranchUseCase;
-import co.com.inventory.usecase.generic.commands.AddProductCommand;
+import co.com.inventory.usecase.alpha.comands.AddProductCommand;
 import co.com.inventory.usecase.generic.commands.AddProductSaleCommand;
 import co.com.inventory.usecase.generic.commands.AddUserCommand;
-import co.com.inventory.usecase.generic.commands.CreateBranchCommand;
+import co.com.inventory.usecase.alpha.comands.CreateBranchCommand;
 import co.com.inventory.usecase.registersaleretail.RegisterSaleRetailUseCase;
 import co.com.inventory.usecase.registersalewholesale.RegisterSaleWholesaleUseCase;
 import co.com.inventory.usecase.registeruser.RegisterUserUseCase;

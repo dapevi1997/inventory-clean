@@ -7,6 +7,9 @@ import java.util.Objects;
 public class ProductCategory {
     private String productCategory;
 
+    public ProductCategory() {
+    }
+
     public ProductCategory(String productCategory) {
         Objects.requireNonNull(productCategory, "El campo productCategory no puede ser nulo");
         if(productCategory.isBlank()){

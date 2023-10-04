@@ -9,6 +9,9 @@ import java.util.Objects;
 public class BranchName {
     private String branchName;
 
+    public BranchName() {
+    }
+
     public BranchName(String branchName) {
         Objects.requireNonNull(branchName,"El campo branchName no puede ser nulo");
 

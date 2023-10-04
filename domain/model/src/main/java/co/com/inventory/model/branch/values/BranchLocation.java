@@ -8,6 +8,9 @@ public class BranchLocation {
     private String branchCountry;
     private String branchCity;
 
+    public BranchLocation() {
+    }
+
     public BranchLocation(String branchCountry, String branchCity) {
         Objects.requireNonNull(branchCountry,"El campo branchCountry no puede ser nulo");
         Objects.requireNonNull(branchCity,"El campo branchCity no puede ser nulo");
