@@ -31,13 +31,13 @@ public class RegisterSaleRetailUseCase{
                 .flatMap(addProductSaleCommand -> {
                     BranchId.of(addProductSaleCommand.getBranchId());
 
-                    ProductSoldRetail productSoldWholesale = new ProductSoldRetail(
+                    ProductSoldRetail productSoldRetail = new ProductSoldRetail(
                             addProductSaleCommand.getBranchId(),
                             UUID.randomUUID().toString(),
                             addProductSaleCommand.getProductSalesUtil().toString()
                     );
 
-                    return domainEventRepository.saveEvent(productSoldWholesale)
+                    return domainEventRepository.saveEvent(productSoldRetail)
                             .map(domainEvent -> {
                                 eventBus.publish(domainEvent);
                                 return domainEvent;

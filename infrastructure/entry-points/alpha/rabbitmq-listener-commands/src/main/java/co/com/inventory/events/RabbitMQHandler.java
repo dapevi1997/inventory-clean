@@ -81,7 +81,7 @@ public class RabbitMQHandler {
                     });
         }
 
-        if(notification.getType().equals("co.com.inventory.model.branch.events.ProductSoldWholesale")){
+        if(notification.getType().equals("co.com.inventory.model.branch.events.ProductSoldRetail")){
             ProductSoldRetail productSoldRetail = (ProductSoldRetail) jsonMapper.readFromJson(notification.getBody(), ProductSoldRetail.class);
 
             List<ProductSale> productSaleList = Mapper.parseJsonToListOfProductSale(productSoldRetail.getProductSales());
