@@ -13,7 +13,9 @@ import org.springframework.context.annotation.Configuration;
 public class RobbitMQConfig {
     public static final String EXCHANGE = "core-posts-events";
     public static final String EVENTS_QUEUE = "events.queue";
+    public static final String PROXY_QUEUE = "proxy.queue";
     public static final String ROUTING_KEY = "events.routing.key";
+    public static final String PROXY_ROUTING_KEY = "proxy.routing.key";
 
     @Bean
     public RabbitAdmin rabbitAdmin(RabbitTemplate rabbitTemplate){
@@ -25,6 +27,10 @@ public class RobbitMQConfig {
     public Queue eventsQueue(){
         return new Queue(EVENTS_QUEUE);
     }
+    @Bean
+    public Queue proxyQueue(){
+        return new Queue(PROXY_QUEUE);
+    }
 
     @Bean
     public TopicExchange eventsExchange(){
@@ -33,6 +39,10 @@ public class RobbitMQConfig {
     @Bean
     public Binding eventsBinding(){
         return BindingBuilder.bind(this.eventsQueue()).to(this.eventsExchange()).with(ROUTING_KEY);
+    }
+    @Bean
+    public Binding proxyBinding(){
+        return BindingBuilder.bind(this.proxyQueue()).to(this.eventsExchange()).with(PROXY_ROUTING_KEY);
     }
 
 }

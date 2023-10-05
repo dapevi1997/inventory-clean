@@ -61,7 +61,7 @@ public class RabbitMQHandler {
                     .subscribe(branch -> {
                         logger.info(notification.toString());
                     });
-            logger.info(notification.toString());
+
         }
         if(notification.getType().equals("co.com.inventory.model.branch.events.UserRegistered")){
             UserRegistered userRegistered = (UserRegistered) jsonMapper.readFromJson(notification.getBody(), UserRegistered.class);
@@ -72,7 +72,7 @@ public class RabbitMQHandler {
                     .subscribe(branch -> {
                         logger.info(notification.toString());
                     });
-            logger.info(notification.toString());
+
         }
         if(notification.getType().equals("co.com.inventory.model.branch.events.ProductSoldWholesale")){
             ProductSoldWholesale productSoldWholesale = (ProductSoldWholesale) jsonMapper.readFromJson(notification.getBody(), ProductSoldWholesale.class);

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class RabbitMQEventBus implements EventBus {
     public static final String EXCHANGE = "core-posts-events";
     public static final String ROUTING_KEY = "events.routing.key";
+    public static final String PROXY_ROUTING_KEY = "proxy.routing.key";
     private final RabbitTemplate rabbitTemplate;
     private final JSONMapper mapper;
 
@@ -27,6 +28,7 @@ public class RabbitMQEventBus implements EventBus {
                 mapper.writeToJson(event)
         );
         rabbitTemplate.convertAndSend(this.EXCHANGE,this.ROUTING_KEY,notification.serialize().getBytes());
+        rabbitTemplate.convertAndSend(this.EXCHANGE,this.PROXY_ROUTING_KEY,notification.serialize().getBytes());
     }
 
     @Override

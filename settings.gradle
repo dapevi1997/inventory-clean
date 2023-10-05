@@ -22,6 +22,8 @@ include 'reactive-web-commands'
 project(':reactive-web-commands').projectDir = file('./infrastructure/entry-points/alpha/reactive-web-commands')
 include 'rabbitmq-listener-commands'
 project(':rabbitmq-listener-commands').projectDir = file('./infrastructure/entry-points/alpha/rabbitmq-listener-commands')
+include 'rabbitmq-listener-gama'
+project(':rabbitmq-listener-gama').projectDir = file('./infrastructure/entry-points/gama/rabbitmq-listener-gama')
 include ':mapper'
 project(':mapper').projectDir = file('./infrastructure/helpers/mapper')
 include ':reactive-web-query'
