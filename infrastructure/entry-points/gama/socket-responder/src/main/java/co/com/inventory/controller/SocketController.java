@@ -1,15 +1,15 @@
-package larry.ramirez.controller;
+package co.com.inventory.controller;
 
+
+import co.com.inventory.mapper.JSONMapper;
+import co.com.inventory.mapper.JSONMapperImpl;
+import co.com.inventory.model.branch.events.ProductAdded;
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnError;
 import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
 import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
-import larry.ramirez.controller.model.CommentModel;
-import larry.ramirez.controller.model.PostModel;
-import larry.ramirez.serializer.JSONMapper;
-import larry.ramirez.serializer.JSONMapperImpl;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -56,7 +56,7 @@ public class SocketController {
     }
 
 
-    public void sendPostCreated(String correlationId, PostModel model) {
+    public void sendProductAdded(String correlationId, ProductAdded model) {
         String message = eventSerializer.writeToJson(model);
         if (Objects.nonNull(correlationId) && sessions.containsKey(correlationId)) {
             logger.info("Sent from: " + correlationId);
@@ -74,7 +74,7 @@ public class SocketController {
         }
     }
 
-    public void sendCommentAdded(String correlationId, CommentModel model) {
+/*    public void sendCommentAdded(String correlationId, CommentModel model) {
         String message = eventSerializer.writeToJson(model);
         if (Objects.nonNull(correlationId) && sessions.containsKey(correlationId)) {
             logger.info("Sent from: " + correlationId);
@@ -89,5 +89,5 @@ public class SocketController {
                         }
                     });
         }
-    }
+    }*/
 }

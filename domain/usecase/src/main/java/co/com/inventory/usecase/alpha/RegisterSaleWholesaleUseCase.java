@@ -43,29 +43,5 @@ public class RegisterSaleWholesaleUseCase {
         });
 
 
-/*        return addProductSaleCommandMono.flatMap(addProductSaleCommand -> {
-            String uuid = UUID.randomUUID().toString();
-            return mySqlRepository.saveSale(addProductSaleCommand.getBranchId(),
-                    addProductSaleCommand.getProductSalesUtil(),uuid,0.7F);
-
-        }).flatMapMany(wraperSaveProductSales -> {
-            return domainEventRepository.findById(wraperSaveProductSales.getBranchId().toString())
-                    .collectList()
-                    .flatMapMany(events -> {
-                        Branch branch = Branch.from(BranchId.of(wraperSaveProductSales.getBranchId().toString()),
-                                events);
-                        branch.registerSaleWholesale(ProductSaleId.of(wraperSaveProductSales.getUuid()),
-                                Mapper.parseJsonToList(wraperSaveProductSales.getProductSaleUtilList().toString())
-
-                        );
-                        return Flux.fromIterable(branch.getUncommittedChanges())
-                                .flatMap(domainEventRepository::saveEvent).map(domainEvent -> {
-                                    eventBus.publish(domainEvent);
-                                    return domainEvent;
-                                });
-
-                    });
-        });*/
-
     }
 }

@@ -138,60 +138,9 @@ public class MySQLAdapter implements MySqlRepository {
                         );
                     });
 
-    /*        return r2dbcEntityTemplate.insert(productSaleMySQL).map(
-
-                    productSaleMySQL1 -> {
-                        ProductSale productSale1 = new ProductSale(
-                                ProductSaleId.of(productSaleMySQL1.getProductSaleId()),
-                                new ProductSalePrice(productSaleMySQL1.getProductSalePrice().toString()),
-                                new ProductSaleStock(productSaleMySQL1.getProductSaleAmount().toString())
-                        );
-                        return productSale1;
-                    }
-            );*/
         });
 
-/*        return Flux.fromIterable(productSaleUtilList)
-                .flatMap(productSaleUtil -> {
-                    return findProductbyId(Long.parseLong(productSaleUtil.getProductSaleId()))
-                            .flatMap(
-                                    product -> {
-                                        ProductSaleMySQL productSaleMySQL = new ProductSaleMySQL();
-                                        String id = product.identity().toString().trim().replace(":","").replace(",","");
 
-                                        productSaleMySQL.setBranchId(Long.parseLong(branchId));
-                                        productSaleMySQL.setProductSalePrice(product.getProductPrice().getProductPrice());
-                                        productSaleMySQL.setProductId(Long.parseLong(id));
-
-
-
-                                        productSaleMySQL.setProductSaleAmount(Integer.parseInt(productSaleUtil.getProductSaleStock()));
-
-
-
-                                        return productSaleRepository.save(productSaleMySQL)
-                                                .flatMap(productSaleMySQL1 -> {
-                                                    Float result = productSaleMySQL1.getProductSalePrice() - discount;
-                                                    productSaleUtil.setProductSalePrice(result.toString());
-                                                    SaleMySQL saleMySQL = new SaleMySQL();
-                                                    saleMySQL.setProductSaleId(productSaleMySQL1.getId());
-                                                    saleMySQL.setProductId(Long.parseLong(product.identity().value()));
-                                                    saleMySQL.setSaleUuid(uuid);
-
-
-
-                                                    return saleRepository.save(saleMySQL);
-                                                });
-                                    }
-                            );
-                })
-                .collectList()
-                .map(
-                        saleMySQL -> {
-                            return new WraperSaveProductSales(productSaleUtilList,uuid,Long.parseLong(branchId));
-
-                        }
-                );*/
 
     }
 }

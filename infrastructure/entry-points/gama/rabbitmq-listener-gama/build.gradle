@@ -2,6 +2,7 @@ dependencies {
     implementation project(':model')
     implementation project(':usecase')
     implementation project(":mapper")
+    implementation project(':socket-responder')
     //implementation 'org.reactivecommons:async-commons-rabbit-starter:2.0.1'
     implementation 'org.springframework:spring-context'
     implementation 'io.micrometer:micrometer-core'

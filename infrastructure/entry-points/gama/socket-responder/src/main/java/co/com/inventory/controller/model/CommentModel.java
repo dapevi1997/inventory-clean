@@ -1,4 +1,4 @@
-package larry.ramirez.controller.model;
+package co.com.inventory.controller.model;
 
 public class CommentModel {
     private String id;

@@ -8,7 +8,7 @@ import co.com.inventory.usecase.alpha.comands.AddProductCommand;
 import co.com.inventory.usecase.alpha.comands.AddProductSaleCommand;
 import co.com.inventory.usecase.alpha.comands.AddUserCommand;
 import co.com.inventory.usecase.alpha.comands.CreateBranchCommand;
-import co.com.inventory.usecase.registersaleretail.RegisterSaleRetailUseCase;
+import co.com.inventory.usecase.alpha.RegisterSaleRetailUseCase;
 import co.com.inventory.usecase.alpha.RegisterSaleWholesaleUseCase;
 import co.com.inventory.usecase.alpha.RegisterUserUseCase;
 import org.springframework.context.annotation.Bean;
@@ -147,7 +147,7 @@ public class RouterRest {
                                 return ServerResponse.ok()
                                         .contentType(MediaType.APPLICATION_JSON)
                                         .body(BodyInserters.fromValue(domainEvent));
-                            }).next()
+                            })
                             .onErrorResume(Exception.class, e -> {
                                 if(e instanceof NullPointerException){
                                     return ServerResponse.badRequest().bodyValue(e.getMessage());

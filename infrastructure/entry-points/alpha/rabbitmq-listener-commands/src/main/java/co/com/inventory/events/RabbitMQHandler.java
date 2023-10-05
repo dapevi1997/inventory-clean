@@ -4,14 +4,8 @@ import co.com.inventory.events.data.Notification;
 import co.com.inventory.events.utils.Mapper;
 import co.com.inventory.mapper.JSONMapperImpl;
 import co.com.inventory.model.branch.entities.ProductSale;
-import co.com.inventory.model.branch.events.BranchCreated;
-import co.com.inventory.model.branch.events.ProductAdded;
-import co.com.inventory.model.branch.events.ProductSoldWholesale;
-import co.com.inventory.model.branch.events.UserRegistered;
-import co.com.inventory.usecase.alpha.SaveBranchViewUseCase;
-import co.com.inventory.usecase.alpha.SaveProductViewUseCase;
-import co.com.inventory.usecase.alpha.SaveUserViewUseCase;
-import co.com.inventory.usecase.alpha.SaveWholesaleViewUseCase;
+import co.com.inventory.model.branch.events.*;
+import co.com.inventory.usecase.alpha.*;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
@@ -27,14 +21,16 @@ public class RabbitMQHandler {
     private final SaveProductViewUseCase saveProductViewUseCase;
     private final SaveUserViewUseCase saveUserViewUseCase;
     private final SaveWholesaleViewUseCase saveWholesaleViewUseCase;
+    private final SaveRetailViewUseCase saveRetailViewUseCase;
     private final JSONMapperImpl jsonMapper;
 
     public RabbitMQHandler(
-            SaveBranchViewUseCase saveBranchViewUseCase, SaveProductViewUseCase saveProductViewUseCase, SaveUserViewUseCase saveUserViewUseCase, SaveWholesaleViewUseCase saveWholesaleViewUseCase, JSONMapperImpl jsonMapper) {
+            SaveBranchViewUseCase saveBranchViewUseCase, SaveProductViewUseCase saveProductViewUseCase, SaveUserViewUseCase saveUserViewUseCase, SaveWholesaleViewUseCase saveWholesaleViewUseCase, SaveRetailViewUseCase saveRetailViewUseCase, JSONMapperImpl jsonMapper) {
         this.saveBranchViewUseCase = saveBranchViewUseCase;
         this.saveProductViewUseCase = saveProductViewUseCase;
         this.saveUserViewUseCase = saveUserViewUseCase;
         this.saveWholesaleViewUseCase = saveWholesaleViewUseCase;
+        this.saveRetailViewUseCase = saveRetailViewUseCase;
         this.jsonMapper = jsonMapper;
     }
 
@@ -80,6 +76,17 @@ public class RabbitMQHandler {
             List<ProductSale> productSaleList = Mapper.parseJsonToListOfProductSale(productSoldWholesale.getProductSales());
 
             saveWholesaleViewUseCase.execute(productSoldWholesale.getAggregateRootId(), productSaleList, 0.7F)
+                    .subscribe(branch -> {
+                        logger.info(notification.toString());
+                    });
+        }
+
+        if(notification.getType().equals("co.com.inventory.model.branch.events.ProductSoldWholesale")){
+            ProductSoldRetail productSoldRetail = (ProductSoldRetail) jsonMapper.readFromJson(notification.getBody(), ProductSoldRetail.class);
+
+            List<ProductSale> productSaleList = Mapper.parseJsonToListOfProductSale(productSoldRetail.getProductSales());
+
+            saveRetailViewUseCase.execute(productSoldRetail.getAggregateRootId(), productSaleList, 0.8F)
                     .subscribe(branch -> {
                         logger.info(notification.toString());
                     });

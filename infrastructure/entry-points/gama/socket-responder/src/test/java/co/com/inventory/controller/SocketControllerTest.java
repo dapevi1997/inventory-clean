@@ -1,4 +1,4 @@
-package larry.ramirez.controller;
+package co.com.inventory.controller;
 
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;

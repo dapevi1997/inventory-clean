@@ -36,4 +36,6 @@ include ':rabbitmq-bus'
 project(':rabbitmq-bus').projectDir = file('./infrastructure/driven-adapters/rabbitmq-bus')
 include ':mysql-query'
 project(':mysql-query').projectDir = file('./infrastructure/driven-adapters/beta/mysql-query')
+include ':socket-responder'
+project(':socket-responder').projectDir = file('./infrastructure/entry-points/gama/socket-responder')
 

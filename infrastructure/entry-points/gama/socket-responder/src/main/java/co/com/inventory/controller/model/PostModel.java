@@ -1,4 +1,4 @@
-package larry.ramirez.controller.model;
+package co.com.inventory.controller.model;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,5 @@
 dependencies {
-    implementation project(':serializer')
+    implementation project(':mapper')
     implementation project(':model')
     implementation project(':usecase')
     implementation 'org.springframework:spring-context'
