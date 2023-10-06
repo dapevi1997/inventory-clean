@@ -22,6 +22,13 @@ public class Product {
         this.productCategory = productCategory;
     }
 
+    public ProductId getProductId() {
+        return productId;
+    }
+
+    public void setProductId(ProductId productId) {
+        this.productId = productId;
+    }
 
     public ProductName getProductName() {
         return productName;

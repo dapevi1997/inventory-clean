@@ -1,6 +1,6 @@
-package co.com.inventory.controller.model;
+package co.com.inventory.api.dtos;
 
-public class ProductAddedModel {
+public class ProductDTOResponse {
     private String productId;
     private String productName;
     private String productDescription;
@@ -8,7 +8,7 @@ public class ProductAddedModel {
     private Integer productInventoryStock;
     private String productCategory;
 
-    public ProductAddedModel() {
+    public ProductDTOResponse() {
     }
 
     public String getProductId() {

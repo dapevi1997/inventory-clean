@@ -16,9 +16,11 @@ public class ProductId {
         if(productId.isBlank()){
             throw new BlankStringException("El campo productId no puede estar vacío");
         }
+        this.productId = productId;
     }
 
     public String getProductId() {
+
         return productId;
     }
 
@@ -27,6 +29,7 @@ public class ProductId {
     }
 
     public static ProductId of(String uuid){
+
         return new ProductId(uuid);
     }
 }

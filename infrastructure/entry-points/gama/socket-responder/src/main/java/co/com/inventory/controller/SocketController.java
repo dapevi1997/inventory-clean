@@ -1,6 +1,8 @@
 package co.com.inventory.controller;
 
 
+import co.com.inventory.controller.model.ProductAddedModel;
+import co.com.inventory.controller.model.PruebaModel;
 import co.com.inventory.mapper.JSONMapper;
 import co.com.inventory.mapper.JSONMapperImpl;
 import co.com.inventory.model.branch.events.ProductAdded;
@@ -56,7 +58,7 @@ public class SocketController {
     }
 
 
-    public void sendProductAdded(String correlationId, ProductAdded model) {
+    public void sendProductAdded(String correlationId, ProductAddedModel model) {
         String message = eventSerializer.writeToJson(model);
         if (Objects.nonNull(correlationId) && sessions.containsKey(correlationId)) {
             logger.info("Sent from: " + correlationId);

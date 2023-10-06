@@ -1,5 +1,7 @@
 package co.com.inventory.events;
 
+import co.com.inventory.controller.model.ProductAddedModel;
+import co.com.inventory.controller.model.PruebaModel;
 import co.com.inventory.events.data.Notification;
 import co.com.inventory.mapper.JSONMapper;
 import co.com.inventory.model.branch.events.ProductAdded;
@@ -27,8 +29,17 @@ public class RabbitMQHandlerGama {
         Notification notification = Notification.from(message);
         if(notification.getType().equals("co.com.inventory.model.branch.events.ProductAdded")){
             ProductAdded productAdded = (ProductAdded) jsonMapper.readFromJson(notification.getBody(), ProductAdded.class);
-            socketController.sendProductAdded("", productAdded);
 
+            ProductAddedModel productAddedModel = new ProductAddedModel();
+            productAddedModel.setProductId(productAdded.getProductId());
+            productAddedModel.setProductName(productAdded.getProductName());
+            productAddedModel.setProductDescription(productAdded.getProductDescription());
+            productAddedModel.setProductPrice(Float.parseFloat(productAdded.getProductPrice()));
+            productAddedModel.setProductInventoryStock(Integer.parseInt(productAdded.getProductInventoryStock()));
+            productAddedModel.setProductCategory(productAdded.getProductCategory());
+
+
+            socketController.sendProductAdded("productAdded", productAddedModel);
 
             logger.info(notification.toString());
         }
