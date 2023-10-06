@@ -121,7 +121,7 @@ public class MySQLAdapter implements MySqlRepository {
                     .bodyToMono(ProductDTOResponse.class)
                     .flatMap(
                     product -> {
-                        productSaleMySQL.setProductSalePrice(productSaleMySQL.getProductSalePrice()*discount);
+                        productSaleMySQL.setProductSalePrice(product.getProductPrice()*discount);
                         return updateProductStock(idProduct,product.getProductInventoryStock() - productSale.getProductSaleStock().getProductSaleStock())
                                 .then(r2dbcEntityTemplate.insert(productSaleMySQL))
                                         .flatMap(productSaleMySQL1 -> {
