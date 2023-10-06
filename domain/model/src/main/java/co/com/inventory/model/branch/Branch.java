@@ -22,6 +22,10 @@ public class Branch {
         this.branchLocation = branchLocation;
     }
 
+    public BranchId getBranchId() {
+        return branchId;
+    }
+
     public BranchName getBranchName() {
         return branchName;
     }

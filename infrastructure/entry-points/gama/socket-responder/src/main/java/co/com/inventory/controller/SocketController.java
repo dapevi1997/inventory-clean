@@ -2,6 +2,7 @@ package co.com.inventory.controller;
 
 
 import co.com.inventory.controller.model.ProductAddedModel;
+import co.com.inventory.controller.model.ProductUpdatedModel;
 import co.com.inventory.controller.model.PruebaModel;
 import co.com.inventory.mapper.JSONMapper;
 import co.com.inventory.mapper.JSONMapperImpl;
@@ -59,6 +60,24 @@ public class SocketController {
 
 
     public void sendProductAdded(String correlationId, ProductAddedModel model) {
+        String message = eventSerializer.writeToJson(model);
+        if (Objects.nonNull(correlationId) && sessions.containsKey(correlationId)) {
+            logger.info("Sent from: " + correlationId);
+            System.out.println(message);
+            sessions
+                    .get(correlationId)
+                    .values()
+                    .forEach(session -> {
+                        try {
+                            session.getAsyncRemote().sendText(message);
+                        } catch (RuntimeException e) {
+                            logger.log(Level.SEVERE, e.getMessage(), e);
+                        }
+                    });
+        }
+    }
+
+    public void sendProductUpdated(String correlationId, ProductUpdatedModel model) {
         String message = eventSerializer.writeToJson(model);
         if (Objects.nonNull(correlationId) && sessions.containsKey(correlationId)) {
             logger.info("Sent from: " + correlationId);

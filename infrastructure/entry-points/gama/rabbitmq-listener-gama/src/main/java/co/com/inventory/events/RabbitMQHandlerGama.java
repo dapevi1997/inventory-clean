@@ -1,11 +1,13 @@
 package co.com.inventory.events;
 
 import co.com.inventory.controller.model.ProductAddedModel;
+import co.com.inventory.controller.model.ProductUpdatedModel;
 import co.com.inventory.controller.model.PruebaModel;
 import co.com.inventory.events.data.Notification;
 import co.com.inventory.mapper.JSONMapper;
 import co.com.inventory.model.branch.events.ProductAdded;
 import co.com.inventory.controller.SocketController;
+import co.com.inventory.model.branch.events.ProductUpdated;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
@@ -40,6 +42,18 @@ public class RabbitMQHandlerGama {
 
 
             socketController.sendProductAdded("productAdded", productAddedModel);
+
+            logger.info(notification.toString());
+        }
+        if(notification.getType().equals("co.com.inventory.model.branch.events.ProductUpdated")){
+            ProductUpdated productUpdated = (ProductUpdated) jsonMapper.readFromJson(notification.getBody(), ProductUpdated.class);
+
+            ProductUpdatedModel productUpdatedModel = new ProductUpdatedModel();
+            productUpdatedModel.setIdProduct(productUpdated.getIdProduct());
+            productUpdatedModel.setProductInventoryStock(productUpdated.getProductInventoryStock());
+
+
+            socketController.sendProductUpdated("productUpdated", productUpdatedModel);
 
             logger.info(notification.toString());
         }

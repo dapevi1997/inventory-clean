@@ -1,6 +1,8 @@
 package co.com.inventory.api.utils;
 
+import co.com.inventory.api.dtos.BranchDTOResponse;
 import co.com.inventory.api.dtos.ProductDTOResponse;
+import co.com.inventory.model.branch.Branch;
 import co.com.inventory.model.branch.entities.Product;
 
 import java.util.ArrayList;
@@ -24,6 +26,24 @@ public class MapperMysqlQuery {
 
         });
         return productDTOResponses;
+
+    }
+
+    public static List<BranchDTOResponse> listBranchToListBranchDTO(List<Branch> branchList) {
+        List<BranchDTOResponse> branchDTOResponses = new ArrayList<>();
+        branchList.forEach(branch -> {
+            BranchDTOResponse branchDTOResponse = new BranchDTOResponse();
+            branchDTOResponse.setBranchId(branch.getBranchId().getBranchId());
+            branchDTOResponse.setBranchName(branch.getBranchName().getBranchName());
+            branchDTOResponse.setBranchCountry(branch.getBranchLocation().getBranchCountry());
+            branchDTOResponse.setBranchCity(branch.getBranchLocation().getBranchCity());
+
+
+            branchDTOResponses.add(branchDTOResponse);
+
+
+        });
+        return branchDTOResponses;
 
     }
 

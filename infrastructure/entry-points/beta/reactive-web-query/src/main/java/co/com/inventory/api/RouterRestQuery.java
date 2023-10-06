@@ -3,6 +3,7 @@ package co.com.inventory.api;
 
 import co.com.inventory.api.dtos.ProductDTOResponse;
 import co.com.inventory.api.utils.MapperMysqlQuery;
+import co.com.inventory.usecase.beta.GetBranchsUC;
 import co.com.inventory.usecase.beta.GetPoductsUC;
 import co.com.inventory.usecase.beta.GetProductByIdUC;
 import org.springframework.context.annotation.Bean;
@@ -51,6 +52,29 @@ public class RouterRestQuery {
                                 return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(productDTOResponseList);
                             }
                     ).switchIfEmpty(ServerResponse.noContent().build());
+                    //TODO: caputar excepciones
+
+                }
+
+        );
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> getBranchs(GetBranchsUC getBranchsUC) {
+
+        return route(
+                GET("/api/v1/branchs")
+                        .and(accept(MediaType.APPLICATION_JSON)),
+                request -> {
+                    return getBranchsUC.execute().collectList()
+                            .map(productList -> {
+                                return MapperMysqlQuery.listBranchToListBranchDTO(productList);
+                            })
+                            .flatMap(
+                                    branchDTOResponseList -> {
+                                        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(branchDTOResponseList);
+                                    }
+                            ).switchIfEmpty(ServerResponse.noContent().build());
                     //TODO: caputar excepciones
 
                 }
