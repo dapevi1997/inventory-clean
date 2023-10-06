@@ -5,6 +5,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface MySqlRepositoryQuery {
-    Mono<Float> findProductbyId(String productId);
+    Mono<Product> findProductbyId(String productId);
     Flux<Product> getAllProducts();
 }

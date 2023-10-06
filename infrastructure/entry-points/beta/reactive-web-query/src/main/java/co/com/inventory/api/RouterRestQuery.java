@@ -4,13 +4,12 @@ package co.com.inventory.api;
 import co.com.inventory.api.dtos.ProductDTOResponse;
 import co.com.inventory.api.utils.MapperMysqlQuery;
 import co.com.inventory.usecase.beta.GetPoductsUC;
-import co.com.inventory.usecase.beta.GetPriceByIdUC;
+import co.com.inventory.usecase.beta.GetProductByIdUC;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
@@ -19,14 +18,15 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 @Configuration
 public class RouterRestQuery {
     @Bean
-    public RouterFunction<ServerResponse> routerFunction(GetPriceByIdUC getPriceByIdUC) {
+    public RouterFunction<ServerResponse> routerFunction(GetProductByIdUC getProductByIdUC) {
         return route(
                 GET("/api/v1/product/{id}")
                         .and(accept(MediaType.APPLICATION_JSON)),
                 request -> {
-                    return getPriceByIdUC.execute(request.pathVariable("id")).flatMap(
-                            id -> {
-                                return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(id);
+                    return getProductByIdUC.execute(request.pathVariable("id")).flatMap(
+                            product -> {
+                                ProductDTOResponse productDTOResponse = MapperMysqlQuery.ProdutToProductDTO(product);
+                                return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(productDTOResponse);
                             }
                     ).switchIfEmpty(Mono.empty());
                     //TODO: caputar excepciones

@@ -22,15 +22,17 @@ public class RabbitMQHandler {
     private final SaveUserViewUseCase saveUserViewUseCase;
     private final SaveWholesaleViewUseCase saveWholesaleViewUseCase;
     private final SaveRetailViewUseCase saveRetailViewUseCase;
+    private final UpdateProductViewUseCase updateProductViewUseCase;
     private final JSONMapperImpl jsonMapper;
 
     public RabbitMQHandler(
-            SaveBranchViewUseCase saveBranchViewUseCase, SaveProductViewUseCase saveProductViewUseCase, SaveUserViewUseCase saveUserViewUseCase, SaveWholesaleViewUseCase saveWholesaleViewUseCase, SaveRetailViewUseCase saveRetailViewUseCase, JSONMapperImpl jsonMapper) {
+            SaveBranchViewUseCase saveBranchViewUseCase, SaveProductViewUseCase saveProductViewUseCase, SaveUserViewUseCase saveUserViewUseCase, SaveWholesaleViewUseCase saveWholesaleViewUseCase, SaveRetailViewUseCase saveRetailViewUseCase, UpdateProductViewUseCase updateProductViewUseCase, JSONMapperImpl jsonMapper) {
         this.saveBranchViewUseCase = saveBranchViewUseCase;
         this.saveProductViewUseCase = saveProductViewUseCase;
         this.saveUserViewUseCase = saveUserViewUseCase;
         this.saveWholesaleViewUseCase = saveWholesaleViewUseCase;
         this.saveRetailViewUseCase = saveRetailViewUseCase;
+        this.updateProductViewUseCase = updateProductViewUseCase;
         this.jsonMapper = jsonMapper;
     }
 
@@ -87,6 +89,16 @@ public class RabbitMQHandler {
             List<ProductSale> productSaleList = Mapper.parseJsonToListOfProductSale(productSoldRetail.getProductSales());
 
             saveRetailViewUseCase.execute(productSoldRetail.getAggregateRootId(), productSaleList, 0.8F)
+                    .subscribe(branch -> {
+                        logger.info(notification.toString());
+                    });
+        }
+
+        if(notification.getType().equals("co.com.inventory.model.branch.events.ProductUpdated")){
+            ProductUpdated productUpdated = (ProductUpdated) jsonMapper.readFromJson(notification.getBody(), ProductUpdated.class);
+
+
+            updateProductViewUseCase.execute(productUpdated.getIdProduct(), productUpdated.getProductInventoryStock())
                     .subscribe(branch -> {
                         logger.info(notification.toString());
                     });

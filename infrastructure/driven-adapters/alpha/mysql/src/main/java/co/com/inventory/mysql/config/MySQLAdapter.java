@@ -6,6 +6,7 @@ import co.com.inventory.model.branch.entities.Product;
 import co.com.inventory.model.branch.entities.ProductSale;
 import co.com.inventory.model.branch.entities.User;
 import co.com.inventory.model.branch.values.*;
+import co.com.inventory.mysql.config.dtos.ProductDTOResponse;
 import co.com.inventory.mysql.config.models.*;
 import co.com.inventory.mysql.config.repositories.*;
 import co.com.inventory.usecase.generic.gateways.MySqlRepository;
@@ -23,15 +24,17 @@ import java.util.UUID;
 public class MySQLAdapter implements MySqlRepository {
     private final R2dbcEntityTemplate r2dbcEntityTemplate;
     private final WebClient webClient;
+    private final ProductRepository productRepository;
     private final ProductSaleRepository productSaleRepository;
     private final SaleRepository saleRepository;
 
 
     public MySQLAdapter(R2dbcEntityTemplate r2dbcEntityTemplate,
-                        WebClient webClient, ProductSaleRepository productSaleRepository, SaleRepository saleRepository
+                        WebClient webClient, ProductRepository productRepository, ProductSaleRepository productSaleRepository, SaleRepository saleRepository
                         ) {
         this.r2dbcEntityTemplate = r2dbcEntityTemplate;
         this.webClient = webClient;
+        this.productRepository = productRepository;
         this.productSaleRepository = productSaleRepository;
         this.saleRepository = saleRepository;
     }
@@ -115,32 +118,54 @@ public class MySQLAdapter implements MySqlRepository {
                     .uri("api/v1/product/" + idProduct)
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
-                    .bodyToMono(Float.class)
+                    .bodyToMono(ProductDTOResponse.class)
                     .flatMap(
-                    productPrice -> {
-                        productSaleMySQL.setProductSalePrice(productPrice*discount);
-                       return r2dbcEntityTemplate.insert(productSaleMySQL);
-                    }
-                    ).flatMap(productSaleMySQL1 -> {
-                        SaleMySQL saleMySQL = new SaleMySQL();
-                        saleMySQL.setBranchId(branchId);
-                        saleMySQL.setProductSaleId(productSaleMySQL1.getProductSaleId());
-                        saleMySQL.setProductId(idProduct);
+                    product -> {
+                        productSaleMySQL.setProductSalePrice(productSaleMySQL.getProductSalePrice()*discount);
+                        return updateProductStock(idProduct,product.getProductInventoryStock() - productSale.getProductSaleStock().getProductSaleStock())
+                                .then(r2dbcEntityTemplate.insert(productSaleMySQL))
+                                        .flatMap(productSaleMySQL1 -> {
+                                            SaleMySQL saleMySQL = new SaleMySQL();
+                                            saleMySQL.setBranchId(branchId);
+                                            saleMySQL.setProductSaleId(productSaleMySQL1.getProductSaleId());
+                                            saleMySQL.setProductId(idProduct);
 
-                        return r2dbcEntityTemplate.insert(saleMySQL).map(
-                                saleMySQL1 -> {
-                                    return new ProductSale(
-                                            ProductSaleId.of(saleMySQL1.getProductSaleId()),
-                                            new ProductSalePrice(productSaleMySQL1.getProductSalePrice().toString()),
-                                            new ProductSaleStock(productSaleMySQL1.getProductSaleAmount().toString())
-                                    );
-                                }
-                        );
+                                            return r2dbcEntityTemplate.insert(saleMySQL).map(
+                                                    saleMySQL1 -> {
+                                                        return new ProductSale(
+                                                                ProductSaleId.of(saleMySQL1.getProductSaleId()),
+                                                                new ProductSalePrice(productSaleMySQL1.getProductSalePrice().toString()),
+                                                                new ProductSaleStock(productSaleMySQL1.getProductSaleAmount().toString())
+                                                        );
+                                                    }
+                                            );
+                                        });
+                    }
+                    );
+
+
                     });
 
+
+    }
+
+    @Override
+    public Mono<Product> updateProductStock(String idProduct, Integer productInventoryStock) {
+
+        return productRepository.findById(idProduct).flatMap(
+                productMySQL -> {
+                    productMySQL.setProductInventoryStock(productInventoryStock);
+
+                    return r2dbcEntityTemplate.update(productMySQL);
+                }
+        ).map(productMySQL -> {
+            Product product = new Product(ProductId.of(productMySQL.getProductId()),
+                    new ProductName(productMySQL.getProductName()),
+                    new ProductDescription(productMySQL.getProductDescription()),
+                    new ProductPrice(productMySQL.getProductPrice().toString()),
+                    new ProductInventoryStock(productMySQL.getProductInventoryStock().toString()),
+                    new ProductCategory(productMySQL.getProductCategory()));
+            return product;
         });
-
-
-
     }
 }

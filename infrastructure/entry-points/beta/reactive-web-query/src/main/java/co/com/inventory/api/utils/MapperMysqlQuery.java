@@ -26,4 +26,20 @@ public class MapperMysqlQuery {
         return productDTOResponses;
 
     }
+
+    public static ProductDTOResponse ProdutToProductDTO(Product product) {
+        ProductDTOResponse productDTOResponse = new ProductDTOResponse();
+
+
+        productDTOResponse.setProductId(product.getProductId().getProductId());
+        productDTOResponse.setProductDescription(product.getProductDescription().getProductDescription());
+        productDTOResponse.setProductName(product.getProductName().getProductName());
+        productDTOResponse.setProductCategory(product.getProductCategory().getProductCategory());
+        productDTOResponse.setProductInventoryStock(product.getProductInventoryStock().getProductInventoryStock());
+        productDTOResponse.setProductPrice(product.getProductPrice().getProductPrice());
+
+
+        return productDTOResponse;
+
+    }
 }

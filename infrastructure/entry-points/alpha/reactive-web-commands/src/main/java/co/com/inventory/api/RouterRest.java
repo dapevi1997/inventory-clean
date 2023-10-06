@@ -2,15 +2,8 @@ package co.com.inventory.api;
 
 
 import co.com.inventory.model.branch.exceptions.BlankStringException;
-import co.com.inventory.usecase.alpha.AddProductUseCase;
-import co.com.inventory.usecase.alpha.CreateBranchUseCase;
-import co.com.inventory.usecase.alpha.comands.AddProductCommand;
-import co.com.inventory.usecase.alpha.comands.AddProductSaleCommand;
-import co.com.inventory.usecase.alpha.comands.AddUserCommand;
-import co.com.inventory.usecase.alpha.comands.CreateBranchCommand;
-import co.com.inventory.usecase.alpha.RegisterSaleRetailUseCase;
-import co.com.inventory.usecase.alpha.RegisterSaleWholesaleUseCase;
-import co.com.inventory.usecase.alpha.RegisterUserUseCase;
+import co.com.inventory.usecase.alpha.*;
+import co.com.inventory.usecase.alpha.comands.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -143,6 +136,35 @@ public class RouterRest {
                 POST("/api/v1/sale/register/retail").and(accept(MediaType.APPLICATION_JSON)),
                 request ->{
                     return registerSaleRetailUseCase.apply(request.bodyToMono(AddProductSaleCommand.class))
+                            .flatMap(domainEvent -> {
+                                return ServerResponse.ok()
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .body(BodyInserters.fromValue(domainEvent));
+                            })
+                            .onErrorResume(Exception.class, e -> {
+                                if(e instanceof NullPointerException){
+                                    return ServerResponse.badRequest().bodyValue(e.getMessage());
+                                }
+                                if (e instanceof BlankStringException){
+                                    return ServerResponse.badRequest().bodyValue(e.getMessage());
+                                }
+                                if (e instanceof NumberFormatException){
+                                    return ServerResponse.badRequest().bodyValue(e.getMessage());
+                                }
+                                return ServerResponse.badRequest().bodyValue(e.getMessage());
+                            });
+                }
+
+        );
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> updateProductInventory(UpdateProductUseCase updateProductUseCase){
+
+        return route(
+                PUT("/api/v1/product/update").and(accept(MediaType.APPLICATION_JSON)),
+                request ->{
+                    return updateProductUseCase.apply(request.bodyToMono(UpdateProductCommand.class))
                             .flatMap(domainEvent -> {
                                 return ServerResponse.ok()
                                         .contentType(MediaType.APPLICATION_JSON)

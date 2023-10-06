@@ -18,16 +18,16 @@ public class MySQLAdapterForQuery implements MySqlRepositoryQuery {
     }
 
     @Override
-    public Mono<Float> findProductbyId(String productId) {
+    public Mono<Product> findProductbyId(String productId) {
         return productRepository.findById(productId)
                 .map(productMySQL -> {
-                    return productMySQL.getProductPrice();
-/*                    return new Product(ProductId.of(productMySQL.getProductId().toString()),
+                   // return productMySQL.getProductPrice();
+                    return new Product(ProductId.of(productMySQL.getProductId().toString()),
                             new ProductName(productMySQL.getProductName()),
                             new ProductDescription(productMySQL.getProductDescription()),
                             new ProductPrice(productMySQL.getProductPrice().toString()),
                             new ProductInventoryStock(productMySQL.getProductInventoryStock().toString()),
-                            new ProductCategory(productMySQL.getProductCategory()));*/
+                            new ProductCategory(productMySQL.getProductCategory()));
                 });
     }
 
