@@ -23,9 +23,17 @@ tasks.register('explodedJar', Copy) {
 jar {
     // To disable the *-plain.jar
     enabled = false
+    exclude "**/*Test.class"
+    manifest {
+        attributes 'Main-Class': 'co.com.inventory.MainApplication'
+    }
 }
 
 bootJar {
     // Sets output jar name
+    manifest {
+        attributes 'Main-Class': 'co.com.inventory.MainApplication'
+    }
     archiveFileName = "${project.getParent().getName()}.${archiveExtension.get()}"
+    exclude "**/*Test.class"
 }

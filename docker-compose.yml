@@ -1,13 +1,13 @@
 version: '3.9'
 services:
-  beta:
-    container_name: beta
-    image: beta:v1.0.1
+  app-gama:
+    build:
+      context: .
+      dockerfile: applications/app-gama/Dockerfile
     ports:
-      - '8081'
+      - '8082:8082'
     depends_on:
         - rabbitmq
-        - mysql
     networks:
       - mynetwork
 
@@ -18,11 +18,5 @@ services:
       - "15672:15672"
     networks:
       - mynetwork
-  mysql:
-    image: mysql:8
-    volumes:
-      - D:\Docker-Volumes:/etc/mysql
-    ports:
-      - "3306:3306"
 networks:
   mynetwork:
