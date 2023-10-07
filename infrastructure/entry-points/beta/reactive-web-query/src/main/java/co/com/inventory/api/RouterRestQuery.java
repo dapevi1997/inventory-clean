@@ -6,6 +6,7 @@ import co.com.inventory.api.utils.MapperMysqlQuery;
 import co.com.inventory.usecase.beta.GetBranchsUC;
 import co.com.inventory.usecase.beta.GetPoductsUC;
 import co.com.inventory.usecase.beta.GetProductByIdUC;
+import co.com.inventory.usecase.beta.GetSalesByBranchIdUC;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -73,6 +74,26 @@ public class RouterRestQuery {
                             .flatMap(
                                     branchDTOResponseList -> {
                                         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(branchDTOResponseList);
+                                    }
+                            ).switchIfEmpty(ServerResponse.noContent().build());
+                    //TODO: caputar excepciones
+
+                }
+
+        );
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> getSalesbyBranchId(GetSalesByBranchIdUC getSalesByBranchIdUC) {
+
+        return route(
+                GET("/api/v1/sales/{branchId}")
+                        .and(accept(MediaType.APPLICATION_JSON)),
+                request -> {
+                    return getSalesByBranchIdUC.execute(request.pathVariable("branchId")).collectList()
+                            .flatMap(
+                                    salesByBranchDTOModelList -> {
+                                        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(salesByBranchDTOModelList);
                                     }
                             ).switchIfEmpty(ServerResponse.noContent().build());
                     //TODO: caputar excepciones

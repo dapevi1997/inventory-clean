@@ -17,4 +17,5 @@ public interface MySqlRepository {
 
     Flux<ProductSale> saveSale(String branchId, List<ProductSale> productSaleList, Float discount);
     Mono<Product> updateProductStock(String idProduct, Integer productInventoryStock);
+
 }

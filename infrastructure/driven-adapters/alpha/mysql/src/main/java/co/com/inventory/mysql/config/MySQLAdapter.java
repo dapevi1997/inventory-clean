@@ -69,7 +69,7 @@ public class MySQLAdapter implements MySqlRepository {
 
 
         return r2dbcEntityTemplate.insert(productMySQL).map(productMySQL1 -> {
-            return new Product(ProductId.of(productMySQL1.getProductId()),
+            return new Product(BranchId.of(productMySQL1.getBranchId()), ProductId.of(productMySQL1.getProductId()),
                     new ProductName(productMySQL1.getProductName()),
                     new ProductDescription(productMySQL1.getProductDescription()),
                     new ProductPrice(productMySQL1.getProductPrice().toString()),
@@ -159,7 +159,7 @@ public class MySQLAdapter implements MySqlRepository {
                     return r2dbcEntityTemplate.update(productMySQL);
                 }
         ).map(productMySQL -> {
-            Product product = new Product(ProductId.of(productMySQL.getProductId()),
+            Product product = new Product(BranchId.of(productMySQL.getBranchId()), ProductId.of(productMySQL.getProductId()),
                     new ProductName(productMySQL.getProductName()),
                     new ProductDescription(productMySQL.getProductDescription()),
                     new ProductPrice(productMySQL.getProductPrice().toString()),

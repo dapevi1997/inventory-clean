@@ -5,6 +5,7 @@ import co.com.inventory.model.branch.values.*;
 import java.util.Objects;
 
 public class Product {
+    private BranchId branchId;
     private ProductId productId;
     private ProductName productName;
     private ProductDescription productDescription;
@@ -12,7 +13,8 @@ public class Product {
     private ProductInventoryStock productInventoryStock;
     private ProductCategory productCategory;
 
-    public Product(ProductId productId, ProductName productName, ProductDescription productDescription, ProductPrice productPrice, ProductInventoryStock productInventoryStock, ProductCategory productCategory) {
+    public Product(BranchId branchId, ProductId productId, ProductName productName, ProductDescription productDescription, ProductPrice productPrice, ProductInventoryStock productInventoryStock, ProductCategory productCategory) {
+        this.branchId = branchId;
         Objects.requireNonNull(productId, "El ProductId no puede ser nulo");
         this.productId = productId;
         this.productName = productName;
@@ -20,6 +22,14 @@ public class Product {
         this.productPrice = productPrice;
         this.productInventoryStock = productInventoryStock;
         this.productCategory = productCategory;
+    }
+
+    public BranchId getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(BranchId branchId) {
+        this.branchId = branchId;
     }
 
     public ProductId getProductId() {

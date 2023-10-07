@@ -1,6 +1,7 @@
 package co.com.inventory.controller.model;
 
 public class ProductAddedModel {
+    private String branchId;
     private String productId;
     private String productName;
     private String productDescription;
@@ -9,6 +10,14 @@ public class ProductAddedModel {
     private String productCategory;
 
     public ProductAddedModel() {
+    }
+
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId;
     }
 
     public String getProductId() {

@@ -14,6 +14,7 @@ public class MapperMysqlQuery {
         List<ProductDTOResponse> productDTOResponses = new ArrayList<>();
         productList.forEach(product -> {
             ProductDTOResponse productDTOResponse = new ProductDTOResponse();
+            productDTOResponse.setBranchId(product.getBranchId().getBranchId());
             productDTOResponse.setProductId(product.getProductId().getProductId());
             productDTOResponse.setProductDescription(product.getProductDescription().getProductDescription());
             productDTOResponse.setProductName(product.getProductName().getProductName());

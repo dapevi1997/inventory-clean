@@ -34,6 +34,8 @@ public class RabbitMQHandlerGama {
             ProductAdded productAdded = (ProductAdded) jsonMapper.readFromJson(notification.getBody(), ProductAdded.class);
 
             ProductAddedModel productAddedModel = new ProductAddedModel();
+
+            productAddedModel.setBranchId(productAdded.getBranchId());
             productAddedModel.setProductId(productAdded.getProductId());
             productAddedModel.setProductName(productAdded.getProductName());
             productAddedModel.setProductDescription(productAdded.getProductDescription());
