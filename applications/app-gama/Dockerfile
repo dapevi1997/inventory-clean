@@ -1,4 +1,4 @@
-FROM amazoncorretto:17-alpine
-COPY build/libs/Inventory.jar app-gama.jar
+FROM openjdk:17-alpine
+COPY build/libs/Inventory.jar Inventory.jar
 EXPOSE 8082
-ENTRYPOINT ["java", "-jar", "app-gama.jar"]
+ENTRYPOINT ["java", "-jar", "Inventory.jar"]
