@@ -14,7 +14,7 @@ import static org.mockito.Mockito.when;
 
 class MongoConfigTest {
 
-
+/*
     private MongoConfig mongoConfigUnderTest;
 
     @BeforeEach
@@ -38,5 +38,5 @@ class MongoConfigTest {
         ReactiveMongoClientFactory result = mongoConfigUnderTest.mongoProperties(secret);
 
         assertNotNull(result);
-    }
+    }*/
 }

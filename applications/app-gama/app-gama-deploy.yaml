@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-gama
+spec:
+  selector:
+    matchLabels:
+      app: app-gama-k8s-mysql
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: app-gama-k8s-mysql
+    spec:
+      containers:
+        - name: app-gama-k8s
+          image: dapevi1997/app-gama:ku1
+          ports:
+            - containerPort: 8082
+
+
+---
+
+apiVersion: v1 # Kubernetes API version
+kind: Service # Kubernetes resource kind we are creating
+metadata: # Metadata of the resource kind we are creating
+  name: app-gama-svc
+spec:
+  selector:
+    app: app-gama-k8s-mysql
+  ports:
+    - protocol: "TCP"
+      port: 8082 # The port that the service is running on in the cluster
+      targetPort: 8082 # The port exposed by the service
+  type: NodePort # type of the service.

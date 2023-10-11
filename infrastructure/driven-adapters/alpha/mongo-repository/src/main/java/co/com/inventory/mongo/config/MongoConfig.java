@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Configuration;
 import java.util.ArrayList;
 import java.util.List;
 
-@Configuration
+//@Configuration
 public class MongoConfig {
 
-    @Bean
+/*    @Bean
     public MongoDBSecret dbSecret(@Value("${spring.data.mongodb.uri}") String uri) {
         return MongoDBSecret.builder()
                 .uri(uri)
@@ -29,5 +29,5 @@ public class MongoConfig {
         List<MongoClientSettingsBuilderCustomizer> list = new ArrayList<>();
         list.add(new MongoPropertiesClientSettingsBuilderCustomizer(properties));
         return new ReactiveMongoClientFactory(list);
-    }
+    }*/
 }

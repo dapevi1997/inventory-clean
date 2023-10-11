@@ -1,22 +1,72 @@
 version: '3.9'
 services:
   app-gama:
-    build:
-      context: .
-      dockerfile: applications/app-gama/Dockerfile
+    image: app-gama
+    container_name: gama
     ports:
       - '8082:8082'
+    restart: on-failure
     depends_on:
         - rabbitmq
     networks:
       - mynetwork
 
+  app-beta:
+    image: app-beta
+    container_name: beta
+    ports:
+      - '8081:8081'
+    restart: on-failure
+    depends_on:
+      - mysql
+    networks:
+      - mynetwork
+
   rabbitmq:
-    image: rabbitmq:3-management
+    image: rabbitmq:3.11.10-management
     ports:
       - "5672:5672"
       - "15672:15672"
+    restart: on-failure
     networks:
       - mynetwork
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: d04m07a1997
+      MYSQL_DATABASE: prueba1
+    ports:
+      - "3306:3306"
+    restart: on-failure
+    networks:
+      - mynetwork
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    restart: on-failure
+    networks:
+      - mynetwork
+
+  app-service:
+    image: app-service
+    container_name: service
+    ports:
+      - '8080:8080'
+    restart: on-failure
+    depends_on:
+      - rabbitmq
+      - mysql
+      - mongodb
+    networks:
+      - mynetwork
+
+
+
 networks:
   mynetwork:
+
+

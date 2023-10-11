@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-beta
+spec:
+  selector:
+    matchLabels:
+      app: app-beta-k8s-mysql
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: app-beta-k8s-mysql
+    spec:
+      containers:
+        - name: app-beta-k8s
+          image: dapevi1997/app-beta:ku1
+          ports:
+            - containerPort: 8081
+          env:   # Setting Enviornmental Variables
+            - name: DB_HOST   # Setting Database host address from configMap
+              value : mysql
+
+
+            - name: DB_NAME  # Setting Database name from configMap
+              value : prueba1
+
+            - name: DB_USERNAME  # Setting Database username from Secret
+              value : root
+
+            - name: DB_PASSWORD # Setting Database password from Secret
+              value : d04m07a1997
+
+
+---
+
+apiVersion: v1 # Kubernetes API version
+kind: Service # Kubernetes resource kind we are creating
+metadata: # Metadata of the resource kind we are creating
+  name: app-beta-svc
+spec:
+  selector:
+    app: app-beta-k8s-mysql
+  ports:
+    - protocol: "TCP"
+      port: 8081 # The port that the service is running on in the cluster
+      targetPort: 8081 # The port exposed by the service
+  type: NodePort # type of the service.

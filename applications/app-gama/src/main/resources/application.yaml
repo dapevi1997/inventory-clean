@@ -19,7 +19,9 @@ spring:
     mongodb:
       uri: "mongodb://localhost:27017/test3"
   rabbitmq:
-    host: "rabbitmq"
+    host: "rabbitmq-service"
+    #host: "localhost"
+    #host: "rabbitmq"
     username: "guest"
     password: "guest"
     virtual-host: /
