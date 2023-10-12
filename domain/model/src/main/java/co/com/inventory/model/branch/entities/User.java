@@ -5,6 +5,7 @@ import co.com.inventory.model.branch.values.*;
 import java.util.Objects;
 
 public class User {
+    private BranchId branchId;
     private UserId userId;
     private UserName userName;
     private UserlastName userlastName;
@@ -12,7 +13,8 @@ public class User {
     private UserEmail userEmail;
     private UserRole userRole;
 
-    public User(UserId userId, UserName userName, UserlastName userlastName,UserPassword userPassword, UserEmail userEmail, UserRole userRole) {
+    public User(BranchId branchId, UserId userId, UserName userName, UserlastName userlastName, UserPassword userPassword, UserEmail userEmail, UserRole userRole) {
+        this.branchId = branchId;
         Objects.requireNonNull(userId, "El UserId no puede ser nulo");
         this.userId = userId;
         this.userName = userName;
@@ -20,6 +22,14 @@ public class User {
         this.userEmail = userEmail;
         this.userRole = userRole;
         this.userlastName = userlastName;
+    }
+
+    public UserId getUserId() {
+        return userId;
+    }
+
+    public BranchId getBranchId() {
+        return branchId;
     }
 
     public UserName getUserName() {

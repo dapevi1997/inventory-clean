@@ -92,7 +92,7 @@ public class MySQLAdapter implements MySqlRepository {
         userMySQL.setBranchId(branchId);
 
         return r2dbcEntityTemplate.insert(userMySQL).map(userMySQL1 -> {
-            return new User(UserId.of(userMySQL1.getUserId()),
+            return new User(BranchId.of(userMySQL1.getBranchId()), UserId.of(userMySQL1.getUserId()),
                     new UserName(userMySQL1.getUserName()),
                     new UserlastName(userMySQL1.getUserLastName()),
                     new UserPassword(userMySQL1.getUserPassword()),

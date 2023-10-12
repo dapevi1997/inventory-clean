@@ -6,6 +6,6 @@ import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductSaleRepository extends R2dbcRepository<ProductSaleMySQL,Long> {
+public interface ProductSaleRepository extends R2dbcRepository<ProductSaleMySQL,String> {
 
 }

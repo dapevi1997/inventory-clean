@@ -3,16 +3,15 @@ package co.com.inventory.api;
 
 import co.com.inventory.api.dtos.ProductDTOResponse;
 import co.com.inventory.api.utils.MapperMysqlQuery;
-import co.com.inventory.usecase.beta.GetBranchsUC;
-import co.com.inventory.usecase.beta.GetPoductsUC;
-import co.com.inventory.usecase.beta.GetProductByIdUC;
-import co.com.inventory.usecase.beta.GetSalesByBranchIdUC;
+import co.com.inventory.usecase.beta.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
+
+import java.util.Objects;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
@@ -96,6 +95,29 @@ public class RouterRestQuery {
                                         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(salesByBranchDTOModelList);
                                     }
                             ).switchIfEmpty(ServerResponse.noContent().build());
+                    //TODO: caputar excepciones
+
+                }
+
+        );
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> getUserbyEmail(GetUserByEmailUC getUserByEmailUC) {
+
+        return route(
+                GET("/api/v1/user/{email}")
+                        .and(accept(MediaType.APPLICATION_JSON)),
+                request -> {
+                    return getUserByEmailUC.execute(request.pathVariable("email"))
+                            .flatMap(user -> {
+                                if (Objects.isNull(user)){
+                                    ServerResponse.noContent().build();
+                                }
+                                return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(user);
+                            }
+
+                            );
                     //TODO: caputar excepciones
 
                 }

@@ -3,28 +3,31 @@ package co.com.inventory.mysql.config;
 
 import co.com.inventory.model.branch.Branch;
 import co.com.inventory.model.branch.entities.Product;
+import co.com.inventory.model.branch.entities.User;
 import co.com.inventory.model.branch.utils.SalesByBranchDTOModel;
 import co.com.inventory.model.branch.values.*;
 import co.com.inventory.mysql.config.dtos.SalesByBranchDTO;
 import co.com.inventory.mysql.config.repositories.BranchRepository;
 import co.com.inventory.mysql.config.repositories.ProductRepository;
+import co.com.inventory.mysql.config.repositories.UserRepository;
 import co.com.inventory.usecase.generic.gateways.MySqlRepositoryQuery;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.util.function.Tuples;
 
 @Repository
 public class MySQLAdapterForQuery implements MySqlRepositoryQuery {
     private final ProductRepository productRepository;
     private final R2dbcEntityTemplate r2dbcEntityTemplate;
     private final BranchRepository branchRepository;
+    private final UserRepository userRepository;
 
-    public MySQLAdapterForQuery(ProductRepository productRepository, R2dbcEntityTemplate r2dbcEntityTemplate, BranchRepository branchRepository) {
+    public MySQLAdapterForQuery(ProductRepository productRepository, R2dbcEntityTemplate r2dbcEntityTemplate, BranchRepository branchRepository, UserRepository userRepository) {
         this.productRepository = productRepository;
         this.r2dbcEntityTemplate = r2dbcEntityTemplate;
         this.branchRepository = branchRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -106,5 +109,22 @@ public class MySQLAdapterForQuery implements MySqlRepositoryQuery {
                 .all();
     }
 
+    @Override
+    public Mono<User> findUserByEmail(String email) {
+        return userRepository.findByUserEmail(email).map(
+                userMySQL -> {
+                    User user = new User(
+                            BranchId.of(userMySQL.getBranchId()),
+                            UserId.of(userMySQL.getUserId()),
+                            new UserName(userMySQL.getUserName()),
+                            new UserlastName(userMySQL.getUserLastName()),
+                            new UserPassword(userMySQL.getUserPassword()),
+                            new UserEmail(userMySQL.getUserEmail()),
+                            new UserRole(userMySQL.getUserRole())
+                    );
+                    return user;
+                }
+        );
     }
+}
 
