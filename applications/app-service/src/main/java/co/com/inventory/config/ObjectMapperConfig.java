@@ -1,7 +1,7 @@
 package co.com.inventory.config;
 
-//import org.reactivecommons.utils.ObjectMapper;
-//import org.reactivecommons.utils.ObjectMapperImp;
+import org.reactivecommons.utils.ObjectMapper;
+import org.reactivecommons.utils.ObjectMapperImp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 public class ObjectMapperConfig {
 
     //TODO: configurar el bean de ObjectMapper
-  /*  @Bean
+    @Bean
     public ObjectMapper objectMapper() {
         return new ObjectMapperImp();
-    }*/
+    }
 
 }

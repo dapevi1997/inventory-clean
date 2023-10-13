@@ -81,12 +81,14 @@ spec:
           args:
             - "--ignore-db-dir=lost+found" # Workaround for https://github.com/docker-library/mysql/issues/186
           name: mysql
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              value : d04m07a1997
+          envFrom:
+            - configMapRef:
+              name : service-urls
+              key: MYSQL_ROOT_PASSWORD
 
-            - name: MYSQL_DATABASE
-              value : prueba1
+            - configMapRef:
+              name : service-urls
+              key: MYSQL_DATABASE
 
 
 
@@ -185,19 +187,23 @@ spec:
           image: dapevi1997/app-beta:ku2
           ports:
             - containerPort: 8081
-          env:   # Setting Enviornmental Variables
-            - name: DB_HOST   # Setting Database host address from configMap
-              value : mysql
+          envFrom:   # Setting Enviornmental Variables
+            - configMapRef:
+              name: service-urls  # Setting Database host address from configMap
+              key : DB_HOST
 
 
-            - name: DB_NAME  # Setting Database name from configMap
-              value : prueba1
+            - configMapRef:   # Setting Database name from configMap
+              name: service-urls
+              key: DB_NAME
 
-            - name: DB_USERNAME  # Setting Database username from Secret
-              value : root
+            - configMapRef:   # Setting Database username from Secret
+              name : service-urls
+              key: DB_USERNAME
 
-            - name: DB_PASSWORD # Setting Database password from Secret
-              value : d04m07a1997
+            - configMapRef:  # Setting Database password from Secret
+              name: service-urls
+              key: DB_PASSWORD
 
 
 ---
@@ -272,19 +278,23 @@ spec:
           image: dapevi1997/app-service:ku1
           ports:
             - containerPort: 8080
-          env:   # Setting Enviornmental Variables
-            - name: DB_HOST   # Setting Database host address from configMap
-              value : mysql
+          envFrom:   # Setting Enviornmental Variables
+            - configMapRef:    # Setting Database host address from configMap
+              name : service-urls
+              key: DB_HOST
 
 
-            - name: DB_NAME  # Setting Database name from configMap
-              value : prueba1
+            - configMapRef:   # Setting Database name from configMap
+              name : service-urls
+              key: DB_NAME
 
-            - name: DB_USERNAME  # Setting Database username from Secret
-              value : root
+            - configMapRef:   # Setting Database username from Secret
+              name : service-urls
+              key: DB_USERNAME
 
-            - name: DB_PASSWORD # Setting Database password from Secret
-              value : d04m07a1997
+            - configMapRef:  # Setting Database password from Secret
+              name : service-urls
+              key: DB_PASSWORD
 
 
 ---

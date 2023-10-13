@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.UUID;
@@ -27,16 +28,19 @@ public class MySQLAdapter implements MySqlRepository {
     private final ProductRepository productRepository;
     private final ProductSaleRepository productSaleRepository;
     private final SaleRepository saleRepository;
+    private final PasswordEncoder passwordEncoder;
+
 
 
     public MySQLAdapter(R2dbcEntityTemplate r2dbcEntityTemplate,
-                        WebClient webClient, ProductRepository productRepository, ProductSaleRepository productSaleRepository, SaleRepository saleRepository
-                        ) {
+                        WebClient webClient, ProductRepository productRepository, ProductSaleRepository productSaleRepository, SaleRepository saleRepository,
+                        PasswordEncoder passwordEncoder) {
         this.r2dbcEntityTemplate = r2dbcEntityTemplate;
         this.webClient = webClient;
         this.productRepository = productRepository;
         this.productSaleRepository = productSaleRepository;
         this.saleRepository = saleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -86,7 +90,9 @@ public class MySQLAdapter implements MySqlRepository {
         userMySQL.setUserId(UUID.randomUUID().toString());
         userMySQL.setUserName(userName);
         userMySQL.setUserLastName(userLastName);
-        userMySQL.setUserPassword(userPassword);
+
+        userMySQL.setUserPassword(passwordEncoder.encode(userPassword));
+
         userMySQL.setUserEmail(userEmail);
         userMySQL.setUserRole(userRol);
         userMySQL.setBranchId(branchId);

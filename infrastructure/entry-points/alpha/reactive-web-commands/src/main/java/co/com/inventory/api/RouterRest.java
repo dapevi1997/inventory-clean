@@ -16,6 +16,9 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 
 @Configuration
 public class RouterRest {
+
+
+
     @Bean
     public RouterFunction<ServerResponse> routerFunction(CreateBranchUseCase createBranchUseCase) {
         return route(
@@ -29,10 +32,10 @@ public class RouterRest {
                                         .body(BodyInserters.fromValue(domainEvent));
                             })
                             .onErrorResume(Exception.class, e -> {
-                                if(e instanceof NullPointerException){
+                                if (e instanceof NullPointerException) {
                                     return ServerResponse.badRequest().bodyValue(e.getMessage());
                                 }
-                                if (e instanceof BlankStringException){
+                                if (e instanceof BlankStringException) {
                                     return ServerResponse.badRequest().bodyValue(e.getMessage());
                                 }
                                 return ServerResponse.badRequest().bodyValue(e.getMessage());
@@ -40,11 +43,11 @@ public class RouterRest {
 
                 }
 
-                );
+        );
     }
 
     @Bean
-    public RouterFunction<ServerResponse> addProduct(AddProductUseCase addProductUseCase){
+    public RouterFunction<ServerResponse> addProduct(AddProductUseCase addProductUseCase) {
         return route(
                 POST("/api/v1/product/register").and(accept(MediaType.APPLICATION_JSON)),
 
@@ -56,13 +59,13 @@ public class RouterRest {
                                         .body(BodyInserters.fromValue(domainEvent));
                             })
                             .onErrorResume(Exception.class, e -> {
-                                if(e instanceof NullPointerException){
+                                if (e instanceof NullPointerException) {
                                     return ServerResponse.badRequest().bodyValue(e.getMessage());
                                 }
-                                if (e instanceof BlankStringException){
+                                if (e instanceof BlankStringException) {
                                     return ServerResponse.badRequest().bodyValue(e.getMessage());
                                 }
-                                if (e instanceof NumberFormatException){
+                                if (e instanceof NumberFormatException) {
                                     return ServerResponse.badRequest().bodyValue(e.getMessage());
                                 }
                                 return ServerResponse.badRequest().bodyValue(e.getMessage());
@@ -73,10 +76,10 @@ public class RouterRest {
     }
 
     @Bean
-    public RouterFunction<ServerResponse> registerUser(RegisterUserUseCase registerUserUseCase){
+    public RouterFunction<ServerResponse> registerUser(RegisterUserUseCase registerUserUseCase) {
         return route(
                 POST("/api/v1/user/register").and(accept(MediaType.APPLICATION_JSON)),
-                request ->{
+                request -> {
                     return registerUserUseCase.apply(request.bodyToMono(AddUserCommand.class))
                             .flatMap(domainEvent -> {
                                 return ServerResponse.ok()
@@ -84,13 +87,13 @@ public class RouterRest {
                                         .body(BodyInserters.fromValue(domainEvent));
                             })
                             .onErrorResume(Exception.class, e -> {
-                                if(e instanceof NullPointerException){
+                                if (e instanceof NullPointerException) {
                                     return ServerResponse.badRequest().bodyValue(e.getMessage());
                                 }
-                                if (e instanceof BlankStringException){
+                                if (e instanceof BlankStringException) {
                                     return ServerResponse.badRequest().bodyValue(e.getMessage());
                                 }
-                                if (e instanceof NumberFormatException){
+                                if (e instanceof NumberFormatException) {
                                     return ServerResponse.badRequest().bodyValue(e.getMessage());
                                 }
                                 return ServerResponse.badRequest().bodyValue(e.getMessage());
@@ -101,11 +104,11 @@ public class RouterRest {
     }
 
     @Bean
-    public RouterFunction<ServerResponse> registerSaleWholesale(RegisterSaleWholesaleUseCase registerSaleWholesaleUseCase){
+    public RouterFunction<ServerResponse> registerSaleWholesale(RegisterSaleWholesaleUseCase registerSaleWholesaleUseCase) {
 
         return route(
                 POST("/api/v1/sale/register/wholesale").and(accept(MediaType.APPLICATION_JSON)),
-                request ->{
+                request -> {
                     return registerSaleWholesaleUseCase.apply(request.bodyToMono(AddProductSaleCommand.class))
                             .flatMap(domainEvent -> {
                                 return ServerResponse.ok()
@@ -113,13 +116,13 @@ public class RouterRest {
                                         .body(BodyInserters.fromValue(domainEvent));
                             })
                             .onErrorResume(Exception.class, e -> {
-                                if(e instanceof NullPointerException){
+                                if (e instanceof NullPointerException) {
                                     return ServerResponse.badRequest().bodyValue(e.getMessage());
                                 }
-                                if (e instanceof BlankStringException){
+                                if (e instanceof BlankStringException) {
                                     return ServerResponse.badRequest().bodyValue(e.getMessage());
                                 }
-                                if (e instanceof NumberFormatException){
+                                if (e instanceof NumberFormatException) {
                                     return ServerResponse.badRequest().bodyValue(e.getMessage());
                                 }
                                 return ServerResponse.badRequest().bodyValue(e.getMessage());
@@ -130,11 +133,11 @@ public class RouterRest {
     }
 
     @Bean
-    public RouterFunction<ServerResponse> registerSaleRetail(RegisterSaleRetailUseCase registerSaleRetailUseCase){
+    public RouterFunction<ServerResponse> registerSaleRetail(RegisterSaleRetailUseCase registerSaleRetailUseCase) {
 
         return route(
                 POST("/api/v1/sale/register/retail").and(accept(MediaType.APPLICATION_JSON)),
-                request ->{
+                request -> {
                     return registerSaleRetailUseCase.apply(request.bodyToMono(AddProductSaleCommand.class))
                             .flatMap(domainEvent -> {
                                 return ServerResponse.ok()
@@ -142,13 +145,13 @@ public class RouterRest {
                                         .body(BodyInserters.fromValue(domainEvent));
                             })
                             .onErrorResume(Exception.class, e -> {
-                                if(e instanceof NullPointerException){
+                                if (e instanceof NullPointerException) {
                                     return ServerResponse.badRequest().bodyValue(e.getMessage());
                                 }
-                                if (e instanceof BlankStringException){
+                                if (e instanceof BlankStringException) {
                                     return ServerResponse.badRequest().bodyValue(e.getMessage());
                                 }
-                                if (e instanceof NumberFormatException){
+                                if (e instanceof NumberFormatException) {
                                     return ServerResponse.badRequest().bodyValue(e.getMessage());
                                 }
                                 return ServerResponse.badRequest().bodyValue(e.getMessage());
@@ -159,11 +162,11 @@ public class RouterRest {
     }
 
     @Bean
-    public RouterFunction<ServerResponse> updateProductInventory(UpdateProductUseCase updateProductUseCase){
+    public RouterFunction<ServerResponse> updateProductInventory(UpdateProductUseCase updateProductUseCase) {
 
         return route(
                 PUT("/api/v1/product/update").and(accept(MediaType.APPLICATION_JSON)),
-                request ->{
+                request -> {
                     return updateProductUseCase.apply(request.bodyToMono(UpdateProductCommand.class))
                             .flatMap(domainEvent -> {
                                 return ServerResponse.ok()
@@ -171,13 +174,13 @@ public class RouterRest {
                                         .body(BodyInserters.fromValue(domainEvent));
                             })
                             .onErrorResume(Exception.class, e -> {
-                                if(e instanceof NullPointerException){
+                                if (e instanceof NullPointerException) {
                                     return ServerResponse.badRequest().bodyValue(e.getMessage());
                                 }
-                                if (e instanceof BlankStringException){
+                                if (e instanceof BlankStringException) {
                                     return ServerResponse.badRequest().bodyValue(e.getMessage());
                                 }
-                                if (e instanceof NumberFormatException){
+                                if (e instanceof NumberFormatException) {
                                     return ServerResponse.badRequest().bodyValue(e.getMessage());
                                 }
                                 return ServerResponse.badRequest().bodyValue(e.getMessage());
@@ -186,5 +189,7 @@ public class RouterRest {
 
         );
     }
+
+
 
 }

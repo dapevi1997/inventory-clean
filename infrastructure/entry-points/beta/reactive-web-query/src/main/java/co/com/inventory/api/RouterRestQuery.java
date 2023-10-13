@@ -1,8 +1,12 @@
 package co.com.inventory.api;
 
 
+import co.com.inventory.api.dtos.AuthResponse;
 import co.com.inventory.api.dtos.ProductDTOResponse;
+import co.com.inventory.api.utils.JwtServiceInWebQuery;
 import co.com.inventory.api.utils.MapperMysqlQuery;
+import co.com.inventory.api.utils.UserDetailUtil;
+import co.com.inventory.usecase.alpha.comands.LoginCommand;
 import co.com.inventory.usecase.beta.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +22,12 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 
 @Configuration
 public class RouterRestQuery {
+
+
+    public RouterRestQuery() {
+
+    }
+
     @Bean
     public RouterFunction<ServerResponse> routerFunction(GetProductByIdUC getProductByIdUC) {
         return route(

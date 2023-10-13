@@ -41,3 +41,11 @@ management:
         enabled: true
 cors:
   allowed-origins: "http://localhost:4200,http://localhost:8080"
+
+application:
+  security:
+    jwt:
+      secret-key: "cc9e5246b722f110a843db98c7e6620e88a177aebc620627bacbb999e08f493f"
+      expiration: 86400000 # a day
+      refresh-token:
+        expiration: 604800000 # 7 days

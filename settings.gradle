@@ -10,6 +10,8 @@ rootProject.name = 'Inventory'
 
 include ':app-service'
 project(':app-service').projectDir = file('./applications/app-service')
+include ':app-auth'
+project(':app-auth').projectDir = file('./applications/app-auth')
 include 'app-gama'
 project(':app-gama').projectDir = file('./applications/app-gama')
 include 'app-beta'
@@ -28,6 +30,8 @@ include ':mapper'
 project(':mapper').projectDir = file('./infrastructure/helpers/mapper')
 include ':reactive-web-query'
 project(':reactive-web-query').projectDir = file('./infrastructure/entry-points/beta/reactive-web-query')
+include ':reactive-web-auth'
+project(':reactive-web-auth').projectDir = file('./infrastructure/entry-points/auth/reactive-web-auth')
 include ':mongo-repository'
 project(':mongo-repository').projectDir = file('./infrastructure/driven-adapters/alpha/mongo-repository')
 include ':mysql'
@@ -36,6 +40,8 @@ include ':rabbitmq-bus'
 project(':rabbitmq-bus').projectDir = file('./infrastructure/driven-adapters/rabbitmq-bus')
 include ':mysql-query'
 project(':mysql-query').projectDir = file('./infrastructure/driven-adapters/beta/mysql-query')
+include ':mysql-query-auth'
+project(':mysql-query-auth').projectDir = file('./infrastructure/driven-adapters/auth/mysql-query-auth')
 include ':socket-responder'
 project(':socket-responder').projectDir = file('./infrastructure/entry-points/gama/socket-responder')
 

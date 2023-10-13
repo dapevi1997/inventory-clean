@@ -10,11 +10,11 @@ public class UserPassword {
 
     public UserPassword(String password) {
         Objects.requireNonNull(password, "El campo password no puede ser nulo");
-        Pattern pattern = Pattern.compile("^(?=.*[A-Za-z0-9]).{8,16}$");
+ /*       Pattern pattern = Pattern.compile("^(?=.*[A-Za-z0-9]).{8,16}$");
         Matcher matcher = pattern.matcher(password);
         if (!matcher.matches()){
             throw new IllegalArgumentException("La contraseña debe ser de mínimo 8 caracteres y máximo de 16");
-        }
+        }*/
 
         this.password = password;
     }

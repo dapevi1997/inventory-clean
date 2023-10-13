@@ -4,7 +4,7 @@ dependencies {
 	//implementation project( ':async-event-handler')
 
 
-	//implementation 'org.reactivecommons.utils:object-mapper:0.1.0'
+	implementation 'org.reactivecommons.utils:object-mapper:0.1.0'
 
 	//implementation project( ':reactive-web')
 
@@ -15,6 +15,7 @@ dependencies {
     implementation project( ':mapper')
     implementation project( ':rabbitmq-bus')
     implementation project( ':mysql')
+    implementation project (':mysql-query-auth')
 
     implementation project(':model')
     implementation project(':usecase')
@@ -22,8 +23,19 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
     testImplementation 'com.tngtech.archunit:archunit:1.0.1'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.1.1'
+// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+
+// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
 
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-amqp', version: '3.0.4'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-r2dbc
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-r2dbc', version: '3.1.4'
 }
 
 tasks.register('explodedJar', Copy) {

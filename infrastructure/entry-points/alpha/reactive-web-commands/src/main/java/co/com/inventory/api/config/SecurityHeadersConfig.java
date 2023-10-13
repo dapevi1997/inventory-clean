@@ -9,7 +9,6 @@ import reactor.core.publisher.Mono;
 
 @Component
 public class SecurityHeadersConfig implements WebFilter {
-
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         HttpHeaders headers = exchange.getResponse().getHeaders();

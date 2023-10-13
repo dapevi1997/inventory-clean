@@ -24,6 +24,34 @@ public class User {
         this.userlastName = userlastName;
     }
 
+    public void setBranchId(BranchId branchId) {
+        this.branchId = branchId;
+    }
+
+    public void setUserId(UserId userId) {
+        this.userId = userId;
+    }
+
+    public void setUserName(UserName userName) {
+        this.userName = userName;
+    }
+
+    public void setUserlastName(UserlastName userlastName) {
+        this.userlastName = userlastName;
+    }
+
+    public void setUserPassword(UserPassword userPassword) {
+        this.userPassword = userPassword;
+    }
+
+    public void setUserEmail(UserEmail userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
     public UserId getUserId() {
         return userId;
     }

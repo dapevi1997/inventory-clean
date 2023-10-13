@@ -4,6 +4,9 @@ dependencies {
     implementation 'org.springframework:spring-context'
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-r2dbc
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-r2dbc', version: '3.1.4'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.1.1'
+
     implementation 'io.asyncer:r2dbc-mysql:1.0.3'
 
 

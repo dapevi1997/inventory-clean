@@ -116,7 +116,7 @@ public class MySQLAdapterForQuery implements MySqlRepositoryQuery {
                     User user = new User(
                             BranchId.of(userMySQL.getBranchId()),
                             UserId.of(userMySQL.getUserId()),
-                            new UserName(userMySQL.getUserName()),
+                            new UserName(userMySQL.getName()),
                             new UserlastName(userMySQL.getUserLastName()),
                             new UserPassword(userMySQL.getUserPassword()),
                             new UserEmail(userMySQL.getUserEmail()),
