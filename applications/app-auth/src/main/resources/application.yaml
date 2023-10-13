@@ -2,9 +2,13 @@ server:
   port: 8083
 spring:
   r2dbc:
-    url: "r2dbc:mysql://localhost:3306/prueba1"
-    username: "root"
-    password: "d04m07a1997"
+    url: "r2dbc:mysql://${DB_HOST}/${DB_NAME}?useSSL=false"
+    #url: "r2dbc:mysql://localhost:3306/prueba1"
+    #url: "r2dbc:mysql://mysql:3306/prueba1"
+    username: "${DB_USERNAME}"
+    #username: "root"
+    password: "${DB_PASSWORD}"
+    #password: "d04m07a1997"
   application:
     name: "Inventory"
   devtools:
@@ -19,9 +23,9 @@ spring:
     mongodb:
       uri: "mongodb://localhost:27017/test3"
   rabbitmq:
-    host: "rabbitmq-service"
+    #host: "rabbitmq-service"
     #host: "localhost"
-    #host: "rabbitmq"
+    host: "rabbitmq"
     username: "guest"
     password: "guest"
     virtual-host: /
