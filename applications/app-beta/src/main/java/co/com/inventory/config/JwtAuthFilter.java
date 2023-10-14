@@ -8,6 +8,7 @@ import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
@@ -38,7 +39,10 @@ public class JwtAuthFilter implements WebFilter {
         }
 
         jwt = authHeader.substring(7);
-        userEmail = jwtService.extractUsername(jwt);
+
+            userEmail = jwtService.extractUsername(jwt);
+
+
 
         if(userEmail != null) {
             var authoritiesClaims = jwtService.extractAllClaims(jwt).get("roles");

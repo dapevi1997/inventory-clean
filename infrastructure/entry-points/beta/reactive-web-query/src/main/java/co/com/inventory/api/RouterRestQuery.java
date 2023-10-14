@@ -6,6 +6,7 @@ import co.com.inventory.api.dtos.ProductDTOResponse;
 import co.com.inventory.api.utils.JwtServiceInWebQuery;
 import co.com.inventory.api.utils.MapperMysqlQuery;
 import co.com.inventory.api.utils.UserDetailUtil;
+import co.com.inventory.model.branch.exceptions.BlankStringException;
 import co.com.inventory.usecase.alpha.comands.LoginCommand;
 import co.com.inventory.usecase.beta.*;
 import org.springframework.context.annotation.Bean;
@@ -76,7 +77,11 @@ public class RouterRestQuery {
                 GET("/api/v1/branchs")
                         .and(accept(MediaType.APPLICATION_JSON)),
                 request -> {
-                    return getBranchsUC.execute().collectList()
+                    return getBranchsUC.execute()
+                            .filter(branch -> {
+                                return !branch.getBranchName().getBranchName().equals("Root");
+                            })
+                            .collectList()
                             .map(productList -> {
                                 return MapperMysqlQuery.listBranchToListBranchDTO(productList);
                             })
@@ -84,8 +89,13 @@ public class RouterRestQuery {
                                     branchDTOResponseList -> {
                                         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(branchDTOResponseList);
                                     }
-                            ).switchIfEmpty(ServerResponse.noContent().build());
-                    //TODO: caputar excepciones
+                            ).switchIfEmpty(ServerResponse.noContent().build())
+                            .onErrorResume(
+                                    Exception.class, e -> {
+                                        return ServerResponse.badRequest().bodyValue(e.getMessage());
+                                    }
+                            );
+
 
                 }
 

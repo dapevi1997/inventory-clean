@@ -32,6 +32,7 @@ public class SecurityConfig {
                         exchanges
                                 .pathMatchers("/api/v1/user/register").hasRole("SUPERADMIN")
                                 .pathMatchers("/api/v1/branch/register").hasRole("SUPERADMIN")
+                                .pathMatchers("/api/v1/product/register").hasAnyRole("ADMIN","SUPERADMIN")
                                 //.permitAll()
                                 .anyExchange()
                                 .authenticated())

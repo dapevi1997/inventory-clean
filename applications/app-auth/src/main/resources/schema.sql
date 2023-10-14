@@ -68,3 +68,24 @@ CREATE TABLE IF NOT EXISTS branch (
                                                                         ON UPDATE CASCADE
 
                                 );
+
+    --- create a user root
+
+         INSERT INTO branch(branch_id,branch_name,branch_country,branch_city) values ("idBranchRoot","Root","Root","Root")
+                                ON DUPLICATE KEY UPDATE
+                                  branch_name = VALUES(branch_name),
+                                  branch_country = VALUES(branch_country),
+                                  branch_city = VALUES(branch_city);
+
+
+
+             INSERT INTO user_table (user_id, user_name, user_lastName, user_password, user_email, user_role, branch_id)
+                                VALUES ('idRoot', 'Root', 'Root', '$2a$10$LWBz8.V9PiPZjJWxN49vO.E/igf80rs9URLjuRPZPZy.dqUztX9We',
+                                'root@root.com', 'ROLE_SUPERADMIN', 'idBranchRoot')
+                                ON DUPLICATE KEY UPDATE
+                                  user_name = VALUES(user_name),
+                                  user_lastName = VALUES(user_lastName),
+                                  user_password = VALUES(user_password),
+                                  user_email = VALUES(user_email),
+                                  user_role = VALUES(user_role),
+                                  branch_id = VALUES(branch_id);
