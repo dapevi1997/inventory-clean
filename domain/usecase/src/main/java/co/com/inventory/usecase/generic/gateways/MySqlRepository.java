@@ -15,7 +15,7 @@ public interface MySqlRepository {
                               String productInventoryStock, String productCategory);
     Mono<User> saveUser(String branchId, String userName,String userLastName,String userPassword, String userEmail, String userRol);
 
-    Flux<ProductSale> saveSale(String branchId, List<ProductSale> productSaleList, Float discount);
+    Flux<ProductSale> saveSale(String branchId, List<ProductSale> productSaleList, Float discount, String type, String user);
     Mono<Product> updateProductStock(String idProduct, Integer productInventoryStock);
 
 }

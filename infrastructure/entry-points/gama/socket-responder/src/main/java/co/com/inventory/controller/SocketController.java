@@ -1,13 +1,9 @@
 package co.com.inventory.controller;
 
 
-import co.com.inventory.controller.model.BranchAddedModel;
-import co.com.inventory.controller.model.ProductAddedModel;
-import co.com.inventory.controller.model.ProductUpdatedModel;
-import co.com.inventory.controller.model.PruebaModel;
+import co.com.inventory.controller.model.*;
 import co.com.inventory.mapper.JSONMapper;
 import co.com.inventory.mapper.JSONMapperImpl;
-import co.com.inventory.model.branch.events.ProductAdded;
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnError;
 import jakarta.websocket.OnOpen;
@@ -17,6 +13,7 @@ import jakarta.websocket.server.ServerEndpoint;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -114,10 +111,11 @@ public class SocketController {
         }
     }
 
-/*    public void sendCommentAdded(String correlationId, CommentModel model) {
+    public void sendWholeSaleAdded(String correlationId, List<ProductsSaleModel> model) {
         String message = eventSerializer.writeToJson(model);
         if (Objects.nonNull(correlationId) && sessions.containsKey(correlationId)) {
             logger.info("Sent from: " + correlationId);
+            System.out.println(message);
             sessions
                     .get(correlationId)
                     .values()
@@ -129,5 +127,24 @@ public class SocketController {
                         }
                     });
         }
-    }*/
+    }
+
+    public void sendRetailAdded(String correlationId, List<ProductsSaleModel> model) {
+        String message = eventSerializer.writeToJson(model);
+        if (Objects.nonNull(correlationId) && sessions.containsKey(correlationId)) {
+            logger.info("Sent from: " + correlationId);
+            System.out.println(message);
+            sessions
+                    .get(correlationId)
+                    .values()
+                    .forEach(session -> {
+                        try {
+                            session.getAsyncRemote().sendText(message);
+                        } catch (RuntimeException e) {
+                            logger.log(Level.SEVERE, e.getMessage(), e);
+                        }
+                    });
+        }
+    }
+
 }

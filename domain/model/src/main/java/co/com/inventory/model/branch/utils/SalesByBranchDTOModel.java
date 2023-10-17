@@ -6,8 +6,35 @@ public class SalesByBranchDTOModel {
     Float productPrice;
     Float productSalePrice;
     Integer productSaleAmount ;
+    String saleDate;
+    String saleType;
+    String saleUser;
 
     public SalesByBranchDTOModel() {
+    }
+
+    public String getSaleDate() {
+        return saleDate;
+    }
+
+    public void setSaleDate(String saleDate) {
+        this.saleDate = saleDate;
+    }
+
+    public String getSaleType() {
+        return saleType;
+    }
+
+    public void setSaleType(String saleType) {
+        this.saleType = saleType;
+    }
+
+    public String getSaleUser() {
+        return saleUser;
+    }
+
+    public void setSaleUser(String saleUser) {
+        this.saleUser = saleUser;
     }
 
     public String getBranchName() {

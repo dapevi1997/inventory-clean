@@ -18,6 +18,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -109,7 +110,7 @@ public class MySQLAdapter implements MySqlRepository {
     }
 
     @Override
-    public Flux<ProductSale> saveSale(String branchId, List<ProductSale> productSaleList, Float discount) {
+    public Flux<ProductSale> saveSale(String branchId, List<ProductSale> productSaleList, Float discount, String type, String user) {
 
         return Flux.fromIterable(productSaleList)
                 .flatMap(productSale -> {
@@ -117,6 +118,7 @@ public class MySQLAdapter implements MySqlRepository {
             productSaleMySQL.setProductSaleId(UUID.randomUUID().toString());
             productSaleMySQL.setProductSaleAmount(productSale.getProductSaleStock().getProductSaleStock());
             productSaleMySQL.setProductSalePrice(productSale.getProductSalePrice().getProductSalePrice());
+
 
             String idProduct = productSale.getProductSaleId().getProductSaleId();
 
@@ -135,6 +137,10 @@ public class MySQLAdapter implements MySqlRepository {
                                             saleMySQL.setBranchId(branchId);
                                             saleMySQL.setProductSaleId(productSaleMySQL1.getProductSaleId());
                                             saleMySQL.setProductId(idProduct);
+                                            saleMySQL.setType(type);
+                                            saleMySQL.setUser(user);
+
+                                            saleMySQL.setDate(new Date().toString());
 
                                             return r2dbcEntityTemplate.insert(saleMySQL).map(
                                                     saleMySQL1 -> {

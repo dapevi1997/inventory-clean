@@ -3,16 +3,19 @@ package co.com.inventory.events;
 import co.com.inventory.controller.model.BranchAddedModel;
 import co.com.inventory.controller.model.ProductAddedModel;
 import co.com.inventory.controller.model.ProductUpdatedModel;
+import co.com.inventory.controller.model.ProductsSaleModel;
 import co.com.inventory.events.data.Notification;
+import co.com.inventory.events.utils.Mapper;
 import co.com.inventory.mapper.JSONMapper;
-import co.com.inventory.model.branch.events.BranchCreated;
-import co.com.inventory.model.branch.events.ProductAdded;
+import co.com.inventory.model.branch.entities.ProductSale;
+import co.com.inventory.model.branch.events.*;
 import co.com.inventory.controller.SocketController;
-import co.com.inventory.model.branch.events.ProductUpdated;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 @Component
@@ -72,6 +75,50 @@ public class RabbitMQHandlerGama {
 
 
             socketController.sendProductUpdated("productUpdated", productUpdatedModel);
+
+            logger.info(notification.toString());
+        }
+        if(notification.getType().equals("co.com.inventory.model.branch.events.ProductSoldWholesale")){
+            ProductSoldWholesale productSoldWholesale = (ProductSoldWholesale) jsonMapper.readFromJson(notification.getBody(), ProductSoldWholesale.class);
+
+            List<ProductSale> productSaleList = Mapper.parseJsonToListOfProductSale(productSoldWholesale.getProductSales());
+
+            List<ProductsSaleModel> productsSaleModelList = new ArrayList<>();
+
+            productSaleList.forEach(
+                    productSale -> {
+                        ProductsSaleModel productsSaleModel = new ProductsSaleModel();
+                        productsSaleModel.setProductSaleId(productSale.getProductSaleId().getProductSaleId());
+                        productsSaleModel.setProductSaleStock(productSale.getProductSaleStock().getProductSaleStock().toString());
+
+                        productsSaleModelList.add(productsSaleModel);
+                    }
+            );
+
+
+            socketController.sendWholeSaleAdded("wholeSale", productsSaleModelList);
+
+            logger.info(notification.toString());
+        }
+        if(notification.getType().equals("co.com.inventory.model.branch.events.ProductSoldRetail")){
+            ProductSoldRetail productSoldRetail = (ProductSoldRetail) jsonMapper.readFromJson(notification.getBody(), ProductSoldRetail.class);
+
+            List<ProductSale> productSaleList = Mapper.parseJsonToListOfProductSale(productSoldRetail.getProductSales());
+
+            List<ProductsSaleModel> productsSaleModelList = new ArrayList<>();
+
+            productSaleList.forEach(
+                    productSale -> {
+                        ProductsSaleModel productsSaleModel = new ProductsSaleModel();
+                        productsSaleModel.setProductSaleId(productSale.getProductSaleId().getProductSaleId());
+                        productsSaleModel.setProductSaleStock(productSale.getProductSaleStock().getProductSaleStock().toString());
+
+                        productsSaleModelList.add(productsSaleModel);
+                    }
+            );
+
+
+            socketController.sendRetailAdded("retail", productsSaleModelList);
 
             logger.info(notification.toString());
         }

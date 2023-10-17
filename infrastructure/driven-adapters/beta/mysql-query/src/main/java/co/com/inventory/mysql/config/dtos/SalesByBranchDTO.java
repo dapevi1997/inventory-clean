@@ -6,6 +6,9 @@ public class SalesByBranchDTO {
     Float productPrice;
     Float productSalePrice;
     Integer productSaleAmount ;
+    String saleDate;
+    String saleType;
+    String saleUser;
 
     public SalesByBranchDTO() {
     }
@@ -48,5 +51,29 @@ public class SalesByBranchDTO {
 
     public void setProductSaleAmount(Integer productSaleAmount) {
         this.productSaleAmount = productSaleAmount;
+    }
+
+    public String getSaleDate() {
+        return saleDate;
+    }
+
+    public void setSaleDate(String saleDate) {
+        this.saleDate = saleDate;
+    }
+
+    public String getSaleType() {
+        return saleType;
+    }
+
+    public void setSaleType(String saleType) {
+        this.saleType = saleType;
+    }
+
+    public String getSaleUser() {
+        return saleUser;
+    }
+
+    public void setSaleUser(String saleUser) {
+        this.saleUser = saleUser;
     }
 }

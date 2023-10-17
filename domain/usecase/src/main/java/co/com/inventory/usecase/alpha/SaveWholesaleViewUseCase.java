@@ -13,8 +13,8 @@ public class SaveWholesaleViewUseCase {
     public SaveWholesaleViewUseCase(MySqlRepository mySqlRepository) {
         this.mySqlRepository = mySqlRepository;
     }
-    public Flux<ProductSale> execute(String branchId, List<ProductSale> productSaleList, Float discount){
-        return mySqlRepository.saveSale( branchId, productSaleList, discount
+    public Flux<ProductSale> execute(String branchId, List<ProductSale> productSaleList, Float discount, String type, String user){
+        return mySqlRepository.saveSale( branchId, productSaleList, discount, type,user
                );
     }
 }

@@ -77,7 +77,7 @@ public class RabbitMQHandler {
 
             List<ProductSale> productSaleList = Mapper.parseJsonToListOfProductSale(productSoldWholesale.getProductSales());
 
-            saveWholesaleViewUseCase.execute(productSoldWholesale.getAggregateRootId(), productSaleList, 0.7F)
+            saveWholesaleViewUseCase.execute(productSoldWholesale.getAggregateRootId(), productSaleList, 0.7F,"Al por mayor","")
                     .subscribe(branch -> {
                         logger.info(notification.toString());
                     });
@@ -88,7 +88,7 @@ public class RabbitMQHandler {
 
             List<ProductSale> productSaleList = Mapper.parseJsonToListOfProductSale(productSoldRetail.getProductSales());
 
-            saveRetailViewUseCase.execute(productSoldRetail.getAggregateRootId(), productSaleList, 0.8F)
+            saveRetailViewUseCase.execute(productSoldRetail.getAggregateRootId(), productSaleList, 0.8F,"Al detal","")
                     .subscribe(branch -> {
                         logger.info(notification.toString());
                     });

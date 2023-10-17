@@ -73,7 +73,7 @@ public class MySQLAdapterForQuery implements MySqlRepositoryQuery {
     }
    @Override
     public Flux<SalesByBranchDTOModel> getSalesByBranchId(String branchId){
-        String sql = "SELECT b.branch_name, p.product_name, p.product_price, ps.product_sale_price, ps.product_sale_amount " +
+        String sql = "SELECT b.branch_name, p.product_name, p.product_price, ps.product_sale_price, ps.product_sale_amount, s.sale_type, s.sale_date, s.sale_user " +
                 "FROM branch b " +
                 "INNER JOIN product p ON b.branch_id = p.branch_id " +
                 "INNER JOIN sale s ON p.product_id = s.product_id " +
@@ -89,6 +89,9 @@ public class MySQLAdapterForQuery implements MySqlRepositoryQuery {
                     Float productPrice = row.get("product_price", Float.class);
                     Float productSalePrice = row.get("product_sale_price", Float.class);
                     Integer productSaleAmount = row.get("product_sale_amount", Integer.class);
+                    String saleDate = row.get("sale_date", String.class);
+                    String saleType = row.get("sale_type", String.class);
+                    String saleUser = row.get("sale_user", String.class);
 
                     SalesByBranchDTO salesByBranchDTO = new SalesByBranchDTO();
                     salesByBranchDTO.setBranchName(branchName);
@@ -96,6 +99,9 @@ public class MySQLAdapterForQuery implements MySqlRepositoryQuery {
                     salesByBranchDTO.setProductPrice(productPrice);
                     salesByBranchDTO.setProductSalePrice(productSalePrice);
                     salesByBranchDTO.setProductSaleAmount(productSaleAmount);
+                    salesByBranchDTO.setSaleDate(saleDate);
+                    salesByBranchDTO.setSaleType(saleType);
+                    salesByBranchDTO.setSaleUser(saleUser);
 
                     SalesByBranchDTOModel salesByBranchDTOModel = new SalesByBranchDTOModel();
                     salesByBranchDTOModel.setBranchName(branchName);
@@ -103,6 +109,9 @@ public class MySQLAdapterForQuery implements MySqlRepositoryQuery {
                     salesByBranchDTOModel.setProductPrice(productPrice);
                     salesByBranchDTOModel.setProductSalePrice(productSalePrice);
                     salesByBranchDTOModel.setProductSaleAmount(productSaleAmount);
+                    salesByBranchDTOModel.setSaleDate(saleDate);
+                    salesByBranchDTOModel.setSaleType(saleType);
+                    salesByBranchDTOModel.setSaleUser(saleUser);
 
                     return salesByBranchDTOModel;
                 })

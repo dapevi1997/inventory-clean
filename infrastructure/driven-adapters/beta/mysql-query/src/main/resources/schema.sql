@@ -53,6 +53,9 @@ CREATE TABLE IF NOT EXISTS branch (
                                 branch_id VARCHAR(100) NOT NULL,
                                 product_id VARCHAR(100) NOT NULL,
                                 product_sale_id VARCHAR(100) NOT NULL,
+                                                sale_type VARCHAR(50),
+                                                                sale_date VARCHAR(50),
+                                                                sale_user VARCHAR(50),
                                 PRIMARY KEY (branch_id, product_id, product_sale_id),
                                 FOREIGN KEY (product_id)
                                 REFERENCES product(product_id)
