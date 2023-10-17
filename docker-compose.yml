@@ -1,49 +1,5 @@
 version: '3.9'
 services:
-
-  app-auth:
-    image: app-auth:v1.0.4
-    container_name: auth
-    ports:
-      - '8083:8083'
-    restart: on-failure
-    depends_on:
-      - mysql
-    networks:
-      - mynetwork
-
-
-  app-gama:
-    image: app-gama:v1.0.0
-    container_name: gama
-    ports:
-      - '8082:8082'
-    restart: on-failure
-    depends_on:
-      - rabbitmq
-    networks:
-      - mynetwork
-
-  app-beta:
-    image: app-beta:v1.0.0
-    container_name: beta
-    ports:
-      - '8081:8081'
-    restart: on-failure
-    depends_on:
-      - mysql
-    networks:
-      - mynetwork
-
-  rabbitmq:
-    image: rabbitmq:3.11.10-management
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    restart: on-failure
-    networks:
-      - mynetwork
-
   mysql:
     image: mysql:latest
     container_name: mysql
@@ -56,6 +12,58 @@ services:
     networks:
       - mynetwork
 
+  app-auth:
+    image: dapevi1997/app-auth:v2.0.2
+    container_name: auth
+    environment:
+      DB_HOST: mysql
+    ports:
+      - '8083:8083'
+    restart: on-failure
+    depends_on:
+      - mysql
+    networks:
+      - mynetwork
+
+
+  app-gama:
+    image: dapevi1997/app-gama:v2.0.4
+    container_name: gama
+    environment:
+      RABBITMQ_HOST: rabbitmq
+    ports:
+      - '8082:8082'
+    restart: on-failure
+    depends_on:
+      - rabbitmq
+    networks:
+      - mynetwork
+
+  app-beta:
+    image: dapevi1997/app-beta:v2.0.2
+    container_name: beta
+    environment:
+      DB_HOST: mysql
+    ports:
+      - '8081:8081'
+    restart: on-failure
+    depends_on:
+      - mysql
+    networks:
+      - mynetwork
+
+  rabbitmq:
+    image: rabbitmq:3.11.10-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    restart: on-failure
+    networks:
+      - mynetwork
+
+
+
   mongodb:
     image: mongo:latest
     ports:
@@ -65,8 +73,10 @@ services:
       - mynetwork
 
   app-service:
-    image: app-service:v1.0.1
+    image: dapevi1997/app-service:v2.0.2
     container_name: service
+    environment:
+      DB_HOST: mysql
     ports:
       - '8080:8080'
     restart: on-failure
@@ -76,6 +86,17 @@ services:
       - mongodb
     networks:
       - mynetwork
+
+#  front:
+#    image: dapevi1997/front:v1.0.3
+#    container_name: front
+#    environment:
+#      apiQueryService: app-beta
+#      apiCommandService: app-service
+#      webSocketUrl:
+#      authUrl: app-auth
+
+
 
 
 
