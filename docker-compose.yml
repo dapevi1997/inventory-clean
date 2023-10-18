@@ -91,10 +91,12 @@ services:
 #    image: dapevi1997/front:v1.0.3
 #    container_name: front
 #    environment:
-#      apiQueryService: app-beta
-#      apiCommandService: app-service
-#      webSocketUrl:
-#      authUrl: app-auth
+#      apiQueryService: http://app-beta:8081/
+#      apiCommandService: http://app-service:8080/
+#      webSocketUrl: app-gama:8082/
+#      authUrl: http://auth:8083/
+#    ports:
+#      - '4200:4200'
 
 
 

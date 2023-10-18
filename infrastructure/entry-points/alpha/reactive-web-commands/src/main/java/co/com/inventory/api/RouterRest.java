@@ -1,12 +1,20 @@
 package co.com.inventory.api;
 
 
+import co.com.inventory.model.branch.events.BranchCreated;
 import co.com.inventory.model.branch.exceptions.BlankStringException;
 import co.com.inventory.usecase.alpha.*;
 import co.com.inventory.usecase.alpha.comands.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.springdoc.core.annotations.RouterOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -18,7 +26,32 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 public class RouterRest {
 
 
-
+    @RouterOperation(
+            path = "/api/v1/branch/register",
+            produces ={
+                    MediaType.APPLICATION_JSON_VALUE
+            },
+            method = RequestMethod.POST,
+            beanClass = CreateBranchCommand.class,
+            beanMethod = "createBike",
+            operation = @Operation(
+                    operationId = "createBike",
+                    responses = {
+                            @ApiResponse(
+                                    responseCode = "200",
+                                    description = "successful operation",
+                                    content = @Content(schema = @Schema(
+                                            implementation = BranchCreated.class
+                                    ))
+                            )
+                    },
+                    requestBody = @RequestBody(
+                            content = @Content(schema = @Schema(
+                                    implementation = BranchCreated.class
+                            ))
+                    )
+            )
+    )
     @Bean
     public RouterFunction<ServerResponse> routerFunction(CreateBranchUseCase createBranchUseCase) {
         return route(

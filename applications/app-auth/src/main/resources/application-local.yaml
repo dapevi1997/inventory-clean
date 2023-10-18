@@ -22,3 +22,8 @@ management:
     health:
       probes:
         enabled: true
+
+springdoc:
+  version: '@springdoc.version@'
+  swagger-ui:
+    use-root-path: true

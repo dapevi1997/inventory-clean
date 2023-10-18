@@ -32,6 +32,7 @@ public class SecurityConfig {
                         exchanges
                                 .pathMatchers("/api/v1/**")
                                 .permitAll()
+                                .pathMatchers("/**").permitAll()
                                 .anyExchange()
                                 .authenticated())
                 .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())

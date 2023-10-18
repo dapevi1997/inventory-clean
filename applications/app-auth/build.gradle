@@ -16,7 +16,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-r2dbc
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-r2dbc', version: '3.1.4'
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.1.1'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.0.0'
     implementation project (':mysql-query-auth')
     implementation project (':reactive-web-auth')
 
@@ -27,6 +27,13 @@ dependencies {
 
 // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+
+// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webflux-ui
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webflux-ui', version: '2.2.0'
+
+
+
+
 }
 
 tasks.register('explodedJar', Copy) {
