@@ -1,13 +1,8 @@
 package co.com.inventory.api;
 
 
-import co.com.inventory.api.dtos.AuthResponse;
 import co.com.inventory.api.dtos.ProductDTOResponse;
-import co.com.inventory.api.utils.JwtServiceInWebQuery;
 import co.com.inventory.api.utils.MapperMysqlQuery;
-import co.com.inventory.api.utils.UserDetailUtil;
-import co.com.inventory.model.branch.exceptions.BlankStringException;
-import co.com.inventory.usecase.alpha.comands.LoginCommand;
 import co.com.inventory.usecase.beta.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,7 +25,7 @@ public class RouterRestQuery {
     }
 
     @Bean
-    public RouterFunction<ServerResponse> routerFunction(GetProductByIdUC getProductByIdUC) {
+    public RouterFunction<ServerResponse> getProductById(GetProductByIdUC getProductByIdUC) {
         return route(
                 GET("/api/v1/product/{id}")
                         .and(accept(MediaType.APPLICATION_JSON)),
