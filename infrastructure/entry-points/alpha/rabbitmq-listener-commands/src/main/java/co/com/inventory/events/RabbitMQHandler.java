@@ -103,6 +103,14 @@ public class RabbitMQHandler {
                         logger.info(notification.toString());
                     });
         }
+        if(notification.getType().equals("co.com.inventory.model.branch.events.ProductMoved")){
+            ProductMoved productMoved = (ProductMoved) jsonMapper.readFromJson(notification.getBody(), ProductMoved.class);
+
+            updateProductViewUseCase.executeMoveBranch(productMoved.getIdProduct(), productMoved.getBranchId())
+                    .subscribe(branch -> {
+                        logger.info(notification.toString());
+                    });
+        }
 
 
     }

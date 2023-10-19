@@ -14,4 +14,10 @@ public class UpdateProductViewUseCase {
         return mySqlRepository.updateProductStock( idProduct, productInventoryStock
             );
     }
+
+    public Mono<Product> executeMoveBranch(String idProduct, String idBranch
+    ){
+        return mySqlRepository.updateProductBranch( idProduct, idBranch
+        );
+    }
 }

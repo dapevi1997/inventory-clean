@@ -111,6 +111,24 @@ public class SocketController {
         }
     }
 
+    public void sendProductMoved(String correlationId, ProductMovedModel model) {
+        String message = eventSerializer.writeToJson(model);
+        if (Objects.nonNull(correlationId) && sessions.containsKey(correlationId)) {
+            logger.info("Sent from: " + correlationId);
+            System.out.println(message);
+            sessions
+                    .get(correlationId)
+                    .values()
+                    .forEach(session -> {
+                        try {
+                            session.getAsyncRemote().sendText(message);
+                        } catch (RuntimeException e) {
+                            logger.log(Level.SEVERE, e.getMessage(), e);
+                        }
+                    });
+        }
+    }
+
     public void sendWholeSaleAdded(String correlationId, List<ProductsSaleModel> model) {
         String message = eventSerializer.writeToJson(model);
         if (Objects.nonNull(correlationId) && sessions.containsKey(correlationId)) {

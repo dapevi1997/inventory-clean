@@ -180,4 +180,23 @@ public class MySQLAdapter implements MySqlRepository {
             return product;
         });
     }
+
+    @Override
+    public Mono<Product> updateProductBranch(String idProduct, String branchId) {
+        return productRepository.findById(idProduct).flatMap(
+                productMySQL -> {
+                    productMySQL.setBranchId(branchId);
+
+                    return r2dbcEntityTemplate.update(productMySQL);
+                }
+        ).map(productMySQL -> {
+            Product product = new Product(BranchId.of(productMySQL.getBranchId()), ProductId.of(productMySQL.getProductId()),
+                    new ProductName(productMySQL.getProductName()),
+                    new ProductDescription(productMySQL.getProductDescription()),
+                    new ProductPrice(productMySQL.getProductPrice().toString()),
+                    new ProductInventoryStock(productMySQL.getProductInventoryStock().toString()),
+                    new ProductCategory(productMySQL.getProductCategory()));
+            return product;
+        });
+    }
 }

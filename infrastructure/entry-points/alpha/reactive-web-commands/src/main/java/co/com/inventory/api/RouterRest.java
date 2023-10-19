@@ -355,6 +355,35 @@ public class RouterRest {
         );
     }
 
+    @Bean
+    public RouterFunction<ServerResponse> moveProduct(MoveProductUseCase moveProductUseCase) {
+
+        return route(
+                PUT("/api/v1/product/move").and(accept(MediaType.APPLICATION_JSON)),
+                request -> {
+                    return moveProductUseCase.apply(request.bodyToMono(MoveProductCommand.class))
+                            .flatMap(domainEvent -> {
+                                return ServerResponse.ok()
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .body(BodyInserters.fromValue(domainEvent));
+                            })
+                            .onErrorResume(Exception.class, e -> {
+                                if (e instanceof NullPointerException) {
+                                    return ServerResponse.badRequest().bodyValue(e.getMessage());
+                                }
+                                if (e instanceof BlankStringException) {
+                                    return ServerResponse.badRequest().bodyValue(e.getMessage());
+                                }
+                                if (e instanceof NumberFormatException) {
+                                    return ServerResponse.badRequest().bodyValue(e.getMessage());
+                                }
+                                return ServerResponse.badRequest().bodyValue(e.getMessage());
+                            });
+                }
+
+        );
+    }
+
 
 
 }
