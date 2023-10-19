@@ -168,146 +168,146 @@ spec:
       targetPort: 27017
 
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: app-beta
-spec:
-  selector:
-    matchLabels:
-      app: app-beta-k8s-mysql
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: app-beta-k8s-mysql
-    spec:
-      containers:
-        - name: app-beta-k8s
-          image: dapevi1997/app-beta:ku2
-          ports:
-            - containerPort: 8081
-          envFrom:   # Setting Enviornmental Variables
-            - configMapRef:
-              name: service-urls  # Setting Database host address from configMap
-              key : DB_HOST
-
-
-            - configMapRef:   # Setting Database name from configMap
-              name: service-urls
-              key: DB_NAME
-
-            - configMapRef:   # Setting Database username from Secret
-              name : service-urls
-              key: DB_USERNAME
-
-            - configMapRef:  # Setting Database password from Secret
-              name: service-urls
-              key: DB_PASSWORD
-
-
----
-
-apiVersion: v1 # Kubernetes API version
-kind: Service # Kubernetes resource kind we are creating
-metadata: # Metadata of the resource kind we are creating
-  name: app-beta-svc
-spec:
-  selector:
-    app: app-beta-k8s-mysql
-  ports:
-    - protocol: "TCP"
-      port: 8081 # The port that the service is running on in the cluster
-      targetPort: 8081 # The port exposed by the service
-  type: NodePort # type of the service.
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: app-gama
-spec:
-  selector:
-    matchLabels:
-      app: app-gama-k8s-mysql
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: app-gama-k8s-mysql
-    spec:
-      containers:
-        - name: app-gama-k8s
-          image: dapevi1997/app-gama:ku1
-          ports:
-            - containerPort: 8082
-
-
----
-
-apiVersion: v1 # Kubernetes API version
-kind: Service # Kubernetes resource kind we are creating
-metadata: # Metadata of the resource kind we are creating
-  name: app-gama-svc
-spec:
-  selector:
-    app: app-gama-k8s-mysql
-  ports:
-    - protocol: "TCP"
-      port: 8082 # The port that the service is running on in the cluster
-      targetPort: 8082 # The port exposed by the service
-  type: NodePort # type of the service.
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: app-service
-spec:
-  selector:
-    matchLabels:
-      app: app-service-k8s-mysql
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: app-service-k8s-mysql
-    spec:
-      containers:
-        - name: app-service-k8s
-          image: dapevi1997/app-service:ku1
-          ports:
-            - containerPort: 8080
-          envFrom:   # Setting Enviornmental Variables
-            - configMapRef:    # Setting Database host address from configMap
-              name : service-urls
-              key: DB_HOST
-
-
-            - configMapRef:   # Setting Database name from configMap
-              name : service-urls
-              key: DB_NAME
-
-            - configMapRef:   # Setting Database username from Secret
-              name : service-urls
-              key: DB_USERNAME
-
-            - configMapRef:  # Setting Database password from Secret
-              name : service-urls
-              key: DB_PASSWORD
-
-
----
-
-apiVersion: v1 # Kubernetes API version
-kind: Service # Kubernetes resource kind we are creating
-metadata: # Metadata of the resource kind we are creating
-  name: app-service-svc
-spec:
-  selector:
-    app: app-service-k8s-mysql
-  ports:
-    - protocol: "TCP"
-      port: 8080 # The port that the service is running on in the cluster
-      targetPort: 8080 # The port exposed by the service
-  type: NodePort # type of the service.
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: app-beta
+#spec:
+#  selector:
+#    matchLabels:
+#      app: app-beta-k8s-mysql
+#  replicas: 1
+#  template:
+#    metadata:
+#      labels:
+#        app: app-beta-k8s-mysql
+#    spec:
+#      containers:
+#        - name: app-beta-k8s
+#          image: dapevi1997/app-beta:ku2
+#          ports:
+#            - containerPort: 8081
+#          envFrom:   # Setting Enviornmental Variables
+#            - configMapRef:
+#              name: service-urls  # Setting Database host address from configMap
+#              key : DB_HOST
+#
+#
+#            - configMapRef:   # Setting Database name from configMap
+#              name: service-urls
+#              key: DB_NAME
+#
+#            - configMapRef:   # Setting Database username from Secret
+#              name : service-urls
+#              key: DB_USERNAME
+#
+#            - configMapRef:  # Setting Database password from Secret
+#              name: service-urls
+#              key: DB_PASSWORD
+#
+#
+#---
+#
+#apiVersion: v1 # Kubernetes API version
+#kind: Service # Kubernetes resource kind we are creating
+#metadata: # Metadata of the resource kind we are creating
+#  name: app-beta-svc
+#spec:
+#  selector:
+#    app: app-beta-k8s-mysql
+#  ports:
+#    - protocol: "TCP"
+#      port: 8081 # The port that the service is running on in the cluster
+#      targetPort: 8081 # The port exposed by the service
+#  type: NodePort # type of the service.
+#
+#---
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: app-gama
+#spec:
+#  selector:
+#    matchLabels:
+#      app: app-gama-k8s-mysql
+#  replicas: 1
+#  template:
+#    metadata:
+#      labels:
+#        app: app-gama-k8s-mysql
+#    spec:
+#      containers:
+#        - name: app-gama-k8s
+#          image: dapevi1997/app-gama:ku1
+#          ports:
+#            - containerPort: 8082
+#
+#
+#---
+#
+#apiVersion: v1 # Kubernetes API version
+#kind: Service # Kubernetes resource kind we are creating
+#metadata: # Metadata of the resource kind we are creating
+#  name: app-gama-svc
+#spec:
+#  selector:
+#    app: app-gama-k8s-mysql
+#  ports:
+#    - protocol: "TCP"
+#      port: 8082 # The port that the service is running on in the cluster
+#      targetPort: 8082 # The port exposed by the service
+#  type: NodePort # type of the service.
+#
+#---
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: app-service
+#spec:
+#  selector:
+#    matchLabels:
+#      app: app-service-k8s-mysql
+#  replicas: 1
+#  template:
+#    metadata:
+#      labels:
+#        app: app-service-k8s-mysql
+#    spec:
+#      containers:
+#        - name: app-service-k8s
+#          image: dapevi1997/app-service:ku1
+#          ports:
+#            - containerPort: 8080
+#          envFrom:   # Setting Enviornmental Variables
+#            - configMapRef:    # Setting Database host address from configMap
+#              name : service-urls
+#              key: DB_HOST
+#
+#
+#            - configMapRef:   # Setting Database name from configMap
+#              name : service-urls
+#              key: DB_NAME
+#
+#            - configMapRef:   # Setting Database username from Secret
+#              name : service-urls
+#              key: DB_USERNAME
+#
+#            - configMapRef:  # Setting Database password from Secret
+#              name : service-urls
+#              key: DB_PASSWORD
+#
+#
+#---
+#
+#apiVersion: v1 # Kubernetes API version
+#kind: Service # Kubernetes resource kind we are creating
+#metadata: # Metadata of the resource kind we are creating
+#  name: app-service-svc
+#spec:
+#  selector:
+#    app: app-service-k8s-mysql
+#  ports:
+#    - protocol: "TCP"
+#      port: 8080 # The port that the service is running on in the cluster
+#      targetPort: 8080 # The port exposed by the service
+#  type: NodePort # type of the service.
