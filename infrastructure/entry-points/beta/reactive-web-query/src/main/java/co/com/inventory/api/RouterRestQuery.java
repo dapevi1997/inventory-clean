@@ -1,16 +1,32 @@
 package co.com.inventory.api;
 
 
+import co.com.inventory.api.dtos.AuthResponse;
+import co.com.inventory.api.dtos.BranchDTOResponse;
 import co.com.inventory.api.dtos.ProductDTOResponse;
 import co.com.inventory.api.utils.MapperMysqlQuery;
+import co.com.inventory.model.branch.entities.User;
+import co.com.inventory.model.branch.utils.SalesByBranchDTOModel;
 import co.com.inventory.usecase.beta.*;
+import co.com.inventory.usecase.utils.AuthRequest;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.springdoc.core.annotations.RouterOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.Objects;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
@@ -24,6 +40,35 @@ public class RouterRestQuery {
 
     }
 
+    @RouterOperation(
+            path = "/api/v1/product/{id}",
+            produces = {
+                    MediaType.APPLICATION_JSON_VALUE
+            },
+            method = RequestMethod.GET,
+            beanClass = RouterRestQuery.class,
+            beanMethod = "getProductById",
+            operation = @Operation(
+                    operationId = "getProductById",
+                    parameters =       @Parameter(
+                            name = "id",
+                            description = "Id del producto",
+                            in = ParameterIn.PATH,
+                            required = true,
+                            schema = @Schema(type = "string" )
+                    ),
+                    responses = {
+                            @ApiResponse(
+                                    responseCode = "200",
+                                    description = "Get product by id",
+                                    content = @Content(schema = @Schema(
+                                            implementation = ProductDTOResponse.class
+                                    )
+                                    )
+                            )
+                    }
+            )
+    )
     @Bean
     public RouterFunction<ServerResponse> getProductById(GetProductByIdUC getProductByIdUC) {
         return route(
@@ -43,6 +88,31 @@ public class RouterRestQuery {
                 );
     }
 
+    @RouterOperation(
+            path = "/api/v1/products",
+            produces = {
+                    MediaType.APPLICATION_JSON_VALUE
+            },
+            method = RequestMethod.GET,
+            beanClass = RouterRestQuery.class,
+            beanMethod = "getProducts",
+            operation = @Operation(
+                    operationId = "getProducts",
+                    responses = {
+                            @ApiResponse(
+                                    responseCode = "200",
+                                    description = "Get all products",
+                                    content = @Content(
+                                            mediaType = "application/json",
+                                            array = @ArraySchema(
+                                                    schema = @Schema(implementation = ProductDTOResponse.class)
+
+                                    )
+                                    )
+                            )
+                    }
+            )
+    )
     @Bean
     public RouterFunction<ServerResponse> getProducts(GetPoductsUC getPoductsUC) {
         return route(
@@ -64,7 +134,31 @@ public class RouterRestQuery {
 
         );
     }
+    @RouterOperation(
+            path = "/api/v1/branchs",
+            produces = {
+                    MediaType.APPLICATION_JSON_VALUE
+            },
+            method = RequestMethod.GET,
+            beanClass = RouterRestQuery.class,
+            beanMethod = "getBranchs",
+            operation = @Operation(
+                    operationId = "getBranchs",
+                    responses = {
+                            @ApiResponse(
+                                    responseCode = "200",
+                                    description = "Get all branches",
+                                    content = @Content(
+                                            mediaType = "application/json",
+                                            array = @ArraySchema(
+                                                    schema = @Schema(implementation = BranchDTOResponse.class)
 
+                                            )
+                                    )
+                            )
+                    }
+            )
+    )
     @Bean
     public RouterFunction<ServerResponse> getBranchs(GetBranchsUC getBranchsUC) {
 
@@ -97,6 +191,39 @@ public class RouterRestQuery {
         );
     }
 
+    @RouterOperation(
+            path = "/api/v1/sales/{branchId}",
+            produces = {
+                    MediaType.APPLICATION_JSON_VALUE
+            },
+            method = RequestMethod.GET,
+            beanClass = RouterRestQuery.class,
+            beanMethod = "getSalesbyBranchId",
+            operation = @Operation(
+                    operationId = "getSalesbyBranchId",
+                    parameters =       @Parameter(
+                            name = "branchId",
+                            description = "Branch's id",
+                            in = ParameterIn.PATH,
+                            required = true,
+                            schema = @Schema(type = "string" )
+                    ),
+                    responses = {
+                            @ApiResponse(
+                                    responseCode = "200",
+                                    description = "Get product by id",
+                                    content = @Content(
+                                            mediaType = "application/json",
+                                            array = @ArraySchema(
+                                                    schema = @Schema(
+                                                            implementation = SalesByBranchDTOModel.class
+                                                    )
+                                            )
+                                    )
+                            )
+                    }
+            )
+    )
     @Bean
     public RouterFunction<ServerResponse> getSalesbyBranchId(GetSalesByBranchIdUC getSalesByBranchIdUC) {
 
@@ -117,6 +244,35 @@ public class RouterRestQuery {
         );
     }
 
+    @RouterOperation(
+            path = "/api/v1/user/{email}",
+            produces = {
+                    MediaType.APPLICATION_JSON_VALUE
+            },
+            method = RequestMethod.GET,
+            beanClass = RouterRestQuery.class,
+            beanMethod = "getUserbyEmail",
+            operation = @Operation(
+                    operationId = "getUserbyEmail",
+                    parameters =       @Parameter(
+                            name = "email",
+                            description = "Email del usuario",
+                            in = ParameterIn.PATH,
+                            required = true,
+                            schema = @Schema(type = "string" )
+                    ),
+                    responses = {
+                            @ApiResponse(
+                                    responseCode = "200",
+                                    description = "Get user by email",
+                                    content = @Content(schema = @Schema(
+                                            implementation = User.class
+                                    )
+                                    )
+                            )
+                    }
+            )
+    )
     @Bean
     public RouterFunction<ServerResponse> getUserbyEmail(GetUserByEmailUC getUserByEmailUC) {
 

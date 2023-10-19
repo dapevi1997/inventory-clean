@@ -36,6 +36,8 @@ dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-amqp', version: '3.0.4'
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-r2dbc
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-r2dbc', version: '3.1.4'
+    // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webflux-ui
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webflux-ui', version: '2.2.0'
 }
 
 tasks.register('explodedJar', Copy) {

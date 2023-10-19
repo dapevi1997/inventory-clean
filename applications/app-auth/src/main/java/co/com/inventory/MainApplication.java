@@ -7,11 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
-@OpenAPIDefinition(info = @Info(
-        title = "Reactive CRUD- Inventory",
-        version = "1.0.0",
-        description = "Reactive web for Inventory"
-))
 public class MainApplication {
 
     public static void main(String[] args) {

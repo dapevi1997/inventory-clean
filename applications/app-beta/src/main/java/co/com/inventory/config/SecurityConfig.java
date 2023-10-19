@@ -32,7 +32,9 @@ public class SecurityConfig {
                         exchanges
                                 //.pathMatchers("/api/v1/**")
                                 //.permitAll()
-                                .pathMatchers("/api/v1/product/*").permitAll()
+                                //.pathMatchers("/api/v1/product/*").permitAll()
+                                .pathMatchers("/api/v1/**").permitAll()
+                                .pathMatchers("/swagger-ui.html", "/webjars/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
                                 .anyExchange()
                                 .authenticated())
                 .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())

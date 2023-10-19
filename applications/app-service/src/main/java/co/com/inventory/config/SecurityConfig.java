@@ -33,7 +33,7 @@ public class SecurityConfig {
                                 .pathMatchers("/api/v1/user/register").hasRole("SUPERADMIN")
                                 .pathMatchers("/api/v1/branch/register").hasRole("SUPERADMIN")
                                 .pathMatchers("/api/v1/product/register").hasAnyRole("ADMIN","SUPERADMIN")
-                                //.permitAll()
+                                .pathMatchers("/swagger-ui.html", "/webjars/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
                                 .anyExchange()
                                 .authenticated())
                 .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())

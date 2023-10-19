@@ -2,12 +2,12 @@ package co.com.inventory.api;
 
 
 import co.com.inventory.api.dtos.AuthResponse;
-import co.com.inventory.usecase.auth.LoginUsC;
+import co.com.inventory.usecase.utils.AuthRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springdoc.core.annotations.RouterOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,21 +26,24 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 public class RouterRestQuery {
 
 
-   // @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "login")})
    @RouterOperation(
            path = "/api/v1/auth/login",
            produces = {
                    MediaType.APPLICATION_JSON_VALUE
            },
            method = RequestMethod.POST,
-           beanClass = LoginUsC.class,
+           beanClass = Handler.class,
            beanMethod = "listenPOSTLoginUser",
            operation = @Operation(
                    operationId = "listenPOSTLoginUser",
+                   requestBody = @RequestBody(content = @Content(schema = @Schema(
+                           implementation = AuthRequest.class
+                   )))
+                   ,
                    responses = {
                            @ApiResponse(
                                    responseCode = "200",
-                                   description = "Producto creado",
+                                   description = "Login",
                                    content = @Content(schema = @Schema(
                                            implementation = AuthResponse.class
                                    )
