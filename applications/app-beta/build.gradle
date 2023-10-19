@@ -7,13 +7,16 @@ dependencies {
 	//implementation 'org.reactivecommons.utils:object-mapper:0.1.0'
 	//implementation project( ':mongo-repository')
 	//implementation project( ':reactive-web')
-	//implementation project( ':mapper')
+
 
 
     implementation project(':model')
     implementation project(':usecase')
     implementation project(':reactive-web-query')
+    implementation project(':rabbitmq-listener-query')
     implementation project (':mysql-query')
+    implementation project( ':mapper')
+    implementation 'org.reactivecommons.utils:object-mapper:0.1.0'
     //implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     runtimeOnly('org.springframework.boot:spring-boot-devtools')

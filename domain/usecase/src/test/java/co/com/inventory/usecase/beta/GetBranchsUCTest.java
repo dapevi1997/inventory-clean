@@ -1,19 +1,13 @@
 package co.com.inventory.usecase.beta;
 
 import co.com.inventory.model.branch.Branch;
-import co.com.inventory.model.branch.entities.User;
 import co.com.inventory.model.branch.values.*;
-import co.com.inventory.usecase.alpha.SaveUserViewUseCase;
-import co.com.inventory.usecase.generic.gateways.MySqlRepository;
 import co.com.inventory.usecase.generic.gateways.MySqlRepositoryQuery;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 

@@ -9,15 +9,11 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("prueba1.product_sale")
 public class ProductSaleMySQL {
     @Id
-    @Column("id")
-    private Long id;
+    @Column("product_sale_id")
+    private String productSaleId;
     @Column("product_sale_price")
     private Float productSalePrice;
     @Column("product_sale_amount")
     private Integer productSaleAmount;
-    @Column("product_id")
-    private Long productId;
-    @Column("branch_id")
-    private Long branchId;
 
 }

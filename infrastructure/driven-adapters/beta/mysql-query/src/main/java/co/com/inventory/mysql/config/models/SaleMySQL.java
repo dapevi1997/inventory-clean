@@ -1,11 +1,9 @@
 package co.com.inventory.mysql.config.models;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.sql.Date;
 
 @Data
 @Table("prueba1.sale")
@@ -23,5 +21,5 @@ public class SaleMySQL {
     @Column("sale_user")
     private String user;
     @Column("sale_date")
-    private Date date;
+    private String date;
 }

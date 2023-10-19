@@ -1,5 +1,7 @@
 package co.com.inventory.config;
 
+import co.com.inventory.mapper.JSONMapper;
+import co.com.inventory.mapper.JSONMapperImpl;
 import co.com.inventory.mysql.config.repositories.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +16,7 @@ import reactor.core.publisher.Mono;
 
 @Configuration
 public class AppConfig {
+
     @Bean
     public ReactiveUserDetailsService userDetailsService(UserRepository repository) {
         return username -> repository
@@ -35,4 +38,11 @@ public class AppConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public JSONMapper jsonMapper(){
+        return new JSONMapperImpl();
+    }
+
+
 }
