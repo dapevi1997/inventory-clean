@@ -48,23 +48,26 @@ CREATE TABLE IF NOT EXISTS branch (
                 PRIMARY KEY (product_sale_id)
                 );
 
-       -- Create the Product table
-                            CREATE TABLE IF NOT EXISTS sale (
-                                branch_id VARCHAR(100) NOT NULL,
-                                product_id VARCHAR(100) NOT NULL,
-                                product_sale_id VARCHAR(100) NOT NULL,
-                                PRIMARY KEY (branch_id, product_id, product_sale_id),
-                                FOREIGN KEY (product_id)
-                                REFERENCES product(product_id)
-                                ON DELETE CASCADE
-                                ON UPDATE CASCADE,
-                                     FOREIGN KEY (product_sale_id)
-                                       REFERENCES product_sale(product_sale_id)
-                                                ON DELETE CASCADE
-                                                ON UPDATE CASCADE,
-                                                  FOREIGN KEY (branch_id)
-                                                           REFERENCES branch(branch_id)
-                                                                        ON DELETE CASCADE
-                                                                        ON UPDATE CASCADE
+         -- Create the Product table
+                              CREATE TABLE IF NOT EXISTS sale (
+                                  branch_id VARCHAR(100) NOT NULL,
+                                  product_id VARCHAR(100) NOT NULL,
+                                  product_sale_id VARCHAR(100) NOT NULL,
+                                                  sale_type VARCHAR(50),
+                                                                  sale_date VARCHAR(50),
+                                                                  sale_user VARCHAR(50),
+                                  PRIMARY KEY (branch_id, product_id, product_sale_id),
+                                  FOREIGN KEY (product_id)
+                                  REFERENCES product(product_id)
+                                  ON DELETE CASCADE
+                                  ON UPDATE CASCADE,
+                                       FOREIGN KEY (product_sale_id)
+                                         REFERENCES product_sale(product_sale_id)
+                                                  ON DELETE CASCADE
+                                                  ON UPDATE CASCADE,
+                                                    FOREIGN KEY (branch_id)
+                                                             REFERENCES branch(branch_id)
+                                                                          ON DELETE CASCADE
+                                                                          ON UPDATE CASCADE
 
-                                );
+                                  );
